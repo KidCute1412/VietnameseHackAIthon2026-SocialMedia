@@ -2,290 +2,126 @@
 
 ## **Tầm nhìn**
 
-HypeRoom là nền tảng AI hỗ trợ toàn bộ vòng đời sản xuất tin tức cho các cơ quan báo chí, truyền thông và truyền hình.
+HypeRoom là nền tảng AI Copilot hỗ trợ toàn bộ quy trình phát hiện, xác minh và ra quyết định biên tập dành cho các cơ quan báo chí, truyền thông, truyền hình và các bộ phận xử lý khủng hoảng truyền thông.
 
-Khác với các công cụ AI tạo nội dung hiện nay, sản phẩm không tập trung vào việc "viết bài bằng AI" mà tập trung vào bài toán vận hành của newsroom.
+Khác với các công cụ AI tạo nội dung thông thường chỉ tập trung vào việc "viết bài tự động", HypeRoom giải quyết bài toán cốt lõi về **quy trình vận hành và kiểm soát rủi ro thông tin** của newsroom trước làn sóng tin tức hỗn loạn trên mạng xã hội.
 
 ## **Định vị:**
 
-AI Copilot cho toàn bộ quy trình phát hiện, xác minh và ra quyết định biên tập.
+AI Copilot cho quy trình xác minh (Verification), đánh giá tác động (Impact & Risk Assessment) và hỗ trợ quyết định biên tập (Editorial Intelligence).
 
 ## **Mục tiêu:**
 
-- Giảm thời gian phát hiện tin tức
-- Giảm thời gian xác minh
-- Giảm rủi ro xuất bản sai
-- Tăng tốc độ phản ứng với sự kiện
-- Chuẩn hóa quy trình tác nghiệp
-
-## **2. Bối Cảnh Thị Trường**
-
-## **Thực trạng hiện nay**
-
-Trong 10 năm trước:
-
-- Tin tức xuất phát chủ yếu từ báo chí
-- Tốc độ lan truyền chậm
-- Quy trình xác minh có nhiều thời gian
-
-Hiện nay:
-
-- Facebook
-- TikTok
-- Threads
-- YouTube KOL
-- Livestream
-  đã trở thành nguồn phát sinh thông tin chính.
-
-Newsroom phải cạnh tranh về tốc độ.
-
-Áp lực:
-
-- phát hiện nhanh
-- kiểm chứng nhanh, xuất bản nhanh
-  trong khi vẫn phải đảm bảo độ chính xác.
-
-## **3. Pain Point Cần Giải Quyết**
-
-## **Pain Point 1: Quá tải thông tin**
-
-Mỗi ngày có hàng nghìn tín hiệu:
-
-- bài đăng mạng xã hội
-- video viral, hashtag, thông cáo báo chí, văn bản nhà nước
-
-Editor không thể đọc hết.
-
-Kết quả:
-
-- bỏ lỡ cơ hội tin tức
-- phản ứng chậm hơn đối thủ
-
-## **Pain Point 2: Xác minh thủ công**
-
-Quy trình hiện tại:
-
-1. đọc tin
-2. tìm nguồn
-3. tìm văn bản gốc
-4. đối chiếu nhiều nguồn
-5. gọi điện xác nhận
-
-Mất: 20–40 phút cho mỗi tin.
-
-## **Pain Point 3: Áp lực xuất bản nhanh**
-
-Nếu xác minh quá kỹ: chậm
-Nếu đăng quá nhanh: sai
-Newsroom luôn phải đánh đổi giữa: Speed vs Accuracy
-
-## **Pain Point 4: Thiếu Audit Trail**
-
-Sau khi xuất bản, khó trả lời:
-
-- nguồn nào được dùng?
-- ai phê duyệt?
-- bằng chứng nào được sử dụng?
-- lý do quyết định xuất bản?
-
-## **Pain Point 5: Không có hệ thống hỗ trợ quyết định biên tập**
-
-AI hiện nay hỗ trợ:
-
-- viết bài
-- tóm tắt
-
-Nhưng chưa hỗ trợ:
-
-- nên đăng hay không?
-- mức độ rủi ro
-- góc khai thác nào phù hợp
-
-Đây là khoảng trống thị trường.
-
-## **4. Khách Hàng Mục Tiêu**
-
-## **Nhóm khách hàng chính**
-
-### **Báo điện tử**
-
-Ví dụ: VnExpress, Dân Trí, Tuổi Trẻ, Thanh Niên
-Pain:
-
-- cần đăng nhanh
-- nhiều editor
-
-### **Đài truyền hình**
-
-Pain:
-
-- xử lý nhiều nguồn tin
-- nhiều cuộc phỏng vấn
-- nhiều tài liệu
-
-### **Tòa soạn địa phương**
-
-Pain:
-
-- thiếu nhân sự
-- cần tăng năng suất
-
-## **Nhóm khách hàng mở rộng**
-
-### **Agency truyền thông**
-
-Theo dõi:
-
-- xu hướng
-- dư luận
-- sự kiện
-- thương hiệu
-- khủng hoảng truyền thông
-
-### **Doanh nghiệp lớn**
-
-Theo dõi thương hiệu, khủng hoảng truyền thông.
-
-### **Cơ quan nhà nước**
-
-Theo dõi:
-
-- phản hồi xã hội
-- thông tin sai lệch
-
-## **5. Giá Trị Cốt Lõi**
-
-### **Hiện trạng**
-
-| **Công việc**  | **Thời gian** |
-| -------------- | ------------- |
-| Theo dõi trend | 30 phút       |
-| Xác minh       | 20-40 phút    |
-| Đọc tài liệu   | 15 phút       |
-| Tạo outline    | 10 phút       |
-
-### **Sau AI**
-
-| **Công việc**  | **Thời gian** |
-| -------------- | ------------- |
-| Theo dõi trend | 30 giây       |
-| Xác minh       | 2-3 phút      |
-| Đọc tài liệu   | 30 giây       |
-| Tạo outline    | 30 giây       |
-
-Mục tiêu:
-
-- giảm 80–90% thời gian xử lý
-- tăng tốc độ xuất bản
-- giảm rủi ro sai sót
-
-## **6. Mô Hình Doanh Thu**
-
-### **SaaS Subscription**
-
-**Starter**: 5 triệu VNĐ/tháng (Khách hàng: newsroom nhỏ)
-**Professional**: 15 triệu VNĐ/tháng (Khách hàng: newsroom vừa)
-**Enterprise**: 50 triệu+ VNĐ/tháng (Khách hàng: tập đoàn truyền thông, đài truyền hình)
-
-### **Dịch vụ triển khai**
-
-Thu phí: setup, đào tạo, tích hợp.
-
-### **API Usage**
-
-Thu phí theo: số request, số người dùng, số newsroom.
-
-## **7. Workflow Hệ Thống**
-
-Hệ thống hỗ trợ 2 luồng đầu vào (input workflows) song song trước khi đi vào pipeline kiểm chứng và hỗ trợ biên tập chung:
-
-### **Luồng 1: vnSocial Trend Ingestion & Filtering (Tự động)**
-
-- **Mục tiêu**: Tự động phát hiện tín hiệu mới từ mạng xã hội.
-- **Input**: Dữ liệu mạng xã hội từ vnSocial\.
-- **Cơ chế lọc nhiễu**: Hệ thống tự động phân loại và loại bỏ toàn bộ dữ liệu, văn bản liên quan đến **hành chính công** để tránh nhiễu thông tin thủ tục hành chính, tập trung vào tin tức nóng và dư luận xã hội.
-- **Output**: Danh sách các chủ đề đang nổi đã được lọc sạch.
-
-### **Luồng 2: User Document Verification Workflow (Người dùng chủ động)**
-
-- **Mục tiêu**: Kiểm chứng và khai thác tài liệu do người dùng tải lên (thông cáo báo chí, công văn, tài liệu rò rỉ, bản thảo thảo luận...).
-- **Input**: File văn bản do người biên tập tải lên trực tiếp (PDF, DOCX, TXT, ảnh chụp công văn...).
-- **Xử lý tài liệu**: Sử dụng **SmartReader** để thực hiện OCR, trích xuất văn bản và tóm tắt nhanh nội dung tài liệu.
-- **Output**: Nội dung văn bản được chuẩn hóa để chuyển vào Verification Engine.
+- Giảm thời gian xác minh tin tức và tài liệu từ 30 phút xuống còn dưới 3 phút.
+- Giảm thiểu tối đa rủi ro xuất bản thông tin sai lệch hoặc vi phạm chính sách pháp lý.
+- Tự động đánh giá mức độ lan truyền và phản ứng của dư luận xã hội đối với sự kiện.
+- Chuẩn hóa quy trình tác nghiệp số thông qua cơ chế lưu vết (Audit Trail).
 
 ---
 
-## **Pipeline Xử Lý & Xác Minh**
+## **2. Bối Cảnh Thị Trường & Pain Points**
 
-### **Step 1: Signal Ranking (Chỉ áp dụng cho Luồng 1 - vnSocial)**
+Trong kỷ nguyên mạng xã hội (Facebook, TikTok, Threads, YouTube KOL...), tin tức lan truyền với tốc độ chóng mặt. Các tòa soạn đối mặt với 4 nỗi đau lớn:
 
-- **AI đánh giá**: mức độ tăng trưởng, độ lan truyền, độ tranh cãi.
-- **Output**: opportunity score, initial risk score.
+1. **Quá tải thông tin & Áp lực thời gian**: Vừa phải đăng tin nhanh để cạnh tranh tương tác, vừa phải kiểm chứng độ xác thực của nguồn tin.
+2. **Xác minh thủ công tốn thời gian**: Quy trình tìm văn bản gốc, đối chiếu chéo giữa các nguồn báo chí chính thống và mạng xã hội mất từ 20–40 phút cho mỗi tin.
+3. **Rủi ro pháp lý và chính sách**: Không có hệ thống cảnh báo trước các rủi ro liên quan đến chính trị, pháp luật hoặc các chủ đề nhạy cảm trước khi xuất bản.
+4. **Thiếu dấu vết phê duyệt (Audit Trail)**: Khi xảy ra sai sót thông tin, rất khó truy xuất nguồn gốc chứng cứ nào đã được sử dụng và ai là người chịu trách nhiệm phê duyệt.
 
-### **Step 2: Claim Extraction (Áp dụng cho cả 2 luồng)**
+---
 
-- **LLM trích xuất**: các tuyên bố cần xác minh từ chủ đề hot hoặc từ văn bản người dùng upload.
-- **Ví dụ**: "Bộ Giáo dục bỏ kỳ thi tốt nghiệp".
-- **Output**: Claim Object (Tuyên bố, Thực thể liên quan, Thời gian).
+## **3. Khách Hàng Mục Tiêu**
 
-### **Step 3: Evidence Collection**
+- **Báo điện tử & Đài truyền hình** (VnExpress, Dân Trí, VTV, tòa soạn địa phương): Cần công cụ xác minh nhanh công văn/tài liệu và lập đề cương bài viết an toàn.
+- **Agency truyền thông & Doanh nghiệp lớn**: Theo dõi khủng hoảng truyền thông liên quan đến thương hiệu.
+- **Cơ quan quản lý nhà nước**: Phát hiện sớm tin giả (Fake News) và đánh giá mức độ ảnh hưởng của tin đồn tới dư luận.
 
-- **Thu thập**: báo chí chính thống, văn bản pháp luật, thông cáo, website chính thức.
-- **Output**: Evidence Pool.
+---
 
-### **Step 4: Document Intelligence**
+## **4. Giá Trị Cốt Lõi (Trước & Sau khi có HypeRoom)**
 
-- **Sử dụng**: SmartReader để OCR, trích xuất thông tin chi tiết và tóm tắt các tài liệu trong Evidence Pool.
-- **Output**: Evidence Pack.
+| Nghiệp vụ | Quy trình truyền thống | Với HypeRoom AI Copilot |
+| :--- | :--- | :--- |
+| **Xác minh tài liệu/công văn** | Gõ tìm thủ công trên Google, gọi điện xác nhận (15-30 phút) | Upload ảnh/PDF $\rightarrow$ SmartReader OCR $\rightarrow$ Đối chiếu chéo nguồn tin cậy tự động (2 phút) |
+| **Đánh giá phản ứng dư luận** | Đọc bình luận, thống kê thủ công trên mạng xã hội (20 phút) | vnSocial API tự động phân tích Sắc thái (Sentiment) & Độ lan truyền (10 giây) |
+| **Phân tích rủi ro & Định hướng** | Biên tập viên tự cân nhắc dựa trên kinh nghiệm cá nhân (15 phút) | AI sinh Báo cáo rủi ro pháp lý/chính trị & Gợi ý Story Angle an toàn (30 giây) |
+| **Lập đề cương & Ghi vết** | Soạn thảo thô, duyệt qua chat/email (15 phút) | AI sinh Outline bài viết + Lưu vết toàn bộ chứng cứ vào Audit Trail (1 phút) |
 
-### **Step 5: Verification Engine**
+---
 
-- **Đối chiếu**: Claim vs Evidence.
-- **Output**: Supported / Contradicted / Uncertain.
+## **5. Luồng Nghiệp Vụ Tối Ưu cho MVP (User-Driven Workflow)**
 
-### **Step 6: Risk Assessment & Verification Report**
+Để đảm bảo tính khả thi cao nhất cho sản phẩm MVP và tập trung giải quyết đúng pain point một cách chính xác, hệ thống tập trung vào luồng **Người dùng chủ động nhập liệu (Active Input)** thay vì cào quét tự động ngẫu nhiên:
 
-- **Mục tiêu**: Cảnh báo sớm cho biên tập viên trước khi bắt đầu lập đề cương bài viết.
-- **AI sinh**:
-  - **Risk Report**: Phân tích rủi ro pháp lý, chính sách, độ nhạy cảm chính trị và xung đột thông tin.
-  - **Verification Report**: Báo cáo độ chính xác của nguồn tin và độ tin cậy của chứng cứ.
-- **Quy trình**: Biên tập viên xem xét báo cáo rủi ro để đưa ra quyết định có tiếp tục triển khai đề tài này hay không.
+```mermaid
+flowchart TD
+    User["Bien tap vien / Nguoi dung"] -->|1. Nhap Claim hoac Upload Tai lieu| Input{Phan loai dau vao}
+    
+    Input -->|Upload PDF/Anh cong van| OCR["SmartReader: OCR & Tom tat"]
+    Input -->|Go noi dung / Tin don| Ext["Gemini AI: Trich xuat entity"]
+    
+    OCR --> Ext
+    
+    Ext --> Search["Thu thap chung cu tu dong"]
+    
+    Search -->|Quet cheo| RSS["RSS Bao chi & Cong thong tin Chinh phu"]
+    Search -->|Danh gia du luan| Social["vnSocial API"]
+    
+    RSS --> Engine["Verification & Assessment Engine"]
+    Social --> Engine
+    
+    Engine -->|Tinh toan| Score["Trust Score & Impact Score"]
+    
+    Score --> Gen["Report & Content Generation"]
+    
+    Gen -->|Ket qua| Report["Bao cao kiem chung & Canh bao rui ro"]
+    Gen -->|Ho tro viet| Outline["Goi y Story Angles & Outline"]
+    Gen -->|Luu tru| Audit["Ghi vet nguon tin"]
+    
+    Report --> Bot["SmartBot Assistant"]
+```
 
-### **Step 7: Editorial Intelligence**
+### **Chi tiết các bước xử lý:**
 
-- **Mục tiêu**: Hỗ trợ định hình bài viết dựa trên kết quả xác minh và định hướng giảm thiểu rủi ro từ Risk Report.
-- **AI sinh**:
-  - **Story Angle**: Các góc tiếp cận thông tin an toàn, khách quan và hấp dẫn.
-  - **Outline**: Đề cương chi tiết bài viết (đã tích hợp các khuyến nghị giảm thiểu rủi ro từ Risk Report).
+* **Bước 1: Tiếp nhận đầu vào (Input Gateway)**
+  * Người dùng có hai cách nhập liệu:
+    * Nhập một tuyên bố/tin đồn cần kiểm chứng (Ví dụ: *"Giá xăng sẽ tăng lên 30.000đ vào ngày mai"*).
+    * Tải lên một tài liệu (Ảnh chụp công văn, file PDF thông báo, bản thảo).
+* **Bước 2: Số hóa tài liệu với SmartReader**
+  * Đối với tệp tin/hình ảnh tải lên, hệ thống sử dụng **SmartReader API** để thực hiện OCR cực nhanh, trích xuất toàn bộ nội dung văn bản hành chính sang dạng số và tóm tắt các ý chính để đưa vào pipeline kiểm chứng.
+* **Bước 3: Thu thập chứng cứ đa nguồn**
+  * **Xác thực thông tin chính thống**: Hệ thống tự động tìm kiếm và đối chiếu với dữ liệu từ các trang báo lớn qua RSS Feed và các Cổng thông tin Chính phủ (`chinhphu.vn`, bộ ngành liên quan) để kiểm tra xem đã có thông tin xác nhận hoặc bác bỏ chưa.
+  * **Đánh giá mức độ lan truyền qua vnSocial**: Sử dụng **vnSocial API** để truy vấn trực tiếp từ khóa liên quan đến tin đồn đó nhằm đo lường: lượng tương tác (mention count), xu hướng (trending), và sắc thái dư luận (tích cực/tiêu cực/tranh cãi).
+* **Bước 4: Đánh giá định lượng (Trust & Impact Engine)**
+  * **Trust Engine (Độ tin cậy)**: Tính toán dựa trên mức độ trùng khớp giữa các nguồn báo chí chính thống và tài liệu được OCR (từ 0 - 100 điểm).
+  * **Impact Engine (Mức độ tác động)**: Tính toán từ dữ liệu tương tác của vnSocial và phân loại lĩnh vực ảnh hưởng (Kinh tế, Xã hội, Chính trị).
+* **Bước 5: Trợ lý Biên tập & Cảnh báo rủi ro (Editorial Intelligence)**
+  * Hệ thống sử dụng Gemini AI sinh ra:
+    * **Verification & Risk Report**: Báo cáo chi tiết độ xác thực kèm cảnh báo nếu chủ đề vi phạm các chính sách pháp luật hoặc có nguy cơ khủng hoảng truyền thông.
+    * **Story Angles & Outline**: Gợi ý các góc tiếp cận thông tin khách quan, giảm thiểu rủi ro kèm đề cương chi tiết cho bài viết mới.
+* **Bước 6: Ghi vết hệ thống (Audit Trail)**
+  * Toàn bộ lịch sử xác minh bao gồm nguồn tài liệu tải lên, kết quả OCR, chứng cứ đối chiếu và quyết định duyệt/loại của biên tập viên sẽ được lưu trữ cố định để phục vụ mục đích kiểm toán thông tin sau này.
 
-### **Step 8: Audit Trail**
+---
 
-- **Lưu**: nguồn dùng, nguồn loại, báo cáo rủi ro đã duyệt, quyết định biên tập của con người.
+## **6. Tận Dụng Hệ Sinh Thái API VNPT**
 
-## **8. Tận Dụng API BTC**
+Để tối đa hóa điểm số công nghệ và tận dụng sức mạnh có sẵn, HypeRoom tích hợp sâu các API cốt lõi sau:
 
-### **vnSocial**
+1. **SmartReader**: Số hóa nhanh công văn, hình ảnh tài liệu, thông cáo báo chí do người dùng upload hoặc quét từ các trang chính phủ để đối chiếu thông tin dạng bảng biểu/văn bản hành chính.
+2. **vnSocial**: Công cụ lắng nghe mạng xã hội, cung cấp dữ liệu tức thì về sắc thái (Sentiment Analysis) và lượng tương tác (Virality Score) của chủ đề đang được kiểm chứng.
+3. **SmartVoice**: Cho phép biên tập viên chuyển đổi các file ghi âm phỏng vấn hoặc video họp báo thành văn bản (Speech-to-Text), sau đó tự động tóm tắt nội dung để đưa vào hệ thống đối chiếu chứng cứ.
+4. **SmartBot**: Đóng vai trò là trợ lý ảo tương tác trực tiếp trên giao diện Dashboard. Người dùng có thể chat trực tiếp với SmartBot để hỏi đáp sâu về dữ liệu chứng cứ, yêu cầu giải thích điểm số hoặc điều chỉnh góc viết của Outline.
+5. **SmartUX**: Theo dõi hành vi sử dụng của biên tập viên, tối ưu hóa các điểm tương tác trên Dashboard nhằm cải thiện hiệu suất biên tập tin tức.
 
-Vai trò: Trend Intelligence Engine
-Sử dụng: trending topic, sentiment analysis
-Giá trị: Đây là nguồn dữ liệu đầu vào quan trọng nhất.
+---
 
-### **SmartVoice**
+## **7. Kịch Bản Demo MVP Khả Thi**
 
-Vai trò: Interview Intelligence
-Sử dụng: speech to text, call summary
-Giá trị: Tự động tóm tắt phỏng vấn.
-
-### **SmartReader**
-
-Vai trò: Document Intelligence & Input Verification
-Sử dụng: OCR, structured content extraction, summarization.
-Giá trị:
-
-1. Đọc và số hóa các công văn, PDF, thông cáo báo chí tìm thấy trong Evidence Pool để phục vụ quá trình đối chiếu.
-2. Đóng vai trò là cổng vào (gateway) chính của luồng "User Document Verification Workflow", giúp số hóa nhanh chóng các văn bản, ảnh chụp tài liệu do người dùng tải lên để phục vụ xác minh.
-
-### **SmartBot**
-
-Vai trò: Verification Copilot
-Sử dụng: QA reasoning, report generation
+Để trình bày thuyết phục trước hội đồng giám khảo, sản phẩm MVP sẽ chuẩn bị 2 kịch bản chính:
+* **Kịch bản 1: Xác minh công văn giả mạo bằng SmartReader**
+  * Biên tập viên upload ảnh chụp một "công văn khẩn" của bộ ngành về việc điều chỉnh lịch thi hoặc chính sách thuế.
+  * SmartReader trích xuất text $\rightarrow$ Hệ thống quét nguồn chính phủ $\rightarrow$ Phát hiện không có văn bản trùng khớp $\rightarrow$ Gán Trust Score thấp $\rightarrow$ Cảnh báo rủi ro cao.
+* **Kịch bản 2: Đánh giá một tin đồn đang lan truyền bằng vnSocial**
+  * Biên tập viên nhập một tin đồn tài chính đang xôn xao trên mạng.
+  * vnSocial API trả về lượng mention đang tăng vọt và sentiment tiêu cực $\rightarrow$ Hệ thống đánh giá Impact Score cực cao $\rightarrow$ Gợi ý biên tập viên viết bài định hướng dư luận với Story Angles an toàn, tránh gây hoang mang dư luận.
