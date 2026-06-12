@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  postgres-vector:
+    image: ankane/pgvector:latest
+    container_name: hyproom-postgres-vector
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: hyproom_db
+      POSTGRES_USER: hyproom_user
+      POSTGRES_PASSWORD: hyproom_password
+    volumes:
+      - pgvector_data:/var/lib/postgresql/data
+    restart: always
+
+volumes:
+  pgvector_data:
