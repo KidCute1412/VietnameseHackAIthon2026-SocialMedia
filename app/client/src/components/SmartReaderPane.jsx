@@ -9,7 +9,7 @@ export default function SmartReaderPane({ data }) {
   }
 
   return (
-    <section className="w-1/2 h-full relative border-r border-outline-variant/20 p-8 overflow-hidden bg-[#061226]">
+    <section className="w-1/2 h-full relative border-r border-[#3d2f2b]/15 p-8 overflow-hidden bg-surface-container-lowest">
       {/* Section Header */}
       <div className="flex justify-between items-start mb-6">
         <div>
@@ -27,18 +27,18 @@ export default function SmartReaderPane({ data }) {
       </div>
 
       {/* Document Viewer with Grid & OCR Overlays */}
-      <div className="relative w-full aspect-[4/5] max-h-[70vh] bg-surface-container-lowest rounded-xl border border-secondary/20 overflow-hidden group p-6 flex flex-col">
+      <div className="relative w-full aspect-[4/5] max-h-[70vh] bg-[#faf8f2] rounded-lg border border-[#5c4a43]/20 overflow-hidden group p-6 flex flex-col shadow-[2px_2px_8px_rgba(42,32,21,0.08)]">
         {/* Grid Overlay */}
         <div
           className="absolute inset-0 opacity-10 pointer-events-none"
           style={{
-            backgroundImage: 'radial-gradient(#BDE8F5 1px, transparent 1px)',
+            backgroundImage: 'radial-gradient(#8c7a65 1px, transparent 1px)',
             backgroundSize: '20px 20px',
           }}
         />
 
         {/* The Document OCR Text */}
-        <div className="flex-1 overflow-y-auto custom-scrollbar font-data-mono text-xs leading-relaxed p-4 z-10 bg-black/40 border border-white/5 rounded-lg whitespace-pre-wrap select-text text-glow-highlight/90 shadow-[inner_0_0_10px_rgba(0,0,0,0.5)]">
+        <div className="flex-1 overflow-y-auto custom-scrollbar font-data-mono text-xs leading-relaxed p-4 z-10 bg-[#fbfbf8] border border-[#3d2f2b]/15 rounded-lg whitespace-pre-wrap select-text text-[#1e1613] shadow-[inner_0_1px_3px_rgba(42,32,21,0.08)]">
           {data.ocrText}
         </div>
 

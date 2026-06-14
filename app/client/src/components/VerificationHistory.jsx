@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-export default function VerificationHistory() {
+export default function VerificationHistory({ onSelectItem, selectedId, refreshTrigger }) {
   const [historyItems, setHistoryItems] = useState([])
   const [loading, setLoading] = useState(true)
   const navigate = useNavigate()
@@ -19,10 +19,10 @@ export default function VerificationHistory() {
           time: item.timestamp,
           status: item.status,
           label: item.status === 'verified'
-            ? `Đã xác minh (${item.confidence}%)`
+            ? 'Đã xác minh'
             : item.status === 'processing'
             ? 'Đang xử lý...'
-            : `Cảnh báo (${item.confidence}%)`,
+            : 'Cảnh báo',
         }))
         setHistoryItems(items)
         setLoading(false)
@@ -35,7 +35,7 @@ export default function VerificationHistory() {
             fileName: 'Cong_van_08_signed.pdf',
             time: '5 phút trước',
             status: 'verified',
-            label: 'Đã xác minh (98%)',
+            label: 'Đã xác minh',
           },
           {
             id: '2',
@@ -49,12 +49,12 @@ export default function VerificationHistory() {
             fileName: 'Bao_cao_Tai_chinh.pdf',
             time: 'Hôm qua',
             status: 'warning',
-            label: 'Cảnh báo (42%)',
+            label: 'Cảnh báo',
           },
         ])
         setLoading(false)
       })
-  }, [])
+  }, [refreshTrigger])
 
   const getStatusClasses = (status) => {
     switch (status) {
@@ -96,9 +96,17 @@ export default function VerificationHistory() {
             return (
               <div
                 key={item.id}
-                onClick={() => navigate(`/verification?id=${item.id}`)}
+                onClick={() => {
+                  if (onSelectItem) {
+                    onSelectItem(item.id)
+                  } else {
+                    navigate(`/verification?id=${item.id}`)
+                  }
+                }}
                 style={{ transform: `rotate(${rotateDeg}deg)` }}
-                className="p-4 rounded bg-[#faf8f2] border border-[#5c4a43]/15 hover:border-[#3f6771] shadow-[2px_3px_6px_rgba(42,32,21,0.06)] hover:shadow-[4px_6px_12px_rgba(42,32,21,0.1)] transition-all duration-300 group/item cursor-pointer hover:scale-[1.01]"
+                className={`p-4 rounded bg-[#faf8f2] border hover:border-[#3f6771] shadow-[2px_3px_6px_rgba(42,32,21,0.06)] hover:shadow-[4px_6px_12px_rgba(42,32,21,0.1)] transition-all duration-300 group/item cursor-pointer hover:scale-[1.01] ${
+                  selectedId === item.id ? 'border-[#3f6771] ring-1 ring-[#3f6771]' : 'border-[#5c4a43]/15'
+                }`}
               >
                 <div className="flex justify-between items-start mb-2">
                   <span className="font-body-sm text-[#1e1613] font-bold truncate pr-2">{item.fileName}</span>

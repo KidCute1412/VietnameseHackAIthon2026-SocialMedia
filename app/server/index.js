@@ -58,7 +58,7 @@ let verifications = [
       {
         id: 3,
         title: 'Crisis Mitigation Angle',
-        content: 'Hi Lok! Trong trường hợp có tin giả xoay quanh văn bản này, góc nhìn giảm thiểu khủng hoảng sẽ nhấn mạnh vào quy trình phản bác thông tin nhanh chóng bằng chứng cứ số đã được xác thực (hash ledger).',
+        content: 'Hi Lok! Trong trường hợp có tin giả xoay quanh văn bản này, góc nhìn giảm thiểu khủng hoảng sẽ nhấn mạnh vào quy trình phản bác thông tin nhanh chóng bằng chứng cứ số đã được xác thực.',
         defaultOpen: false
       }
     ]
@@ -155,7 +155,7 @@ app.post('/api/verify', upload.single('file'), (req, res) => {
   const id = String(verifications.length + 1);
   
   // OCR/SmartReader Skill Simulation
-  let ocrText = `NỘI DUNG TÀI LIỆU (${fileName}):\n\n`;
+  let ocrText = `NỘI DUNG TÀI LIỆU: ${fileName}\n\n`;
   if (fileName.endsWith('.pdf')) {
     ocrText += `[VNPT SmartReader OCR Scan]\n`;
   }

@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-export default function DropZone() {
+export default function DropZone({ onVerifySuccess, compact = false }) {
   const [selectedFile, setSelectedFile] = useState(null)
   const [isDragging, setIsDragging] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -64,13 +64,20 @@ export default function DropZone() {
       })
       .then((data) => {
         setLoading(false)
-        navigate(`/verification?id=${data.id}`)
+        if (onVerifySuccess) {
+          onVerifySuccess(data.id)
+        } else {
+          navigate(`/verification?id=${data.id}`)
+        }
       })
       .catch((err) => {
         console.error('Error verifying file:', err)
         setLoading(false)
-        // Fallback to ID 1 in case of error
-        navigate('/verification?id=1')
+        if (onVerifySuccess) {
+          onVerifySuccess('1') // fallback
+        } else {
+          navigate('/verification?id=1')
+        }
       })
   }
 
@@ -79,7 +86,7 @@ export default function DropZone() {
       {/* Drag & Drop Area */}
       <div
         id="dropzone"
-        className={`dropzone w-full border-2 border-dashed border-[#5c4a43]/30 hover:border-[#3f6771] rounded-lg flex flex-col items-center justify-center p-12 transition-all duration-300 relative overflow-hidden bg-[#faf8f2] cursor-pointer group/dropzone mb-4 shadow-[inset_0_2px_8px_rgba(0,0,0,0.03)] ${
+        className={`dropzone w-full border-2 border-dashed border-[#5c4a43]/30 hover:border-[#3f6771] rounded-lg flex flex-col items-center justify-center ${compact ? 'p-6' : 'p-12'} transition-all duration-300 relative overflow-hidden bg-[#faf8f2] cursor-pointer group/dropzone mb-4 shadow-[inset_0_2px_8px_rgba(0,0,0,0.03)] ${
           isDragging ? 'bg-[#f4efe0] border-[#3f6771]' : ''
         }`}
         onDragEnter={handleDragEnter}
@@ -89,15 +96,17 @@ export default function DropZone() {
         onClick={handleClick}
       >
         <div className="absolute top-0 left-0 scan-effect w-full hidden group-hover/dropzone:block" />
-        <div className="w-20 h-20 rounded-full bg-[#5c4a43]/5 flex items-center justify-center mb-6 border border-[#5c4a43]/15 shadow-[2px_4px_10px_rgba(61,47,43,0.06)] group-hover/dropzone:scale-105 transition-transform duration-300">
-          <span className="material-symbols-outlined text-[#3d2f2b] text-[40px]">
+        <div className={`${compact ? 'w-12 h-12 mb-3' : 'w-20 h-20 mb-6'} rounded-full bg-[#5c4a43]/5 flex items-center justify-center border border-[#5c4a43]/15 shadow-[2px_4px_10px_rgba(61,47,43,0.06)] group-hover/dropzone:scale-105 transition-transform duration-300`}>
+          <span className="material-symbols-outlined text-[#3d2f2b] text-[30px]">
             {loading ? 'sync' : 'upload_file'}
           </span>
         </div>
-        <p className="font-headline-md text-[20px] text-[#1e1613] mb-3 font-bold">Kéo &amp; thả công văn vào đây</p>
-        <p className="font-body-md text-[#5c4a43]/60 text-center max-w-md text-sm leading-relaxed">
-          Tải lên công văn, thông báo hoặc tài liệu văn bản cần kiểm tra độ tin cậy. Định dạng hỗ trợ: <span className="underline decoration-wavy decoration-[#bb2d3b]/30">PDF, TXT, MD, DOCX</span>.
-        </p>
+        <p className={`font-headline-md ${compact ? 'text-base mb-1' : 'text-[20px] mb-3'} text-[#1e1613] font-bold`}>Kéo &amp; thả công văn vào đây</p>
+        {!compact && (
+          <p className="font-body-md text-[#5c4a43]/60 text-center max-w-md text-sm leading-relaxed">
+            Tải lên công văn, thông báo hoặc tài liệu văn bản cần kiểm tra độ tin cậy. Định dạng hỗ trợ: <span className="underline decoration-wavy decoration-[#bb2d3b]/30">PDF, TXT, MD, DOCX</span>.
+          </p>
+        )}
         {selectedFile && (
           <p className="mt-4 text-[#157347] font-data-mono text-sm bg-[#d1e7dd]/80 border border-[#157347]/30 rounded-md px-4 py-1.5 flex items-center gap-2 shadow-[2px_2px_5px_rgba(0,0,0,0.05)] rotate-[-1deg]">
             <span className="material-symbols-outlined text-sm">check_circle</span>
@@ -107,7 +116,7 @@ export default function DropZone() {
       </div>
 
       {/* Actions */}
-      <div className="w-full flex flex-col items-center gap-4 mt-6">
+      <div className={`w-full flex flex-col items-center ${compact ? 'gap-3 mt-3' : 'gap-4 mt-6'}`}>
         <button
           id="btn-verify"
           disabled={!selectedFile || loading}
@@ -121,10 +130,12 @@ export default function DropZone() {
             {loading ? 'sync' : 'arrow_forward'}
           </span>
         </button>
-        <button className="text-[#5c4a43]/60 hover:text-[#3f6771] text-sm font-body-sm transition-colors flex items-center gap-2 cursor-pointer">
-          <span className="material-symbols-outlined text-sm">content_paste</span>
-          Hoặc dán văn bản trực tiếp
-        </button>
+        {!compact && (
+          <button className="text-[#5c4a43]/60 hover:text-[#3f6771] text-sm font-body-sm transition-colors flex items-center gap-2 cursor-pointer">
+            <span className="material-symbols-outlined text-sm">content_paste</span>
+            Hoặc dán văn bản trực tiếp
+          </button>
+        )}
       </div>
     </div>
   )

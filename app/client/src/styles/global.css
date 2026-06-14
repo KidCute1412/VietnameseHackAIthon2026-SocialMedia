@@ -2,7 +2,7 @@
    HypeRoom Copilot — Global Styles (React + TailwindCSS v4)
    ══════════════════════════════════════════════════════════════ */
 
-@import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Manrope:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Itim&family=Manrope:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 @import "tailwindcss";
 
 /* ── Tailwind v4 Theme Configuration ─────────────────────── */
@@ -125,8 +125,22 @@
 
 /* ── Base & Paper Texture ─────────────────────────────────── */
 html,
-html.dark {
+html.dark,
+:root {
   background-color: #f4efe2 !important;
+  --color-primary: #3d2f2b !important;
+  --color-secondary: #5c4a43 !important;
+  --color-on-surface: #1e1613 !important;
+  --color-on-background: #1e1613 !important;
+  --color-glow-highlight: #3f6771 !important;
+  --color-on-surface-variant: #5c4a43 !important;
+  --color-outline: #8c7a65 !important;
+  --color-outline-variant: #b5a48f !important;
+  --color-primary-container: #eae3d2 !important;
+  --color-secondary-container: #ebd9bc !important;
+  --color-surface-container-lowest: #fbfaf4 !important;
+  --color-surface-container-high: #fbf7da !important;
+  --color-surface-container: #f4efe0 !important;
 }
 
 body,
@@ -750,4 +764,12 @@ nav a .material-symbols-outlined {
   text-shadow: none !important;
   letter-spacing: 0.05em;
   opacity: 0.9;
+}
+
+/* ── Handwriting Font Styles (Vietnamese Itim) ────────────── */
+.font-handwriting {
+  font-family: 'Itim', cursive !important;
+  font-size: 13px !important;
+  line-height: 1.6 !important;
+  color: #1e1613 !important;
 }

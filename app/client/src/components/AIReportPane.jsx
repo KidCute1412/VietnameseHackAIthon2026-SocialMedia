@@ -1,7 +1,9 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import RadialProgress from './RadialProgress'
+import { animate, stagger } from 'animejs'
+import TiltContainer from './TiltContainer'
 
-export default function AIReportPane({ data }) {
+export default function AIReportPane({ data, onClose, className = "" }) {
   const trustScore = data.trustScore || 85
   const publicImpact = data.publicImpact || 92
   const evidenceSources = data.evidenceSources || []
@@ -9,6 +11,45 @@ export default function AIReportPane({ data }) {
   const [outlineLoading, setOutlineLoading] = useState(false)
   const [outlineGenerated, setOutlineGenerated] = useState(false)
   const [outlineText, setOutlineText] = useState([])
+
+  const outlineRef = useRef(null)
+  const sourcesRef = useRef(null)
+
+  // Reset state when data item changes
+  useEffect(() => {
+    setOutlineLoading(false)
+    setOutlineGenerated(false)
+    setOutlineText([])
+  }, [data.id])
+
+  // Bounce-in animation for outline box
+  useEffect(() => {
+    if (outlineGenerated && outlineRef.current) {
+      animate(outlineRef.current, {
+        translateY: ['-60px', '0px'],
+        rotate: [-12, -0.5],
+        scale: [0.9, 1],
+        opacity: [0, 1],
+        duration: 1000,
+        ease: 'outElastic(1, 0.7)'
+      })
+    }
+  }, [outlineGenerated])
+
+  // Stagger entry animation for evidence sources
+  useEffect(() => {
+    if (sourcesRef.current && evidenceSources.length > 0) {
+      // Clear opacity first so we don't flash
+      animate(sourcesRef.current.querySelectorAll('.source-item'), { opacity: 0, duration: 0 })
+      animate(sourcesRef.current.querySelectorAll('.source-item'), {
+        translateX: ['40px', '0px'],
+        opacity: [0, 1],
+        delay: stagger(80, { start: 100 }),
+        duration: 800,
+        ease: 'outQuad'
+      })
+    }
+  }, [data.id, evidenceSources.length])
 
   const outlines = {
     '1': [
@@ -68,11 +109,21 @@ export default function AIReportPane({ data }) {
   }
 
   return (
-    <section className="w-1/2 h-full p-8 overflow-y-auto bg-surface-container-lowest custom-scrollbar">
-      <h2 className="font-headline-md text-headline-md text-primary mb-8 flex items-center gap-2">
-        <span className="material-symbols-outlined">neurology</span>
-        Kết quả Đối chiếu &amp; Xác thực Tin tức
-      </h2>
+    <section className={`p-8 overflow-y-auto bg-surface-container-lowest custom-scrollbar ${className || 'w-1/2 h-full'}`}>
+      <div className="flex justify-between items-center mb-8 border-b border-[#5c4a43]/15 pb-3">
+        <h2 className="font-headline-md text-[20px] text-primary flex items-center gap-2 font-bold">
+          <span className="material-symbols-outlined text-[#3f6771]">neurology</span>
+          Kết quả Đối chiếu &amp; Xác thực Tin tức
+        </h2>
+        {onClose && (
+          <button
+            onClick={onClose}
+            className="w-8 h-8 rounded-full bg-[#5c4a43]/5 hover:bg-[#5c4a43]/10 flex items-center justify-center text-[#5c4a43] transition-colors cursor-pointer"
+          >
+            <span className="material-symbols-outlined text-[20px]">close</span>
+          </button>
+        )}
+      </div>
 
       {/* Gauges Section */}
       <div className="grid grid-cols-2 gap-6 mb-8">
@@ -81,7 +132,7 @@ export default function AIReportPane({ data }) {
           <span className="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest mt-4">Điểm tin cậy</span>
         </div>
         <div className="bg-surface-container-high glass-panel border border-outline-variant/30 p-6 rounded-xl flex flex-col items-center justify-center">
-          <RadialProgress value={publicImpact} color="#BDE8F5" />
+          <RadialProgress value={publicImpact} color="#3f6771" />
           <span className="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest mt-4">Ảnh hưởng dư luận</span>
         </div>
       </div>
@@ -90,11 +141,11 @@ export default function AIReportPane({ data }) {
       {evidenceSources.length > 0 && (
         <div className="mb-10">
           <h3 className="font-label-caps text-label-caps text-primary uppercase mb-4 tracking-widest">Nguồn tin đối chiếu</h3>
-          <div className="space-y-4">
+          <div ref={sourcesRef} className="space-y-4">
             {evidenceSources.map((source) => (
               <div
                 key={source.id}
-                className="bg-primary-container/40 hover:bg-primary-container/60 glass-panel border border-primary/20 p-4 rounded-xl transition-all duration-300 flex items-center justify-between group/source"
+                className="source-item bg-primary-container/40 hover:bg-primary-container/60 glass-panel border border-primary/20 p-4 rounded-xl transition-all duration-300 flex items-center justify-between group/source"
               >
                 <div className="flex items-center gap-4">
                   <div className="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container">
@@ -140,32 +191,34 @@ export default function AIReportPane({ data }) {
         )}
 
         {outlineGenerated && (
-          <div className="relative rotate-[-0.5deg] transition-transform hover:rotate-0 duration-300">
-            {/* Paper Pin & Scotch Tape */}
-            <div className="paper-pin pin-red" style={{ top: '-8px', left: '20px' }} />
-            <div className="paper-tape tape-top-right" style={{ top: '-10px', right: '15px', width: '60px' }} />
+          <div ref={outlineRef} className="relative rotate-[-0.5deg]">
+            <TiltContainer>
+              {/* Paper Pin & Scotch Tape */}
+              <div className="paper-pin pin-red" style={{ top: '-8px', left: '20px' }} />
+              <div className="paper-tape tape-top-right" style={{ top: '-10px', right: '15px', width: '60px' }} />
 
-            <div className="p-6 rounded bg-[#fbf9e3] border border-[#5c4a43]/20 shadow-[3px_4px_12px_rgba(42,32,21,0.12)]">
-              <div className="flex justify-between items-center mb-4 border-b border-[#5c4a43]/15 pb-2">
-                <h4 className="font-headline-md text-sm text-[#1e1613] font-bold flex items-center gap-2">
-                  <span className="material-symbols-outlined text-[#3f6771] text-[18px]">format_list_bulleted</span>
-                  Dàn ý gợi ý từ AI
-                </h4>
-                <button
-                  onClick={(e) => handleCopy(outlineText.join('\n'), e)}
-                  className="text-[#5c4a43]/50 hover:text-[#1e1613] transition-colors cursor-pointer"
-                >
-                  <span className="material-symbols-outlined text-[18px]">content_copy</span>
-                </button>
+              <div className="p-6 rounded bg-[#fbf9e3] border border-[#5c4a43]/20 shadow-[3px_4px_12px_rgba(42,32,21,0.12)]">
+                <div className="flex justify-between items-center mb-4 border-b border-[#5c4a43]/15 pb-2">
+                  <h4 className="font-headline-md text-sm text-[#1e1613] font-bold flex items-center gap-2">
+                    <span className="material-symbols-outlined text-[#3f6771] text-[18px]">format_list_bulleted</span>
+                    Dàn ý gợi ý từ AI
+                  </h4>
+                  <button
+                    onClick={(e) => handleCopy(outlineText.join('\n'), e)}
+                    className="text-[#5c4a43]/50 hover:text-[#1e1613] transition-colors cursor-pointer"
+                  >
+                    <span className="material-symbols-outlined text-[18px]">content_copy</span>
+                  </button>
+                </div>
+                <div className="font-handwriting text-xs text-[#1e1613] leading-relaxed whitespace-pre-wrap space-y-2">
+                  {outlineText.map((line, idx) => (
+                    <p key={idx} className={line.startsWith('   ') ? 'pl-4' : 'font-bold mt-2'}>
+                      {line}
+                    </p>
+                  ))}
+                </div>
               </div>
-              <div className="font-data-mono text-xs text-[#1e1613] leading-relaxed whitespace-pre-wrap space-y-2">
-                {outlineText.map((line, idx) => (
-                  <p key={idx} className={line.startsWith('   ') ? 'pl-4' : 'font-bold mt-2'}>
-                    {line}
-                  </p>
-                ))}
-              </div>
-            </div>
+            </TiltContainer>
           </div>
         )}
       </div>

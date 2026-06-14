@@ -2,7 +2,6 @@ import { Link, useLocation } from 'react-router-dom'
 
 const navItems = [
   { path: '/', icon: 'dashboard', label: 'Dashboard', id: 'nav-dashboard' },
-  { path: '/verification', icon: 'document_scanner', label: 'SmartReader', id: 'nav-smartreader' },
   { path: '/vnsocial', icon: 'analytics', label: 'Thông tin Trending', id: 'nav-vnsocial' },
 ]
 

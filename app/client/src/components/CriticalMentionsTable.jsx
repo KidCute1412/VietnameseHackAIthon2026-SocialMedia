@@ -1,3 +1,7 @@
+import { useEffect, useRef } from 'react'
+import { animate, stagger } from 'animejs'
+import TiltContainer from './TiltContainer'
+
 const mentions = [
   {
     id: 1,
@@ -29,6 +33,21 @@ const mentions = [
 ]
 
 export default function CriticalMentionsTable({ onSelectMention, selectedId }) {
+  const containerRef = useRef(null)
+
+  useEffect(() => {
+    if (containerRef.current) {
+      animate(containerRef.current.querySelectorAll('.paper-slip'), { opacity: 0, duration: 0 })
+      animate(containerRef.current.querySelectorAll('.paper-slip'), {
+        translateY: ['50px', '0px'],
+        opacity: [0, 1],
+        delay: stagger(100),
+        duration: 900,
+        ease: 'outBack'
+      })
+    }
+  }, [])
+
   const getStatusClasses = (status) => {
     if (status === 'negative') {
       return 'stamp-warning px-2.5 py-0.5 text-[10px] font-extrabold tracking-wider uppercase rounded-sm'
@@ -48,7 +67,7 @@ export default function CriticalMentionsTable({ onSelectMention, selectedId }) {
       </div>
 
       {/* Stack of Scrapbook Paper Slips */}
-      <div className="grid grid-cols-1 gap-6">
+      <div ref={containerRef} className="grid grid-cols-1 gap-6">
         {mentions.map((mention, index) => {
           const isSelected = selectedId === mention.id
           const rotateDeg = (index % 3 - 1) * 1.5
@@ -57,41 +76,43 @@ export default function CriticalMentionsTable({ onSelectMention, selectedId }) {
               key={mention.id}
               onClick={() => onSelectMention && onSelectMention(mention)}
               style={{ transform: `rotate(${isSelected ? 0 : rotateDeg}deg)` }}
-              className={`p-5 bg-[#fbfaf4] border border-[#5c4a43]/20 shadow-[3px_5px_12px_rgba(42,32,21,0.06)] hover:shadow-[5px_8px_18px_rgba(42,32,21,0.12)] rounded-md relative cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:-translate-y-1 ${
+              className={`paper-slip p-5 bg-[#fbfaf4] border border-[#5c4a43]/20 shadow-[3px_5px_12px_rgba(42,32,21,0.06)] hover:shadow-[5px_8px_18px_rgba(42,32,21,0.12)] rounded-md relative cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:-translate-y-1 ${
                 isSelected ? 'ring-2 ring-[#3f6771] shadow-xl scale-[1.01] z-20' : 'z-10'
               }`}
             >
-              {/* Scotch tape overlay */}
-              <div className="paper-tape tape-center-top" style={{ top: '-11px', width: '80px' }} />
+              <TiltContainer className="w-full h-full">
+                {/* Scotch tape overlay */}
+                <div className="paper-tape tape-center-top" style={{ top: '-11px', width: '80px' }} />
 
-              <div className="flex justify-between items-start mb-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded overflow-hidden border border-[#5c4a43]/15 bg-stone-100 shrink-0">
-                    <img alt={mention.username} className="w-full h-full object-cover" src={mention.avatar} />
+                <div className="flex justify-between items-start mb-4">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded overflow-hidden border border-[#5c4a43]/15 bg-stone-100 shrink-0">
+                      <img alt={mention.username} className="w-full h-full object-cover" src={mention.avatar} />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-[#1e1613] text-sm leading-tight">{mention.username}</h4>
+                      <p className="text-[10px] text-[#5c4a43]/60 font-data-mono mt-0.5">{mention.followers}</p>
+                    </div>
                   </div>
                   <div>
-                    <h4 className="font-bold text-[#1e1613] text-sm leading-tight">{mention.username}</h4>
-                    <p className="text-[10px] text-[#5c4a43]/60 font-data-mono mt-0.5">{mention.followers}</p>
+                    <span className={getStatusClasses(mention.status)}>{mention.statusLabel}</span>
                   </div>
                 </div>
-                <div>
-                  <span className={getStatusClasses(mention.status)}>{mention.statusLabel}</span>
+
+                <p className="text-body-sm text-[#1e1613] italic leading-relaxed border-l-2 border-[#5c4a43]/20 pl-3 py-2 bg-[#5c4a43]/5 rounded-r">
+                  {mention.content}
+                </p>
+
+                <div className="flex justify-between items-center mt-4 pt-3 border-t border-dashed border-[#5c4a43]/15">
+                  <span className="text-[10px] text-[#5c4a43]/50 font-data-mono">
+                    {isSelected ? '● Đang chọn kiểm chứng' : '○ Nhấn để xem kiểm chứng'}
+                  </span>
+                  <span className="text-xs text-[#3f6771] font-bold flex items-center gap-1 hover:underline">
+                    <span className="material-symbols-outlined text-[14px]">fact_check</span>
+                    Kiểm chứng ngay &rarr;
+                  </span>
                 </div>
-              </div>
-
-              <p className="text-body-sm text-[#1e1613] italic leading-relaxed border-l-2 border-[#5c4a43]/20 pl-3 py-2 bg-[#5c4a43]/5 rounded-r">
-                {mention.content}
-              </p>
-
-              <div className="flex justify-between items-center mt-4 pt-3 border-t border-dashed border-[#5c4a43]/15">
-                <span className="text-[10px] text-[#5c4a43]/50 font-data-mono">
-                  {isSelected ? '● Đang chọn kiểm chứng' : '○ Nhấn để xem kiểm chứng'}
-                </span>
-                <span className="text-xs text-[#3f6771] font-bold flex items-center gap-1 hover:underline">
-                  <span className="material-symbols-outlined text-[14px]">fact_check</span>
-                  Kiểm chứng ngay &rarr;
-                </span>
-              </div>
+              </TiltContainer>
             </div>
           )
         })}
