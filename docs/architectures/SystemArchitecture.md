@@ -10,12 +10,14 @@ Hệ thống hoạt động theo mô hình hướng dịch vụ (Service-Oriente
 
 ```mermaid
 flowchart TD
-    User["Biên tập viên / Người dùng"] -->|1. Upload PDF, Ảnh, Audio hoặc nhập Text| Gateway["API Gateway (FastAPI)"]
+    %% Input Sources
+    User["Biên tập viên / Người dùng"] -->|1a. Upload PDF, Ảnh, Audio hoặc nhập Text| Gateway["API Gateway (FastAPI)"]
+    vnSocial["VNPT vnSocial API"] -->|1b. Auto-pull Trending và Comments via Cronjob| Gateway
     
     %% Input Digitization (Asynchronous)
     Gateway -->|2a. PDF or Image| SmartReader["VNPT SmartReader OCR"]
     Gateway -->|2b. Audio WAV or MP3| SmartVoice["VNPT SmartVoice STT"]
-    Gateway -->|2c. Raw Text or Input| Claims["Engine: Entity & Claim Extraction"]
+    Gateway -->|2c. Raw Text or Input| Claims["Engine: Entity / Claim Extraction"]
     
     SmartReader -->|3a. Structured JSON| Claims
     SmartVoice -->|3b. Transcribed Text| Claims
@@ -24,26 +26,26 @@ flowchart TD
     Claims -->|4. Claim Objects| Retrieval["Engine: Cross-Source Evidence Retrieval"]
     
     %% DB & Knowledge Sources
-    Retrieval -->|5a. Semantic Query| VectorDB[("Vector DB Qdrant/Milvus - RSS & Govt Portals")]
-    Retrieval -->|5b. Social Query| vnSocial["VNPT vnSocial API"]
+    Retrieval -->|5a. Semantic Query| VectorDB[("Vector DB Qdrant/Milvus - RSS / Govt Portals")]
+    Retrieval -->|5b. Social Query| vnSocial
     
     VectorDB -->|6a. Context Evidences| Trust["Trust Engine"]
-    vnSocial -->|6b. Interaction Data| Impact["Impact Engine"]
+    vnSocial -->|6b. Interaction Data - Metrics and Sentiment| Impact["Impact Engine"]
     
-    Trust -->|7a. Trust Score & Rationales| Risk["Risk Engine"]
-    Impact -->|7b. Impact Score & Sentiment| Risk
+    Trust -->|7a. Trust Score / Rationales| Risk["Risk Engine"]
+    Impact -->|7b. Impact Score / Sentiment| Risk
     
     %% Output Generation & Interactive Feedback Loop
-    Risk -->|8. Risk Level & Audit Report| Editorial["Editorial Engine"]
+    Risk -->|8. Risk Level / Audit Report| Editorial["Editorial Engine"]
     Editorial -->|9. Suggestion Packages| Output["Output Delivery Layer"]
     
     Output -->|10a. Analytics Dashboard| Dashboard["Dashboard UI (SmartUX)"]
     Output -->|10b. Copilot Assistant| SmartBot["VNPT SmartBot"]
-    Output -->|10c. System Audit Log| DB[("RDBMS PostgreSQL - Audit Trails & Feedbacks")]
+    Output -->|10c. System Audit Log| DB[("RDBMS PostgreSQL - Audit Trails / Feedbacks")]
     
     %% Human-in-the-loop Feedback
     Dashboard -->|11. Feedback / Adjustments| Gateway
-    SmartBot -->|11. Chat History & Prompts| Gateway
+    SmartBot -->|11. Chat History / Prompts| Gateway
 ```
 
 ---
@@ -54,6 +56,10 @@ flowchart TD
 *   **API Gateway (FastAPI)**:
     *   *Mô tả*: Điểm tiếp nhận duy nhất cho tất cả các yêu cầu từ Client. Thực hiện xác thực (JWT), phân luồng tải và quản lý trạng thái tác vụ.
     *   *Giao thức*: REST API (HTTPS) cho các tác vụ đồng bộ ngắn và WebSocket/Webhook cho các tác vụ xử lý file dung lượng lớn.
+*   **VNPT vnSocial Ingestion Service (Cronjob/Worker)**:
+    *   *Mô tả*: Tự động thu thập các chủ đề nóng (Trending Topics) và bình luận từ không gian mạng định kỳ để làm nguồn dữ liệu đầu vào tự động.
+    *   *Giao thức*: REST API (HTTPS - GET) quét các chỉ số xu hướng. Các bài viết/chủ đề đạt điểm tranh cãi cao (Controversy Score > 0.7) sẽ được tự động đẩy vào hàng đợi của API Gateway để chuyển qua bước trích xuất Claims.
+    *   *Dữ liệu*: `Input: Trending Feeds & Comments` $\rightarrow$ `Output: Raw Text / Social Posts`.
 *   **VNPT SmartReader OCR Integration**:
     *   *Mô tả*: Trích xuất dữ liệu văn bản từ tài liệu quét, ảnh chụp công văn hoặc báo cáo tài chính (PDF, PNG, JPG).
     *   *Giao thức*: Bất đồng bộ (Asynchronous task queue). Hệ thống gửi file lên VNPT SmartReader API, nhận `task_id` và lắng nghe webhook trả về kết quả cấu trúc hóa.
@@ -112,6 +118,6 @@ flowchart TD
 | :--- | :--- | :--- | :--- |
 | **VNPT SmartReader** | Số hóa tài liệu đầu vào | Nhận tệp hình ảnh/PDF $\rightarrow$ Trích xuất văn bản cấu trúc hóa. | REST API (POST `/ocr/segmentation`) |
 | **VNPT SmartVoice** | Chuyển đổi dữ liệu âm thanh | Nhận tệp ghi âm $\rightarrow$ Trả ra chuỗi văn bản (STT). | Webhook / REST API (POST `/stt/recognize`) |
-| **VNPT vnSocial** | Lắng nghe & Phân tích dư luận | Gửi keyword/chủ đề $\rightarrow$ Trả về khối lượng thảo luận và sắc thái cảm xúc. | REST API (GET `/social/listening/metrics`) |
+| **VNPT vnSocial** | Lắng nghe, phân tích dư luận & Thu thập xu hướng | 1. Tự động cào dữ liệu xu hướng làm đầu vào hệ thống.<br>2. Nhận keyword $\rightarrow$ Trả về khối lượng thảo luận và sắc thái cảm xúc để phân tích tầm ảnh hưởng. | REST API (GET `/social/listening/metrics` & `/social/trending`) |
 | **VNPT SmartBot** | Trợ lý ảo Q&A hỗ trợ tác nghiệp | Truy vấn ngữ cảnh báo cáo xác thực và tài liệu nghiệp vụ để giải đáp cho phóng viên. | WebSocket (Duplex communication) |
 | **VNPT SmartUX** | Tối ưu hóa giao diện & Trải nghiệm | Thu thập hành vi tương tác trên Dashboard để tự động tối ưu hóa cách bố trí thông tin. | SDK client-side (Event tracking pipeline) |
