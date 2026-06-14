@@ -75,14 +75,32 @@ flowchart TD
     *   *Công nghệ*: **Gemini 2.5 Flash** ứng dụng kỹ thuật *Few-shot Prompting* cấu hình đầu ra dạng cấu trúc định sẵn (JSON Schema).
     *   *Dữ liệu*: `Input: Raw Text` $\rightarrow$ `Output: Array of Claim Objects` (mỗi object gồm: `entity`, `keyword`, `claim_statement`, `category`).
 *   **Evidence Retrieval Layer (Tầng truy xuất chứng cứ nguồn chéo)**:
-    *   *Mô tả*: Tìm kiếm và thu thập các tài liệu đối chiếu có liên quan cao nhất từ kho lưu trữ báo chí chính thống (RSS) và cổng thông tin chính phủ.
-    *   *Công nghệ*: Sử dụng mô hình nhúng đa nhiệm **BGE-M3** để tạo vector đại diện (Embedding) cho cả truy vấn (Dense) và từ khóa (Sparse), thực hiện tìm kiếm hỗn hợp (Hybrid Search) trên Vector Database.
-    *   *Dữ liệu*: `Input: Claim String` $\rightarrow$ `Output: List of Top-K Evidence Documents` kèm độ tương đồng (Similarity Score).
+    *   *Mô tả*: Tìm kiếm và thu thập tài liệu đối chiếu liên quan từ cả nguồn tĩnh đã kiểm chứng và luồng tin thời sự trực tuyến. Tầng này hoạt động theo mô hình **Hybrid RAG Routing** để tối ưu hóa hiệu năng và độ chính xác:
+        ```mermaid
+        graph TD
+            Query[Từ khóa/Claim cần xác minh] --> LocalSearch[1. Truy vấn Vector DB Nội bộ]
+            LocalSearch --> CheckThreshold{2. Trùng khớp với Tin giả/Tin đính chính? <br> Cosine Similarity >= 0.75}
+            CheckThreshold -->|Có - Confirmed Match| FastTrack[3a. Lấy trực tiếp kết quả & kết luận]
+            CheckThreshold -->|Không - Cold Start / Tin mới| WebSearch[3b. Gọi API Tìm kiếm trực tuyến <br> Tavily/Google Search]
+            WebSearch --> Scraper[4. Cào bài viết gốc bằng Trafilatura]
+            Scraper --> FormatContext[5. Định dạng Context gửi LLM]
+            FastTrack --> Return[6. Trả về Evidences Context]
+            FormatContext --> Return
+        ```
+    *   *Công nghệ*: 
+        *   **Local DB**: ChromaDB/Qdrant sử dụng mô hình embedding nội địa hóa **keepitreal/vietnamese-sbert** hoặc **BGE-M3** để lưu trữ và so khớp các bài báo/tin giả đã được đính chính từ Trung tâm Tin giả Việt Nam (VAFC).
+        *   **Online DB Fallback**: Tích hợp API tìm kiếm thời gian thực (**Tavily AI Search** hoặc **Serper API**) để lấy kết quả thời sự nóng từ Google.
+        *   **Scraper Engine**: Thư viện **Trafilatura** để bóc tách text sạch từ liên kết thô (loại bỏ thẻ HTML, ads, menu).
+    *   *Dữ liệu*: `Input: Claim String` $\rightarrow$ `Output: List of Top-K Evidence Documents` kèm nội dung bài báo chi tiết đã được làm sạch và nguồn gốc liên kết.
 *   **Trust Engine (Động cơ đánh giá độ tin cậy)**:
-    *   *Mô tả*: Xác định tính chính xác của tuyên bố thông qua việc so khớp với kho chứng cứ.
-    *   *Công nghệ*: **Gemini 2.5 Flash** (Zero-shot reasoning) thực hiện đối chiếu ngữ nghĩa nhằm phát hiện mâu thuẫn (Contradiction Detection). Kết quả được tính toán qua công thức Heuristic trọng số nguồn tin:
+    *   *Mô tả*: Xác định tính chính xác của tuyên bố thông qua việc đối chiếu ngữ nghĩa giữa tuyên bố đầu vào và ngữ cảnh chứng cứ đã trích xuất được.
+    *   *Công nghệ*: **Gemini 2.5 Flash** (Zero-shot reasoning) thực hiện đối chiếu nhằm phát hiện mâu thuẫn hoặc sự tương đồng. Trực quan hóa phán quyết qua ba mức phân loại chính:
+        *   🟢 **Đúng**: Trùng khớp với báo cáo chính thống hoặc tin đính chính.
+        *   🔴 **Sai / Tin giả**: Mâu thuẫn trực tiếp với dẫn chứng hoặc trùng khớp với tin giả đã dán nhãn.
+        *   🟡 **Chưa xác minh**: Thiếu dẫn chứng chính thống đối chiếu hoặc thông tin trái chiều chưa có kết luận.
+    *   *Công thức tính Heuristic*:
         $$\text{Trust Score} = w_{\text{source}} \times \text{Semantic Alignment Score}$$
-        *(Trong đó: Nguồn Chính phủ $w=1.0$; Báo lớn $w=0.8$; Mạng xã hội/Blog $w=0.3$).*
+        *(Trong đó: Nguồn Chính phủ/Cổng TTĐT $w=1.0$; Báo lớn chính thống $w=0.8$; Mạng xã hội/Blog tự do $w=0.3$).*
     *   *Dữ liệu*: `Input: Claim + Evidence List` $\rightarrow$ `Output: Trust Score (0-100)` & Lập luận phân tích (Rationales).
 *   **Impact Engine (Động cơ đo lường tác động dư luận)**:
     *   *Mô tả*: Đo lường mức độ quan tâm và sắc thái phản hồi của công chúng đối với các thực thể hoặc từ khóa liên quan trên không gian mạng.
