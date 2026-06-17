@@ -91,8 +91,10 @@ export default function DashboardPage() {
       // Slide in sidebar
       const sidebar = pageRef.current.querySelector('.newspaper-sidebar')
       if (sidebar) {
+        const isMobile = window.innerWidth < 768
         animate(sidebar, {
-          translateX: [-30, 0],
+          translateY: isMobile ? [-30, 0] : [0, 0],
+          translateX: isMobile ? [0, 0] : [-30, 0],
           opacity: [0, 1],
           duration: 800,
           ease: 'outQuad'
@@ -277,7 +279,7 @@ export default function DashboardPage() {
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
-      className="flex-1 ml-[80px] mt-[72px] h-[calc(100vh-72px)] flex overflow-hidden bg-transparent font-sans relative"
+      className="flex-1 ml-0 md:ml-[80px] mt-[72px] pb-[60px] md:pb-0 h-[calc(100vh-72px)] flex flex-col md:flex-row overflow-hidden bg-transparent font-sans relative"
     >
       {/* Drag & Drop Overlay */}
       {isDragging && (
@@ -291,13 +293,14 @@ export default function DashboardPage() {
       )}
 
       <div 
-        className={`newspaper-sidebar flex flex-col h-full overflow-hidden transition-all duration-300 relative z-30 ${
-          showHistorySidebar ? 'w-[340px] border-r border-[#5c4a43]/15' : 'w-0'
+        className={`newspaper-sidebar flex flex-col transition-all duration-300 relative z-30 ${
+          showHistorySidebar 
+            ? 'w-full h-[250px] md:h-full md:w-[340px] border-b md:border-b-0 md:border-r border-[#5c4a43]/15 shrink-0' 
+            : 'w-0 h-0 md:h-full'
         }`}
       >
         {showHistorySidebar && (
-          <div className="flex-1 flex flex-col h-full min-w-[340px]">
-
+          <div className="flex-1 flex flex-col h-full w-full md:min-w-[340px] overflow-hidden">
             <div className="flex-1 overflow-y-auto custom-scrollbar p-2">
               <VerificationHistory
                 onSelectItem={setSelectedId}
@@ -326,7 +329,7 @@ export default function DashboardPage() {
 
         {/* Dynamic Inner Workspace */}
         <div className={`flex-1 h-full custom-scrollbar relative flex flex-col ${
-          selectedId === null ? 'p-6 pt-16 justify-between items-center overflow-y-auto' : 'p-6 pt-6 overflow-hidden'
+          selectedId === null ? 'p-4 pt-16 md:p-6 md:pt-16 justify-between items-center overflow-y-auto' : 'p-4 pt-4 md:p-6 md:pt-6 overflow-hidden'
         }`}>
           
           {/* 1. Welcome / Initial Landing view */}

@@ -30,7 +30,7 @@ export default function VerificationPage() {
 
   if (loading) {
     return (
-      <main className="ml-[80px] mt-[72px] h-[calc(100vh-72px)] flex items-center justify-center bg-surface-container text-[#1e1613] font-data-mono flex-1">
+      <main className="ml-0 md:ml-[80px] mt-[72px] pb-[60px] md:pb-0 h-[calc(100vh-72px)] flex items-center justify-center bg-surface-container text-[#1e1613] font-data-mono flex-1">
         <div className="flex flex-col items-center gap-4">
           <span className="material-symbols-outlined text-glow-highlight text-[48px] animate-spin">sync</span>
           <span>Đang tải kết quả phân tích hệ thống...</span>
@@ -41,7 +41,7 @@ export default function VerificationPage() {
 
   if (!data) {
     return (
-      <main className="ml-[80px] mt-[72px] h-[calc(100vh-72px)] flex items-center justify-center bg-surface-container text-[#1e1613] font-data-mono flex-1">
+      <main className="ml-0 md:ml-[80px] mt-[72px] pb-[60px] md:pb-0 h-[calc(100vh-72px)] flex items-center justify-center bg-surface-container text-[#1e1613] font-data-mono flex-1">
         <div className="text-center">
           <span className="material-symbols-outlined text-red-500 text-[48px] mb-2">warning</span>
           <p>Không tìm thấy bản ghi xác thực.</p>
@@ -51,9 +51,9 @@ export default function VerificationPage() {
   }
 
   return (
-    <main className="ml-[80px] mt-[72px] h-[calc(100vh-72px)] flex overflow-hidden flex-1 bg-surface-container">
+    <main className="ml-0 md:ml-[80px] mt-[72px] pb-[60px] md:pb-0 h-[calc(100vh-72px)] flex flex-col lg:flex-row overflow-y-auto lg:overflow-hidden flex-1 bg-surface-container">
       <SmartReaderPane data={data} />
-      <AIReportPane data={data} />
+      <AIReportPane data={data} className="w-full lg:w-1/2 h-auto lg:h-full" />
     </main>
   )
 }

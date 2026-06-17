@@ -41,12 +41,12 @@ export default function VnSocialPage() {
   }
 
   return (
-    <main className="flex-1 ml-[80px] mt-[72px] p-gutter-desktop h-[calc(100vh-72px)] overflow-y-auto custom-scrollbar relative z-10 bg-transparent">
+    <main className="flex-1 ml-0 md:ml-[80px] mt-[72px] p-4 md:p-gutter-desktop pb-[80px] md:pb-4 h-[calc(100vh-72px)] overflow-y-auto custom-scrollbar relative z-10 bg-transparent">
       <div className="max-w-7xl mx-auto">
         <div className="mb-8 flex justify-between items-end">
           <div>
-            <h1 className="font-headline-lg text-headline-lg text-primary tracking-tight">Giám sát Mạng xã hội</h1>
-            <p className="text-on-surface-variant font-body-sm opacity-80">Theo dõi bài viết và thái độ của dư luận trên mạng xã hội</p>
+            <h1 className="font-headline-lg text-headline-lg text-primary tracking-tight">Thông tin Trending</h1>
+            <p className="text-on-surface-variant font-body-sm opacity-80">Theo dõi bài viết nổi bật và thái độ của dư luận trên mạng xã hội</p>
           </div>
         </div>
 
