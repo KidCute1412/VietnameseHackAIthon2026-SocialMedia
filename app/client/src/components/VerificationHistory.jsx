@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { animate, stagger } from 'animejs'
 
 export default function VerificationHistory({ onSelectItem, selectedId, refreshTrigger }) {
   const [historyItems, setHistoryItems] = useState([])
@@ -56,6 +57,24 @@ export default function VerificationHistory({ onSelectItem, selectedId, refreshT
       })
   }, [refreshTrigger])
 
+  const listRef = useRef(null)
+
+  useEffect(() => {
+    if (!loading && listRef.current && historyItems.length > 0) {
+      // Set initial state
+      animate(listRef.current.querySelectorAll('.history-item-card'), { opacity: 0, scale: 0.98, duration: 0 })
+      // Stagger animate
+      animate(listRef.current.querySelectorAll('.history-item-card'), {
+        translateX: [-15, 0],
+        opacity: [0, 1],
+        scale: [0.98, 1],
+        delay: stagger(60),
+        duration: 600,
+        ease: 'outQuad'
+      })
+    }
+  }, [loading, historyItems])
+
   const getStatusClasses = (status) => {
     switch (status) {
       case 'verified':
@@ -70,7 +89,7 @@ export default function VerificationHistory({ onSelectItem, selectedId, refreshT
   }
 
   return (
-    <div className="paper-notebook rounded-lg p-6 pl-10 flex flex-col h-full relative">
+    <div className="paper-notebook rounded-lg p-6 pl-10 flex flex-col h-fit relative">
       {/* Spiral notebook binder holes */}
       <div className="notebook-holes" />
 
@@ -86,13 +105,11 @@ export default function VerificationHistory({ onSelectItem, selectedId, refreshT
       </div>
 
       {/* History Items */}
-      <div className="flex flex-col gap-4 relative z-10">
+      <div ref={listRef} className="flex flex-col gap-4 relative z-10">
         {loading ? (
           <div className="text-center py-6 text-[#5c4a43]/50 font-data-mono text-xs">Đang tải lịch sử...</div>
         ) : (
           historyItems.map((item, index) => {
-            // Organic tilt angle
-            const rotateDeg = (index % 3 - 1) * 0.8;
             return (
               <div
                 key={item.id}
@@ -103,8 +120,7 @@ export default function VerificationHistory({ onSelectItem, selectedId, refreshT
                     navigate(`/verification?id=${item.id}`)
                   }
                 }}
-                style={{ transform: `rotate(${rotateDeg}deg)` }}
-                className={`p-4 rounded bg-[#faf8f2] border hover:border-[#3f6771] shadow-[2px_3px_6px_rgba(42,32,21,0.06)] hover:shadow-[4px_6px_12px_rgba(42,32,21,0.1)] transition-all duration-300 group/item cursor-pointer hover:scale-[1.01] ${
+                className={`history-item-card p-4 rounded bg-[#faf8f2] border hover:border-[#3f6771] shadow-[2px_3px_6px_rgba(42,32,21,0.06)] hover:shadow-[4px_6px_12px_rgba(42,32,21,0.1)] transition-all duration-300 group/item cursor-pointer hover:scale-[1.01] ${
                   selectedId === item.id ? 'border-[#3f6771] ring-1 ring-[#3f6771]' : 'border-[#5c4a43]/15'
                 }`}
               >

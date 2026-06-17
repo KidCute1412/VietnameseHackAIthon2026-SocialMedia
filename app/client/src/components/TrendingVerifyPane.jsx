@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import RadialProgress from './RadialProgress'
 import { animate, stagger } from 'animejs'
-import TiltContainer from './TiltContainer'
 
 export default function TrendingVerifyPane({ mention, onClose }) {
   const [verifying, setVerifying] = useState(false)
@@ -10,8 +9,15 @@ export default function TrendingVerifyPane({ mention, onClose }) {
   const [outlineGenerated, setOutlineGenerated] = useState(false)
   const [outlineText, setOutlineText] = useState([])
 
+  // Chatbot states
+  const [activeTab, setActiveTab] = useState('report') // 'report' or 'chat'
+  const [chatMessages, setChatMessages] = useState([])
+  const [chatInput, setChatInput] = useState('')
+  const [chatLoading, setChatLoading] = useState(false)
+
   const outlineRef = useRef(null)
   const sourcesRef = useRef(null)
+  const messagesEndRef = useRef(null)
 
   // Reset states when the selected mention changes
   useEffect(() => {
@@ -20,7 +26,28 @@ export default function TrendingVerifyPane({ mention, onClose }) {
     setOutlineLoading(false)
     setOutlineGenerated(false)
     setOutlineText([])
+    setActiveTab('report')
   }, [mention.username])
+
+  // Initialize chatbot messages when verified is true
+  useEffect(() => {
+    if (verified) {
+      setChatMessages([
+        {
+          id: '1',
+          sender: 'bot',
+          text: `Chào biên tập viên! Tôi là Trợ lý AI kiểm chứng. Tôi đã phân tích xong tin tức của ${mention.username}. Bạn cần tôi hỗ trợ viết bài đính chính hay phân tích sâu thêm khía cạnh nào?`
+        }
+      ])
+    }
+  }, [verified, mention.username])
+
+  // Scroll chat to bottom
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' })
+    }
+  }, [chatMessages])
 
   // Bounce-in animation for outline box
   useEffect(() => {
@@ -179,6 +206,53 @@ export default function TrendingVerifyPane({ mention, onClose }) {
     }, 2000)
   }
 
+  const handleSendMessage = (textToSend) => {
+    const text = textToSend || chatInput
+    if (!text.trim()) return
+
+    const userMsg = {
+      id: Date.now().toString(),
+      sender: 'user',
+      text: text
+    }
+
+    setChatMessages((prev) => [...prev, userMsg])
+    if (!textToSend) setChatInput('')
+    setChatLoading(true)
+
+    // Generate response based on user input and selected mention
+    setTimeout(() => {
+      let replyText = ''
+      const lowerText = text.toLowerCase()
+
+      if (lowerText.includes('facebook') || lowerText.includes('bài đăng') || lowerText.includes('fb')) {
+        if (mention.username === '@crypto_phantom') {
+          replyText = `📌 TIN ĐÍNH CHÍNH CHÍNH THỨC: BÁC BỎ TIN ĐỒN RÒ RỈ ENTROPY HYPE ROOM V3.4\n\n1️⃣ Cảnh báo: Hiện đang lan truyền tin đồn sai sự thật từ tài khoản @crypto_phantom về lỗi entropy lớn.\n2️⃣ Thực tế: Hệ thống giám sát mật mã thời gian thực xác nhận không có bất kỳ sự cố rò rỉ nào.\n3️⃣ Khuyến cáo: Ban kỹ thuật khuyên độc giả không chia sẻ tin đồn kỹ thuật thiếu căn cứ.`
+        } else if (mention.username === '@narrative_weaver') {
+          replyText = `📢 PHẢN HỒI Ý KIẾN TỪ @NARRATIVE_WEAVER VỀ CƠ CHẾ BĂNG THÔNG HYPE ROOM\n\n1️⃣ Ban kỹ thuật khẳng định cơ chế load balancing hoạt động tự động theo Whitepaper.\n2️⃣ Thống kê thực tế chứng minh băng thông phân bổ hoàn toàn công bằng theo đóng góp cổ phần.\n3️⃣ Chúng tôi sẽ tiếp tục tối ưu và hướng dẫn cấu hình chi tiết cho các chủ nút mạng nhỏ.`
+        } else {
+          replyText = `🚧 THÔNG BÁO VỀ LỖI KẾT NỐI TẠI VÙNG 4 (@void_operator)\n\n1️⃣ Xác nhận: Đứt cáp quang biển cục bộ gây suy hao đường truyền.\n2️⃣ Khắc phục: Hệ thống định tuyến dự phòng đã kích hoạt; cụm máy chủ vẫn an toàn.\n3️⃣ Khuyên dùng: Đổi DNS dự phòng sang 8.8.8.8 hoặc 1.1.1.1 để khắc phục nghẽn kết nối.`
+        }
+      } else if (lowerText.includes('thông cáo') || lowerText.includes('báo chí') || lowerText.includes('pháp lý')) {
+        replyText = `TÒA SOẠN HYPE ROOM - THÔNG CÁO BÁO CHÍ PHẢN BÁC TIN ĐỒN\n\nĐối tượng: Tin đồn của tài khoản ${mention.username} trên mạng xã hội.\nNội dung chính:\n- Báo cáo giám định của Hiệp hội An toàn thông tin xác nhận hệ thống vận hành đúng quy chuẩn.\n- Trích xuất dữ liệu lưu lượng chứng minh tin tức của ${mention.username} là sai lệch hoặc không đầy đủ.\n- Yêu cầu các kênh truyền thông chính thống đính chính tin tức.`
+      } else if (lowerText.includes('tiktok') || lowerText.includes('reel') || lowerText.includes('kịch bản')) {
+        replyText = `🎬 KỊCH BẢN REEL/TIKTOK TỐI ƯU HÓA TRUYỀN THÔNG BÁO CHÍ:\n\n[0:00 - 0:05] MC: "Báo động đỏ tin tức giả mạo về ${mention.username}! Sự thật là gì?"\n[0:05 - 0:20] MC: Giải thích dữ liệu đối chứng chính thức và mã nguồn từ cơ quan chức năng.\n[0:20 - 0:35] MC: "Đừng để bị dắt mũi bởi tin đồn vô căn cứ. Nhấn follow để cập nhật tin chính xác!"`
+      } else {
+        replyText = `Cảm ơn bạn đã hỏi. Đối với tin tức của ${mention.username}, tôi khuyên bạn nên tập trung vào việc đối chiếu mã nguồn và báo cáo kiểm toán chính thức. Nếu bạn cần tôi soạn thảo dàn ý phản hồi chi tiết, hãy nhấp vào các nút gợi ý bên dưới hoặc hỏi cụ thể hơn nhé!`
+      }
+
+      setChatMessages((prev) => [
+        ...prev,
+        {
+          id: (Date.now() + 1).toString(),
+          sender: 'bot',
+          text: replyText
+        }
+      ])
+      setChatLoading(false)
+    }, 1000)
+  }
+
   return (
     <div className="paper-sheet p-6 flex flex-col relative h-full rotate-[-0.3deg] shadow-lg border border-[#5c4a43]/20">
       {/* Scotch tape and pin decoration */}
@@ -242,89 +316,183 @@ export default function TrendingVerifyPane({ mention, onClose }) {
         )}
 
         {verified && (
-          <div className="flex flex-col gap-6 overflow-y-auto max-h-[480px] pr-2 custom-scrollbar">
-            {/* Gauges */}
-            <div className="grid grid-cols-2 gap-4">
-              <div className="bg-[#faf8f2] border border-[#5c4a43]/15 p-4 rounded-lg flex flex-col items-center justify-center">
-                <RadialProgress value={currentVerify.trustScore} color="#10B981" />
-                <span className="font-label-caps text-[10px] text-[#5c4a43] font-bold uppercase tracking-wider mt-3">Độ tin cậy</span>
-              </div>
-              <div className="bg-[#faf8f2] border border-[#5c4a43]/15 p-4 rounded-lg flex flex-col items-center justify-center">
-                <RadialProgress value={currentVerify.publicImpact} color="#3f6771" />
-                <span className="font-label-caps text-[10px] text-[#5c4a43] font-bold uppercase tracking-wider mt-3">Mức độ ảnh hưởng</span>
-              </div>
+          <div className="flex flex-col flex-1 overflow-hidden w-full">
+            {/* Tab Switcher */}
+            <div className="flex border-b border-[#5c4a43]/20 mb-4 shrink-0">
+              <button
+                onClick={() => setActiveTab('report')}
+                className={`flex-1 py-2 text-xs font-bold font-headline-md tracking-wider transition-all border-b-2 cursor-pointer ${
+                  activeTab === 'report'
+                    ? 'border-[#3d2f2b] text-[#1e1613] font-black'
+                    : 'border-transparent text-[#5c4a43]/50 hover:text-[#1e1613]'
+                }`}
+              >
+                KẾT QUẢ XÁC MINH
+              </button>
+              <button
+                onClick={() => setActiveTab('chat')}
+                className={`flex-1 py-2 text-xs font-bold font-headline-md tracking-wider transition-all border-b-2 cursor-pointer flex items-center justify-center gap-1.5 ${
+                  activeTab === 'chat'
+                    ? 'border-[#3d2f2b] text-[#1e1613] font-black'
+                    : 'border-transparent text-[#5c4a43]/50 hover:text-[#1e1613]'
+                }`}
+              >
+                <span className="material-symbols-outlined text-[14px]">smart_toy</span>
+                TRỢ LÝ AI TÒA SOẠN
+              </button>
             </div>
 
-            {/* Official Sources */}
-            <div>
-              <h4 className="font-label-caps text-[11px] text-[#1e1613] font-extrabold uppercase mb-3 tracking-widest">Nguồn tin đối chiếu</h4>
-              <div ref={sourcesRef} className="space-y-3">
-                {currentVerify.sources.map((source, idx) => (
-                  <div key={idx} className="source-item bg-[#faf8f2] border border-[#5c4a43]/15 p-3.5 rounded-lg flex flex-col gap-1.5">
-                    <div className="flex justify-between items-start">
-                      <span className="font-bold text-[#1e1613] text-xs leading-snug">{source.name}</span>
-                      <span className="font-data-mono text-[#10B981] text-[10px] bg-[#d1e7dd]/70 border border-[#157347]/20 px-2 py-0.5 rounded font-extrabold uppercase shrink-0">{source.match}</span>
-                    </div>
-                    <p className="text-[11px] text-[#5c4a43]/80 leading-relaxed">{source.description}</p>
-                    <div className="flex items-center gap-1 font-data-mono text-[10px] text-[#4988C4] mt-0.5">
-                      <span className="material-symbols-outlined text-[12px]">link</span>
-                      Mã nguồn: {source.hash}
-                    </div>
+            {activeTab === 'report' ? (
+              <div className="flex-1 flex flex-col gap-6 overflow-y-auto pr-2 custom-scrollbar">
+                {/* Gauges */}
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="bg-[#faf8f2] border border-[#5c4a43]/15 p-4 rounded-lg flex flex-col items-center justify-center">
+                    <RadialProgress value={currentVerify.trustScore} color="#10B981" />
+                    <span className="font-label-caps text-[10px] text-[#5c4a43] font-bold uppercase tracking-wider mt-3">Độ tin cậy</span>
                   </div>
-                ))}
-              </div>
-            </div>
-
-            {/* AI Outline Button & Section */}
-            <div className="border-t border-[#5c4a43]/15 pt-4">
-              {!outlineGenerated && !outlineLoading && (
-                <button
-                  onClick={handleGenerateOutline}
-                  className="w-full py-3 px-6 rounded-lg bg-[#3d2f2b] !text-[#f4efe2] font-label-caps text-[11px] tracking-wider font-extrabold hover:bg-[#1e1613] shadow-[3px_3px_0px_#1e1613] transition-all flex items-center justify-center gap-2 cursor-pointer"
-                >
-                  <i className="material-symbols-outlined text-[16px] !text-[#f4efe2]">auto_awesome</i>
-                  TẠO DÀN Ý PHẢN HỒI TIN TỨC
-                </button>
-              )}
-
-              {outlineLoading && (
-                <div className="w-full p-5 rounded-lg bg-[#faf8f2] border border-dashed border-[#5c4a43]/20 flex flex-col items-center justify-center gap-2">
-                  <span className="material-symbols-outlined animate-spin text-[#3f6771] text-[24px]">sync</span>
-                  <span className="font-data-mono text-[10px] text-[#5c4a43]/70">Đang phác thảo dàn ý văn bản...</span>
+                  <div className="bg-[#faf8f2] border border-[#5c4a43]/15 p-4 rounded-lg flex flex-col items-center justify-center">
+                    <RadialProgress value={currentVerify.publicImpact} color="#3f6771" />
+                    <span className="font-label-caps text-[10px] text-[#5c4a43] font-bold uppercase tracking-wider mt-3">Mức độ ảnh hưởng</span>
+                  </div>
                 </div>
-              )}
 
-              {outlineGenerated && (
-                <div ref={outlineRef} className="relative rotate-[0.5deg] mt-3">
-                  <TiltContainer>
-                    <div className="paper-pin pin-blue pin-top-left" style={{ top: '-10px', left: '15px' }} />
-                    <div className="paper-tape tape-top-right" style={{ top: '-12px', right: '10px', width: '50px' }} />
-
-                    <div className="p-5 rounded bg-[#fbf9e3] border border-[#5c4a43]/20 shadow-md">
-                      <div className="flex justify-between items-center mb-3 border-b border-[#5c4a43]/15 pb-1.5">
-                        <h4 className="font-headline-md text-xs text-[#1e1613] font-extrabold flex items-center gap-1.5">
-                          <span className="material-symbols-outlined text-[#3f6771] text-[16px]">format_list_bulleted</span>
-                          Dàn ý phản hồi gợi ý
-                        </h4>
-                        <button
-                          onClick={(e) => handleCopy(outlineText.join('\n'), e)}
-                          className="text-[#5c4a43]/50 hover:text-[#1e1613] transition-colors cursor-pointer"
-                        >
-                          <span className="material-symbols-outlined text-[16px]">content_copy</span>
-                        </button>
+                {/* Official Sources */}
+                <div>
+                  <h4 className="font-label-caps text-[11px] text-[#1e1613] font-extrabold uppercase mb-3 tracking-widest">Nguồn tin đối chiếu</h4>
+                  <div ref={sourcesRef} className="space-y-3">
+                    {currentVerify.sources.map((source, idx) => (
+                      <div key={idx} className="source-item bg-[#faf8f2] border border-[#5c4a43]/15 p-3.5 rounded-lg flex flex-col gap-1.5">
+                        <div className="flex justify-between items-start">
+                          <span className="font-bold text-[#1e1613] text-xs leading-snug">{source.name}</span>
+                          <span className="font-data-mono text-[#10B981] text-[10px] bg-[#d1e7dd]/70 border border-[#157347]/20 px-2 py-0.5 rounded font-extrabold uppercase shrink-0">{source.match}</span>
+                        </div>
+                        <p className="text-[11px] text-[#5c4a43]/80 leading-relaxed">{source.description}</p>
+                        <div className="flex items-center gap-1 font-data-mono text-[10px] text-[#4988C4] mt-0.5">
+                          <span className="material-symbols-outlined text-[12px]">link</span>
+                          Mã nguồn: {source.hash}
+                        </div>
                       </div>
-                      <div className="font-handwriting text-[11px] text-[#1e1613] leading-relaxed whitespace-pre-wrap space-y-1.5">
-                        {outlineText.map((line, idx) => (
-                          <p key={idx} className={line.startsWith('   ') ? 'pl-3' : 'font-bold mt-1.5'}>
-                            {line}
-                          </p>
-                        ))}
+                    ))}
+                  </div>
+                </div>
+
+                {/* AI Outline Button & Section */}
+                <div className="border-t border-[#5c4a43]/15 pt-4 mb-4">
+                  {!outlineGenerated && !outlineLoading && (
+                    <button
+                      onClick={handleGenerateOutline}
+                      className="w-full py-3 px-6 rounded-lg bg-[#3d2f2b] !text-[#f4efe2] font-label-caps text-[11px] tracking-wider font-extrabold hover:bg-[#1e1613] shadow-[3px_3px_0px_#1e1613] transition-all flex items-center justify-center gap-2 cursor-pointer"
+                    >
+                      <i className="material-symbols-outlined text-[16px] !text-[#f4efe2]">auto_awesome</i>
+                      TẠO DÀN Ý PHẢN HỒI TIN TỨC
+                    </button>
+                  )}
+
+                  {outlineLoading && (
+                    <div className="w-full p-5 rounded-lg bg-[#faf8f2] border border-dashed border-[#5c4a43]/20 flex flex-col items-center justify-center gap-2">
+                      <span className="material-symbols-outlined animate-spin text-[#3f6771] text-[24px]">sync</span>
+                      <span className="font-data-mono text-[10px] text-[#5c4a43]/70">Đang phác thảo dàn ý văn bản...</span>
+                    </div>
+                  )}
+
+                  {outlineGenerated && (
+                    <div ref={outlineRef} className="relative mt-3">
+                      <div className="p-5 rounded bg-[#fbf9e3] border border-[#5c4a43]/20 shadow-md">
+                        <div className="flex justify-between items-center mb-3 border-b border-[#5c4a43]/15 pb-1.5">
+                          <h4 className="font-headline-md text-xs text-[#1e1613] font-extrabold flex items-center gap-1.5">
+                            <span className="material-symbols-outlined text-[#3f6771] text-[16px]">format_list_bulleted</span>
+                            Dàn ý phản hồi gợi ý
+                          </h4>
+                          <button
+                            onClick={(e) => handleCopy(outlineText.join('\n'), e)}
+                            className="text-[#5c4a43]/50 hover:text-[#1e1613] transition-colors cursor-pointer"
+                          >
+                            <span className="material-symbols-outlined text-[16px]">content_copy</span>
+                          </button>
+                        </div>
+                        <div className="font-handwriting text-[18px] text-[#1e1613] leading-relaxed whitespace-pre-wrap space-y-1.5">
+                          {outlineText.map((line, idx) => (
+                            <p key={idx} className={line.startsWith('   ') ? 'pl-3' : 'font-bold mt-1.5'}>
+                              {line}
+                            </p>
+                          ))}
+                        </div>
                       </div>
                     </div>
-                  </TiltContainer>
+                  )}
                 </div>
-              )}
-            </div>
+              </div>
+            ) : (
+              /* Chat Tab Content */
+              <div className="flex-1 flex flex-col overflow-hidden w-full">
+                <div className="flex-1 overflow-y-auto space-y-4 pr-1 pb-3 custom-scrollbar flex flex-col">
+                  {chatMessages.map(msg => (
+                    <div key={msg.id} className={`flex flex-col ${msg.sender === 'user' ? 'items-end' : 'items-start'}`}>
+                      <span className="text-[10px] text-[#5c4a43]/50 font-data-mono mb-1">
+                        {msg.sender === 'user' ? 'Biên tập viên' : 'Trợ lý AI'}
+                      </span>
+                      <div className={`p-3 rounded-lg text-xs leading-relaxed max-w-[85%] ${
+                        msg.sender === 'user'
+                          ? 'bg-[#3d2f2b] !text-[#f4efe2] shadow-sm rounded-br-none'
+                          : 'bg-[#faf8f2] border border-[#5c4a43]/15 text-[#1e1613] shadow-sm rounded-bl-none font-sans'
+                      }`}>
+                        <p className="whitespace-pre-line">{msg.text}</p>
+                      </div>
+                    </div>
+                  ))}
+                  {chatLoading && (
+                    <div className="flex flex-col items-start">
+                      <span className="text-[10px] text-[#5c4a43]/50 font-data-mono mb-1">Trợ lý AI</span>
+                      <div className="bg-[#faf8f2] border border-[#5c4a43]/15 text-[#1e1613] p-3 rounded-lg text-xs shadow-sm flex items-center gap-2">
+                        <span className="material-symbols-outlined animate-spin text-[#3f6771] text-[16px]">sync</span>
+                        <span>Đang phản hồi...</span>
+                      </div>
+                    </div>
+                  )}
+                  <div ref={messagesEndRef} />
+                </div>
+
+                {/* Suggested prompts */}
+                <div className="mt-auto pt-2 border-t border-[#5c4a43]/10 flex flex-wrap gap-1.5 shrink-0 bg-transparent">
+                  <button
+                    onClick={() => handleSendMessage("Soạn bài đăng Facebook đính chính")}
+                    className="py-1 px-2 border border-dashed border-[#3d2f2b]/40 hover:border-solid hover:bg-[#3d2f2b] bg-[#fbfaf4] text-[#3d2f2b] hover:text-white font-data-mono text-[9px] uppercase tracking-wider rounded transition-all duration-150 cursor-pointer shadow-sm active:scale-95 animate-pulse"
+                  >
+                    Facebook Post
+                  </button>
+                  <button
+                    onClick={() => handleSendMessage("Phác thảo thông cáo báo chí")}
+                    className="py-1 px-2 border border-dashed border-[#3d2f2b]/40 hover:border-solid hover:bg-[#3d2f2b] bg-[#fbfaf4] text-[#3d2f2b] hover:text-white font-data-mono text-[9px] uppercase tracking-wider rounded transition-all duration-150 cursor-pointer shadow-sm active:scale-95"
+                  >
+                    Thông cáo báo chí
+                  </button>
+                  <button
+                    onClick={() => handleSendMessage("Đề xuất kịch bản TikTok/Reel")}
+                    className="py-1 px-2 border border-dashed border-[#3d2f2b]/40 hover:border-solid hover:bg-[#3d2f2b] bg-[#fbfaf4] text-[#3d2f2b] hover:text-white font-data-mono text-[9px] uppercase tracking-wider rounded transition-all duration-150 cursor-pointer shadow-sm active:scale-95"
+                  >
+                    TikTok/Reel script
+                  </button>
+                </div>
+
+                {/* Input bar */}
+                <div className="mt-3 p-1.5 bg-[#fdfcf7] border border-[#5c4a43]/15 rounded-md flex gap-2 items-center shrink-0">
+                  <input
+                    type="text"
+                    value={chatInput}
+                    onChange={(e) => setChatInput(e.target.value)}
+                    onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
+                    placeholder="Hỏi trợ lý AI..."
+                    className="flex-1 py-1.5 px-2 border border-[#5c4a43]/20 rounded focus:outline-none focus:border-[#3d2f2b] font-sans text-xs bg-[#faf8f2]/60 text-[#1e1613] placeholder-[#5c4a43]/40"
+                  />
+                  <button
+                    onClick={() => handleSendMessage()}
+                    className="w-8 h-8 rounded bg-[#3d2f2b] hover:bg-[#1e1613] flex items-center justify-center transition-all cursor-pointer border border-[#3d2f2b] shadow-[2px_2px_0px_#1e1613] hover:translate-y-[-1px] active:translate-y-[1px] active:shadow-none"
+                  >
+                    <span className="material-symbols-outlined text-white text-[16px]">send</span>
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         )}
       </div>
