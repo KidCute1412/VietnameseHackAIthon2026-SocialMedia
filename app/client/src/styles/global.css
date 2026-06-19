@@ -145,14 +145,27 @@ html.dark,
 
 body,
 .dark body {
+  position: relative;
+  background-color: transparent !important;
+  color: #1e1613 !important;
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+}
+
+.vintage-bg-overlay {
+  position: fixed !important;
+  top: -20px !important;
+  left: -20px !important;
+  right: -20px !important;
+  bottom: -20px !important;
+  z-index: -1 !important;
   background-color: #d7cdba !important;
   background-image: url('/newspaper_collage_bg.png') !important;
   background-size: cover !important;
   background-repeat: no-repeat !important;
   background-attachment: fixed !important;
-  background-blend-mode: normal !important;
-  color: #1e1613 !important;
-  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  filter: blur(6px) opacity(0.4) !important;
+  transform: scale(1.03) !important;
+  pointer-events: none !important;
 }
 
 /* ── Typography (Vietnamese Support) ──────────────────────── */
@@ -181,6 +194,11 @@ h6,
   font-weight: 800 !important;
   letter-spacing: -0.01em !important;
 }
+
+.font-handwriting {
+  font-family: 'Caveat', cursive !important;
+}
+
 
 .logo-text {
   font-family: 'Manrope', sans-serif !important;
@@ -246,6 +264,11 @@ section,
 .text-white\/50,
 .text-white\/40 {
   color: #1e1613 !important;
+}
+
+.text-true-white,
+.material-symbols-outlined.text-true-white {
+  color: #ffffff !important;
 }
 
 .text-glow-highlight {
@@ -586,9 +609,8 @@ nav a .material-symbols-outlined {
   background-color: #fbf7da !important;
   /* light yellow vintage notepad */
   background-image:
-    linear-gradient(rgba(0, 0, 255, 0.04) 1px, transparent 1px),
     url('https://www.transparenttextures.com/patterns/aged-paper.png') !important;
-  background-size: 100% 28px, auto !important;
+  background-size: auto !important;
   background-blend-mode: multiply !important;
   border-left: 24px solid rgba(230, 220, 190, 0.5) !important;
   /* spiral/ring margin */
@@ -772,4 +794,169 @@ nav a .material-symbols-outlined {
   font-size: 13px !important;
   line-height: 1.6 !important;
   color: #1e1613 !important;
+}
+
+/* ── Contextual Chatbot Styles (Assistant Clipboard Drawer) ─ */
+.chat-drawer {
+  position: fixed;
+  right: 0;
+  top: 72px;
+  height: calc(100vh - 72px);
+  width: 400px;
+  z-index: 9999;
+  background-color: #faf8f2 !important;
+  background-blend-mode: multiply !important;
+  background-image: url('https://www.transparenttextures.com/patterns/aged-paper.png') !important;
+  box-shadow: -8px 0 24px rgba(42, 32, 21, 0.12);
+  border-left: 2px solid rgba(92, 74, 67, 0.2);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-drawer-handle {
+  position: absolute;
+  left: -40px;
+  top: 180px;
+  width: 40px;
+  height: 110px;
+  background-color: #3d2f2b !important;
+  color: #f4efe2 !important;
+  border-radius: 8px 0px 0px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: -4px 2px 8px rgba(0, 0, 0, 0.15);
+  border-left: 1px solid rgba(244, 239, 226, 0.1);
+  border-top: 1px solid rgba(244, 239, 226, 0.1);
+  border-bottom: 1px solid rgba(244, 239, 226, 0.1);
+  user-select: none;
+  transition: background-color 0.2s;
+}
+
+.chat-drawer-handle:hover {
+  background-color: #3f6771 !important;
+}
+
+.chat-drawer-handle-text {
+  writing-mode: vertical-lr;
+  text-orientation: mixed;
+  font-family: 'Inter', sans-serif;
+  font-weight: bold;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+/* Metal Clip styling at the top of drawer */
+.clipboard-clip {
+  width: 70px;
+  height: 16px;
+  background: linear-gradient(to bottom, #a0a0a0, #707070);
+  border-radius: 4px 4px 0 0;
+  border: 1px solid #555555;
+  position: relative;
+  margin: 6px auto -4px auto;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+  z-index: 10;
+}
+
+.clipboard-clip::after {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #555555;
+  top: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.chat-bubble-user {
+  align-self: flex-end;
+  background-color: #fdfaf2 !important;
+  border: 1px solid #d97706 !important;
+  border-radius: 4px !important;
+  color: #78350f !important;
+  box-shadow: 3px 3px 0px rgba(217, 119, 6, 0.12) !important;
+  max-width: 88%;
+  font-family: 'Inter', sans-serif !important;
+}
+
+.chat-bubble-ai {
+  align-self: flex-start;
+  background-color: #ffffff !important;
+  border: 1px solid rgba(61, 47, 43, 0.15) !important;
+  border-left: 4px solid #3f6771 !important;
+  border-radius: 4px !important;
+  color: #1e1613 !important;
+  box-shadow: 3px 3px 0px rgba(63, 103, 113, 0.08) !important;
+  max-width: 88%;
+  font-family: 'Inter', sans-serif !important;
+}
+
+/* ── Newspaper Styling for Gemini-Style Dashboard ── */
+.newspaper-sidebar {
+  background-color: transparent !important;
+  background-image: none !important;
+  border-right: 1px dashed rgba(92, 74, 67, 0.15) !important;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: none !important;
+}
+
+.newspaper-heading {
+  font-family: 'Inter', sans-serif;
+  color: #1e1613 !important;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.newspaper-prompt-box {
+  background-color: #faf8f2 !important;
+  background-blend-mode: multiply !important;
+  background-image: url('https://www.transparenttextures.com/patterns/aged-paper.png') !important;
+  border: 1px solid rgba(92, 74, 67, 0.25);
+  box-shadow: 0 4px 20px rgba(42, 32, 21, 0.08), inset 0 1px 3px rgba(255, 255, 255, 0.6);
+  border-radius: 16px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.newspaper-prompt-box:focus-within {
+  border-color: #3d2f2b;
+  box-shadow: 0 4px 24px rgba(42, 32, 21, 0.12), 0 0 0 2px rgba(61, 47, 43, 0.1);
+}
+
+.newspaper-card {
+  background-color: #faf8f2 !important;
+  background-blend-mode: multiply !important;
+  background-image: url('https://www.transparenttextures.com/patterns/aged-paper.png') !important;
+  border: 1px solid rgba(92, 74, 67, 0.18);
+  box-shadow: 2px 3px 8px rgba(42, 32, 21, 0.05);
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.newspaper-card:hover {
+  border-color: #3f6771;
+  transform: translateY(-2px);
+  box-shadow: 4px 6px 16px rgba(42, 32, 21, 0.08);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }

@@ -8,6 +8,7 @@ export default function Layout() {
 
   return (
     <div className="text-on-surface font-body-md min-h-screen flex overflow-hidden">
+      <div className="vintage-bg-overlay" />
       <TopNavBar showBackButton={showBackButton} />
       <SideNavBar />
       <Outlet />

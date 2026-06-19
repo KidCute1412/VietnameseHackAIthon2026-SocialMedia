@@ -1,6 +1,5 @@
 import { useEffect, useRef } from 'react'
 import { animate, stagger } from 'animejs'
-import TiltContainer from './TiltContainer'
 
 const mentions = [
   {
@@ -80,10 +79,7 @@ export default function CriticalMentionsTable({ onSelectMention, selectedId }) {
                 isSelected ? 'ring-2 ring-[#3f6771] shadow-xl scale-[1.01] z-20' : 'z-10'
               }`}
             >
-              <TiltContainer className="w-full h-full">
-                {/* Scotch tape overlay */}
-                <div className="paper-tape tape-center-top" style={{ top: '-11px', width: '80px' }} />
-
+              <div className="w-full h-full">
                 <div className="flex justify-between items-start mb-4">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded overflow-hidden border border-[#5c4a43]/15 bg-stone-100 shrink-0">
@@ -112,7 +108,7 @@ export default function CriticalMentionsTable({ onSelectMention, selectedId }) {
                     Kiểm chứng ngay &rarr;
                   </span>
                 </div>
-              </TiltContainer>
+              </div>
             </div>
           )
         })}
