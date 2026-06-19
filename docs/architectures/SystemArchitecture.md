@@ -9,7 +9,7 @@ Tài liệu này mô tả chi tiết kiến trúc hệ thống, luồng tuần t
 Hệ thống hoạt động theo mô hình hướng dịch vụ (Service-Oriented) kết hợp xử lý bất đồng bộ đối với các tác vụ số hóa nặng (OCR, STT). Dưới đây là sơ đồ luồng dữ liệu tích hợp từ khi tiếp nhận dữ liệu đầu vào đến khi chuyển giao sản phẩm báo chí hoàn thiện và tiếp nhận phản hồi từ người dùng (Human-in-the-Loop).
 
 ```mermaid
-%%{init: {"flowchart": {"htmlLabels": true, "useMaxWidth": false}, "themeVariables": {"fontSize": "10px", "fontFamily": "Inter"}} }%%
+%%{init: {"flowchart": {"htmlLabels": true, "useMaxWidth": false}, "themeVariables": {"fontSize": "15px", "fontFamily": "Inter"}} }%%
 flowchart TD
     %% Style definitions
     classDef actor fill:#e8f7ff,stroke:#1971c2,stroke-width:2px,color:#0f4c81;
@@ -116,7 +116,7 @@ Hệ thống HypeRoom vận hành song song hai luồng dữ liệu chính phụ
 
 ## 2. Các thành phần xử lý dữ liệu cốt lõi (Core Engines)
 
-### 2.1 Cổng tiếp nhận & Số hóa đầu vào (Gateway & Input Digitization)
+### 2.1 Cổng tiếp nhận & Số hóa đầu vào (Ingestion Layer)
 *   **API Gateway (FastAPI)**:
     *   *Mô tả*: Điểm tiếp nhận duy nhất cho tất cả các yêu cầu từ Client. Thực hiện xác thực (JWT), phân luồng tải và quản lý trạng thái tác vụ.
     *   *Giao thức*: REST API (HTTPS) cho các tác vụ đồng bộ ngắn và WebSocket/Webhook cho các tác vụ xử lý file dung lượng lớn.
@@ -133,7 +133,7 @@ Hệ thống HypeRoom vận hành song song hai luồng dữ liệu chính phụ
     *   *Giao thức*: Bất đồng bộ thông qua kiến trúc hàng đợi.
     *   *Dữ liệu*: `Input: Audio File (WAV, MP3)` $\rightarrow$ `Output: Plain Text (String)`.
 
-### 2.2 Động cơ xử lý & Đánh giá nội dung (Processing & Evaluation Engines)
+### 2.2 Động cơ Phân tích & Kiểm chứng cốt lõi (Processing & Verification Core)
 *   **Entity & Claim Extraction (Bộ trích xuất tuyên bố & thực thể)**:
     *   *Mô tả*: Phân tích cú pháp văn bản đã số hóa để tách lọc ra thực thể chính (người, địa điểm, tổ chức) và các tuyên bố mang tính khẳng định cần được kiểm chứng (claims).
     *   *Công nghệ*: **VNPT Smartbot nâng cao** (Hỏi đáp dùng LLM) ứng dụng kỹ thuật *Few-shot Prompting* cấu hình đầu ra dạng cấu trúc định sẵn (JSON Schema).
@@ -201,10 +201,19 @@ Hệ thống HypeRoom vận hành song song hai luồng dữ liệu chính phụ
     *   *Mô tả*: Đánh giá mức độ nhạy cảm chính trị, rủi ro pháp lý theo Luật Báo chí Việt Nam và nguy cơ xảy ra khủng hoảng truyền thông.
     *   *Công nghệ*: Kết hợp kết quả từ `Trust Score` (độ sai lệch thông tin) và `Impact Score` (mức độ viral) đi qua hệ luật Prompt của **VNPT Smartbot nâng cao** đối chiếu với cẩm nang chính sách xuất bản đã được định hình trước.
     *   *Dữ liệu*: `Input: Claim + Trust Score + Impact Score` $\rightarrow$ `Output: Risk Level (High / Medium / Low)` & Báo cáo rủi ro chi tiết dưới định dạng Markdown.
+### 2.3 Biên tập & Phân phối đầu ra (Delivery & Interaction Layer)
 *   **Editorial Engine (Động cơ hỗ trợ biên tập)**:
     *   *Mô tả*: Tạo ra các góc tiếp cận báo chí an toàn (Story Angles) và xây dựng dàn ý bài viết (Article Outline) tối ưu từ nguồn thông tin đã xác thực.
     *   *Công nghệ*: **VNPT Smartbot nâng cao** kết hợp phương pháp RAG (Retrieval-Augmented Generation) để tổng hợp thông tin chuẩn xác, hạn chế tối đa hiện tượng "ảo giác" (hallucination).
     *   *Dữ liệu*: `Input: Verified Claims + Risk Report + Target Editorial Direction` $\rightarrow$ `Output: List of Story Angles` & Dàn ý cấu trúc bài viết (Article Outline).
+*   **Dashboard UI (Giao diện SmartUX)**:
+    *   *Mô tả*: Không gian làm việc số của Biên tập viên để giám sát mạng xã hội thời gian thực, xem kết quả kiểm định tin đồn (Trust/Risk Score) và duyệt/chỉnh sửa các dàn ý bài viết.
+    *   *Công nghệ*: Tích hợp SDK **VNPT SmartUX** để thu thập, phân tích hành vi tương tác và tối ưu hóa luồng trải nghiệm người dùng.
+    *   *Dữ liệu*: `Input: API Reports` $\rightarrow$ `Output: Interactive UI / Export PDF Reports / User Feedbacks`.
+*   **Trợ lý Tác nghiệp (SmartBot)**:
+    *   *Mô tả*: Trợ lý ảo hỏi đáp (Q&A) hỗ trợ phóng viên tương tác trực tiếp bằng ngôn ngữ tự nhiên để truy vấn ngữ cảnh kiểm chứng, điều chỉnh và hoàn thiện đề cương.
+    *   *Giao thức*: WebSockets cho phép trao đổi phản hồi hai chiều thời gian thực (duplex communication) dựa trên **VNPT Smartbot** (LLM nâng cao).
+    *   *Dữ liệu*: `Input: User Prompt & Search Context` $\rightarrow$ `Output: Natural Language Answers & Custom Outlines`.
 
 ---
 
