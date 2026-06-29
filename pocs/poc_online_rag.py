@@ -1,10 +1,11 @@
 import os
 import sys
-try:
-    from ddgs import DDGS
-except ImportError:
-    from duckduckgo_search import DDGS
+import requests
 import trafilatura
+from dotenv import load_dotenv
+
+# Tải các biến môi trường từ tệp .env
+load_dotenv()
 
 # Danh sách các trang báo chính thống tại Việt Nam để lọc kết quả đáng tin cậy
 TRUSTED_DOMAINS = [
@@ -32,106 +33,59 @@ def extract_article_content(url: str) -> str:
         print(f"     Lỗi trích xuất: {e}")
     return "Không thể trích xuất nội dung bài viết."
 
-def is_likely_article(url: str) -> bool:
-    """
-    Kiểm tra xem URL có khả năng là bài báo cụ thể hay chỉ là trang danh mục/mục lục/trang chủ.
-    """
-    from urllib.parse import urlparse
-    parsed = urlparse(url)
-    path = parsed.path.strip("/")
-    
-    # 1. Bỏ qua trang chủ
-    if not path:
-        return False
-        
-    # 2. Bỏ qua các URL chứa từ khóa mục lục phổ biến
-    ignore_keywords = ["/category/", "/chuyen-muc/", "/tags/", "/search/", "/lien-he/", "sitemap", "index.html", "index.htm"]
-    for kw in ignore_keywords:
-        if kw in url.lower():
-            return False
-            
-    # 3. Phân tích cấu trúc dẫn đường (path)
-    parts = path.split("/")
-    
-    # Nếu chỉ có 1 cấp thư mục và không phải file bài viết (.html/.htm) hoặc slug quá ngắn, khả năng cao là trang danh mục
-    if len(parts) == 1:
-        filename = parts[0]
-        is_article_file = filename.endswith(".html") or filename.endswith(".htm") or filename.endswith(".shtml")
-        if not is_article_file and len(filename) < 25:
-            return False
-            
-    return True
-
 def search_trusted_sources(query: str, max_results: int = 3):
     """
-    Tìm kiếm trên DuckDuckGo và lọc ra các kết quả thuộc trang web chính thống.
-    Nếu tìm kiếm cả câu không ra kết quả, tự động đơn giản hóa câu truy vấn thành các từ khóa chính.
+    Tìm kiếm sử dụng Tavily API và lọc ra các kết quả thuộc trang web chính thống Việt Nam.
+    Nếu không cấu hình TAVILY_API_KEY trong env, sẽ trả về kết quả giả lập (Mock).
     """
-    print(f"\n[1/2] Đang tìm kiếm liên kết đáng tin cậy cho: '{query}'...")
+    tavily_api_key = os.getenv("TAVILY_API_KEY", "MOCK_TAVILY_API_KEY")
     
-    evidences = []
+    print(f"\n[1/2] Đang tìm kiếm liên kết đáng tin cậy bằng Tavily cho: '{query}'...")
     
-    # Danh sách các câu truy vấn để thử (từ cụ thể đến khái quát)
-    queries_to_try = [query]
+    if tavily_api_key == "MOCK_TAVILY_API_KEY":
+        print("  [!] Chưa tìm thấy TAVILY_API_KEY trong môi trường. Sử dụng dữ liệu giả lập (Mock)...")
+        return [
+            {
+                "title": "Bộ Công an ban hành mẫu thẻ Căn cước mới áp dụng từ tháng 7",
+                "link": "https://chinhphu.vn/bo-cong-an-mau-the-can-cuoc-moi-tu-thang-7",
+                "snippet": "Từ tháng 7 năm nay, Bộ Công an chính thức áp dụng mẫu thẻ căn cước mới có gắn chip tích hợp mã QR..."
+            },
+            {
+                "title": "Điểm mới trên mẫu thẻ Căn cước áp dụng từ năm 2026",
+                "link": "https://vtv.vn/xa-hoi/mau-the-can-cuoc-moi-2026",
+                "snippet": "Mẫu thẻ căn cước mới kế thừa các ưu điểm của thẻ căn cước công dân gắn chip cũ nhưng bổ sung thông tin sinh trắc học..."
+            }
+        ]
+        
+    url = "https://api.tavily.com/search"
+    payload = {
+        "api_key": tavily_api_key,
+        "query": query,
+        "search_depth": "basic",
+        "max_results": max_results,
+        # Sử dụng tính năng lọc tên miền chính thống trực tiếp từ API của Tavily
+        "include_domains": TRUSTED_DOMAINS
+    }
     
-    # Tự động tạo câu truy vấn từ khóa ngắn hơn (ví dụ: lấy 8 từ đầu tiên nếu quá dài)
-    words = query.split()
-    if len(words) > 8:
-        short_query = " ".join(words[:8])
-        queries_to_try.append(short_query)
-        # Thêm phương án từ khóa cốt lõi
-        core_keywords = " ".join([w for w in words if w[0].isupper() or w.lower() in ["căn cước", "chip", "áp dụng", "tháng 7"]])
-        if core_keywords and core_keywords != query:
-            queries_to_try.append(core_keywords)
-
-    for q in queries_to_try:
-        if not q.strip():
-            continue
-        print(f"  -> Thử tìm kiếm với từ khóa: '{q}'...")
-        try:
-            with DDGS() as ddgs:
-                results = list(ddgs.text(q, max_results=20))
-                if results:
-                    for r in results:
-                        href = r.get("href", "")
-                        
-                        # Chỉ lấy link thuộc domain tin cậy VÀ là bài viết cụ thể (không lấy trang mục lục)
-                        is_trusted = any(domain in href for domain in TRUSTED_DOMAINS)
-                        if is_trusted and is_likely_article(href):
-                            evidences.append({
-                                "title": r.get("title"),
-                                "link": href,
-                                "snippet": r.get("body")
-                            })
-                            print(f"    * Tìm thấy bài viết chi tiết (Whitelist): {r.get('title')} ({href})")
-                            if len(evidences) >= max_results:
-                                return evidences
-                                
-                    # Nếu đã duyệt hết các phương án tìm kiếm mà vẫn không đủ số whitelist mong muốn
-                    if evidences:
-                        return evidences
-        except Exception as e:
-            print(f"  Lỗi khi tìm kiếm với '{q}': {e}")
-            
-    # Fallback cuối cùng nếu không tìm được bài viết chính thống nào
-    if not evidences:
-        print("    [!] Không tìm thấy bài viết chính thống nào, lấy các nguồn hàng đầu:")
-        try:
-            with DDGS() as ddgs:
-                results = list(ddgs.text(query, max_results=5))
-                for r in results[:max_results]:
-                    evidences.append({
-                        "title": r.get("title"),
-                        "link": r.get("href"),
-                        "snippet": r.get("body")
-                    })
-                    print(f"    * Tự động lấy: {r.get('title')} ({r.get('href')})")
-        except Exception as e:
-            print(f"  Lỗi fallback: {e}")
-            
-    return evidences
-
-
+    try:
+        response = requests.post(url, json=payload, timeout=10)
+        if response.status_code == 200:
+            results = response.json().get("results", [])
+            evidences = []
+            for r in results:
+                evidences.append({
+                    "title": r.get("title"),
+                    "link": r.get("url"),
+                    "snippet": r.get("content")
+                })
+                print(f"    * Tavily tìm thấy: {r.get('title')} ({r.get('url')})")
+            return evidences
+        else:
+            print(f"  [!] Tavily API lỗi: {response.status_code} - {response.text}")
+    except Exception as e:
+        print(f"  [!] Kết nối đến Tavily thất bại: {e}")
+        
+    return []
 
 def save_extraction_report(news_text: str, evidences: list):
     """
@@ -179,11 +133,11 @@ def save_extraction_report(news_text: str, evidences: list):
         print(f"Lỗi khi ghi báo cáo: {e}")
 
 if __name__ == "__main__":
-    # Đăng ký thư viện cần thiết trước khi chạy: `pip install ddgs trafilatura`
+    # Yêu cầu cài đặt thư viện cần thiết trước khi chạy: `pip install requests trafilatura`
     
     sample_news = "Bộ Công an vừa ban hành mẫu thẻ Căn cước mới có gắn chip và mã QR bắt đầu áp dụng từ tháng 7 năm nay"
     
-    # 1. Tìm kiếm nguồn tin chính thống trực tuyến
+    # 1. Tìm kiếm nguồn tin chính thống trực tuyến qua Tavily API
     found_evidences = search_trusted_sources(sample_news, max_results=2)
     
     # 2. Trích xuất nội dung chi tiết bài viết và lưu báo cáo

@@ -9,50 +9,114 @@ Tài liệu này mô tả chi tiết kiến trúc hệ thống, luồng tuần t
 Hệ thống hoạt động theo mô hình hướng dịch vụ (Service-Oriented) kết hợp xử lý bất đồng bộ đối với các tác vụ số hóa nặng (OCR, STT). Dưới đây là sơ đồ luồng dữ liệu tích hợp từ khi tiếp nhận dữ liệu đầu vào đến khi chuyển giao sản phẩm báo chí hoàn thiện và tiếp nhận phản hồi từ người dùng (Human-in-the-Loop).
 
 ```mermaid
+%%{init: {"flowchart": {"htmlLabels": true, "useMaxWidth": false}, "themeVariables": {"fontSize": "15px", "fontFamily": "Inter"}} }%%
 flowchart TD
-    %% Input Sources
-    User["Biên tập viên / Người dùng"] -->|1a. Upload PDF, Ảnh, Audio hoặc nhập Text| Gateway["API Gateway (FastAPI)"]
-    vnSocial["VNPT vnSocial API"] -->|1b. Auto-pull Trending và Comments via Cronjob| Gateway
-    
-    %% Input Digitization (Asynchronous)
-    Gateway -->|2a. PDF or Image| SmartReader["VNPT SmartReader OCR"]
-    Gateway -->|2b. Audio WAV or MP3| SmartVoice["VNPT SmartVoice STT"]
-    Gateway -->|2c. Raw Text or Input| Claims["Engine: Entity / Claim Extraction"]
-    
-    SmartReader -->|3a. Structured JSON| Claims
-    SmartVoice -->|3b. Transcribed Text| Claims
-    
-    %% Processing & Evaluation
-    Claims -->|4. Claim Objects| Retrieval["Engine: Cross-Source Evidence Retrieval"]
-    
-    %% DB & Knowledge Sources
-    Retrieval -->|5a. Semantic Query| VectorDB[("Vector DB Qdrant/Milvus - RSS / Govt Portals")]
-    Retrieval -->|5b. Social Query| vnSocial
-    
-    VectorDB -->|6a. Context Evidences| Trust["Trust Engine"]
-    vnSocial -->|6b. Interaction Data - Metrics and Sentiment| Impact["Impact Engine"]
-    
-    Trust -->|7a. Trust Score / Rationales| Risk["Risk Engine"]
-    Impact -->|7b. Impact Score / Sentiment| Risk
-    
-    %% Output Generation & Interactive Feedback Loop
-    Risk -->|8. Risk Level / Audit Report| Editorial["Editorial Engine"]
-    Editorial -->|9. Suggestion Packages| Output["Output Delivery Layer"]
-    
-    Output -->|10a. Analytics Dashboard| Dashboard["Dashboard UI (SmartUX)"]
-    Output -->|10b. Copilot Assistant| SmartBot["VNPT SmartBot"]
-    Output -->|10c. System Audit Log| DB[("RDBMS PostgreSQL - Audit Trails / Feedbacks")]
-    
-    %% Human-in-the-loop Feedback
-    Dashboard -->|11. Feedback / Adjustments| Gateway
-    SmartBot -->|11. Chat History / Prompts| Gateway
+    %% Style definitions
+    classDef actor fill:#e8f7ff,stroke:#1971c2,stroke-width:2px,color:#0f4c81;
+    classDef ingestion fill:#ffffff,stroke:#7048e8,stroke-width:2px,color:#2b1d52;
+    classDef core fill:#ffffff,stroke:#2b8a3e,stroke-width:2px,color:#14401f;
+    classDef delivery fill:#ffffff,stroke:#e67700,stroke-width:2px,color:#5c3000;
+    classDef db fill:#f8f9fa,stroke:#495057,stroke-width:2px,color:#212529;
+    classDef extAPI fill:#fff5f5,stroke:#e03131,stroke-width:2px,color:#660e0e;
+
+    %% Subgraph 1: Ingestion Layer
+    subgraph Ingestion ["1. Tiếp Nhận & Số Hóa"]
+        User["Biên tập viên / Người dùng"]:::actor
+        vnSocialAPI["VNPT vnSocial API<br><i>(Trending & Comments)</i>"]:::ingestion
+        Cronjob["vnSocial Ingestion Worker<br><i>(Cronjob)</i>"]:::ingestion
+        Gateway["API Gateway<br><i>(FastAPI)</i>"]:::ingestion
+        OCR["VNPT SmartReader<br><i>(OCR)</i>"]:::ingestion
+        STT["VNPT SmartVoice<br><i>(STT)</i>"]:::ingestion
+        
+        User -->|Luồng 2: Upload / Nhập Text| Gateway
+        vnSocialAPI -->|Quét Tin nóng| Cronjob
+        Cronjob -->|Luồng 1: Đẩy Trending Feeds| Gateway
+        Gateway -->|Luồng 2: Gửi Tài liệu / Ảnh| OCR
+        Gateway -->|Luồng 2: Gửi Ghi âm / Audio| STT
+    end
+
+    %% Subgraph 2: Processing & Verification Core
+    subgraph Core ["2. Phân Tích & Kiểm Chứng (SmartBot LLM)"]
+        Claims["Trích xuất Claims<br>& Thực thể"]:::core
+        Retrieval["Truy xuất Chứng cứ<br><i>(Hybrid RAG Routing)</i>"]:::core
+        
+        %% Side-by-side Engines
+        Trust["Trust Engine<br><i>(Độ tin cậy)</i>"]:::core
+        Impact["Impact Engine<br><i>(Tác động dư luận)</i>"]:::core
+        
+        Risk["Risk Engine<br><i>(Rủi ro Xuất bản)</i>"]:::core
+        
+        Claims --> Retrieval
+        Retrieval --> Trust
+        Retrieval --> Impact
+        Trust --> Risk
+        Impact --> Risk
+    end
+
+    %% Subgraph 3: Delivery & Interaction
+    subgraph Delivery ["3. Biên Tập & Phân Phối"]
+        Editorial["Editorial Engine<br><i>(Tạo Outline/Góc viết)</i>"]:::delivery
+        Dashboard["Dashboard UI<br><i>(SmartUX)</i>"]:::delivery
+        SmartBot["Trợ lý Tác nghiệp<br><i>(SmartBot)</i>"]:::delivery
+        
+        Editorial --> Dashboard
+        Editorial --> SmartBot
+    end
+
+    %% Inter-subgraph flow
+    Gateway -->|Văn bản thô| Claims
+    OCR -->|Văn bản số hóa| Claims
+    STT -->|Văn bản chuyển thoại| Claims
+    Risk --> Editorial
+
+    %% External Storage / Integration
+    VectorDB[("Vector Database<br><i>(Tri thức/Nghị định)</i>")]:::db
+    PostgreSQL[("PostgreSQL<br><i>(Audit Log & Feedbacks)</i>")]:::db
+    TavilyAPI[["Tavily Search API<br><i>(Tìm kiếm trực tuyến)</i>"]]:::extAPI
+
+    %% Connect databases close to their usage nodes
+    Gateway <--> PostgreSQL
+    Retrieval <-->|1. Tra cứu nội bộ| VectorDB
+    Retrieval <-->|2. Fallback trực tuyến| TavilyAPI
+
+    %% Feedback loops (curved dashed lines)
+    Dashboard & SmartBot -.->|Phản hồi / Hiệu chỉnh<br>Human-in-the-Loop| Gateway
+    Impact -.->|Truy vấn chỉ số dư luận| vnSocialAPI
+
+    %% Subgraph Styling
+    style Ingestion fill:#f3f0ff,stroke:#d0bfff,stroke-width:2px
+    style Core fill:#ebfbee,stroke:#b2f2bb,stroke-width:2px
+    style Delivery fill:#fff4e6,stroke:#ffd8a8,stroke-width:2px
 ```
+
+### 1.1 Chi tiết Luồng xử lý Nghiệp vụ (Workflows)
+
+Hệ thống HypeRoom vận hành song song hai luồng dữ liệu chính phục vụ các tình huống tác nghiệp khác nhau của tòa soạn:
+
+#### 🌊 Luồng 1: HOT NEWS / TREND-TO-OUTLINE (Chủ động phát hiện & Kiểm chứng tin nóng)
+*   **Mục đích:** Tự động phát hiện và kiểm chứng các tin đồn, bài viết nhạy cảm có nguy cơ lan truyền tin giả trên không gian mạng trước khi bùng phát thành khủng hoảng.
+*   **Luồng đi của dữ liệu:**
+    1. **Thu thập dữ liệu tự động:** Định kỳ (30-60 phút), hệ thống chạy một Cronjob gọi đến **VNPT vnSocial API** (`GET /social/trending`) để lấy các từ khóa, bài đăng có lượng tương tác đột biến hoặc điểm tranh cãi cao (Controversy Score > 0.7).
+    2. **Đẩy vào API Gateway:** Các bài đăng này được đưa vào hàng đợi xử lý của API Gateway dưới dạng văn bản thô.
+    3. **Trích xuất thực thể & Claims:** **SmartBot LLM** trích xuất các claims khẳng định từ nội dung bài đăng.
+    4. **Kiểm chứng nguồn chéo (Hybrid RAG):** Claims được gửi tới **Evidence Retrieval Layer** để tra cứu văn bản pháp lý nội bộ trong **Vector DB** hoặc tìm kiếm trực tuyến trên các trang báo chính thống thông qua **Tavily Search API**.
+    5. **Đánh giá định lượng:** **Trust Engine** tính toán độ tin cậy của tin đồn; **Impact Engine** đo lường quy mô ảnh hưởng; **Risk Engine** đánh giá rủi ro xuất bản theo Luật Báo chí & An ninh mạng Việt Nam.
+    6. **Tạo đề cương gợi ý:** **Editorial Engine** sinh Outline định hướng đính chính dư luận.
+    7. **Duyệt & Biên tập (Human-in-the-Loop):** Đề cương và kết quả xác minh hiển thị tại trang Giám sát mạng xã hội (VnSocial Dashboard) để Biên tập viên kiểm tra và sử dụng viết bài.
+
+#### 📝 Luồng 2: USER INPUT-TO-OUTLINE (Biên tập viên chủ động xác minh)
+*   **Mục đích:** Hỗ trợ Biên tập viên số hóa và kiểm chứng tính chính xác của các tài liệu, công văn hoặc văn bản thô tự nhập.
+*   **Luồng đi của dữ liệu:**
+    1. **Nhập dữ liệu thủ công:** Biên tập viên tải tệp (PDF, hình ảnh công văn, file ghi âm phỏng vấn) hoặc nhập trực tiếp văn bản thô qua UI Dashboard.
+    2. **Số hóa tài liệu:** API Gateway gửi file đến **VNPT SmartReader** để chạy OCR trích xuất văn bản hoặc **VNPT SmartVoice** để chạy STT chuyển file âm thanh thành text.
+    3. **Trích xuất Claims & Đối chiếu:** Hệ thống chạy Pipeline tương tự Luồng 1 (Trích xuất Claims $\rightarrow$ Hybrid RAG $\rightarrow$ Trust & Risk Score Evaluation).
+    4. **Tạo đề cương tác nghiệp:** Sinh ra các góc biên tập (Story Angles) và Đề cương bài viết an toàn ngay trên giao diện phân tích tài liệu để BTV kết xuất ra bài viết/video.
 
 ---
 
 ## 2. Các thành phần xử lý dữ liệu cốt lõi (Core Engines)
 
-### 2.1 Cổng tiếp nhận & Số hóa đầu vào (Gateway & Input Digitization)
+### 2.1 Cổng tiếp nhận & Số hóa đầu vào (Ingestion Layer)
 *   **API Gateway (FastAPI)**:
     *   *Mô tả*: Điểm tiếp nhận duy nhất cho tất cả các yêu cầu từ Client. Thực hiện xác thực (JWT), phân luồng tải và quản lý trạng thái tác vụ.
     *   *Giao thức*: REST API (HTTPS) cho các tác vụ đồng bộ ngắn và WebSocket/Webhook cho các tác vụ xử lý file dung lượng lớn.
@@ -69,32 +133,59 @@ flowchart TD
     *   *Giao thức*: Bất đồng bộ thông qua kiến trúc hàng đợi.
     *   *Dữ liệu*: `Input: Audio File (WAV, MP3)` $\rightarrow$ `Output: Plain Text (String)`.
 
-### 2.2 Động cơ xử lý & Đánh giá nội dung (Processing & Evaluation Engines)
+### 2.2 Động cơ Phân tích & Kiểm chứng cốt lõi (Processing & Verification Core)
 *   **Entity & Claim Extraction (Bộ trích xuất tuyên bố & thực thể)**:
     *   *Mô tả*: Phân tích cú pháp văn bản đã số hóa để tách lọc ra thực thể chính (người, địa điểm, tổ chức) và các tuyên bố mang tính khẳng định cần được kiểm chứng (claims).
-    *   *Công nghệ*: **Gemini 2.5 Flash** ứng dụng kỹ thuật *Few-shot Prompting* cấu hình đầu ra dạng cấu trúc định sẵn (JSON Schema).
+    *   *Công nghệ*: **VNPT Smartbot nâng cao** (Hỏi đáp dùng LLM) ứng dụng kỹ thuật *Few-shot Prompting* cấu hình đầu ra dạng cấu trúc định sẵn (JSON Schema).
     *   *Dữ liệu*: `Input: Raw Text` $\rightarrow$ `Output: Array of Claim Objects` (mỗi object gồm: `entity`, `keyword`, `claim_statement`, `category`).
 *   **Evidence Retrieval Layer (Tầng truy xuất chứng cứ nguồn chéo)**:
-    *   *Mô tả*: Tìm kiếm và thu thập tài liệu đối chiếu liên quan từ cả nguồn tĩnh đã kiểm chứng và luồng tin thời sự trực tuyến. Tầng này hoạt động theo mô hình **Hybrid RAG Routing** để tối ưu hóa hiệu năng và độ chính xác:
+    *   *Mô tả*: Hoạt động theo cơ chế **Hybrid RAG Routing** phân cấp nhằm tối ưu hóa hiệu năng, độ trễ và chi phí:
+        1. **Ưu tiên 1 (Local Search):** Truy vấn trước tiên trong Vector DB nội bộ để tìm các văn bản pháp luật hoặc tin đính chính chính thống có sẵn.
+        2. **Ưu tiên 2 (Tavily Fallback):** Chỉ khi Vector DB nội bộ không tìm thấy kết quả phù hợp (độ tương đồng dưới ngưỡng 0.75), hệ thống mới kích hoạt gọi API của Tavily để tìm kiếm trực tuyến trên Internet.
+        
         ```mermaid
-        graph TD
-            Query[Từ khóa/Claim cần xác minh] --> LocalSearch[1. Truy vấn Vector DB Nội bộ]
-            LocalSearch --> CheckThreshold{2. Trùng khớp với Tin giả/Tin đính chính? <br> Cosine Similarity >= 0.75}
-            CheckThreshold -->|Có - Confirmed Match| FastTrack[3a. Lấy trực tiếp kết quả & kết luận]
-            CheckThreshold -->|Không - Cold Start / Tin mới| WebSearch[3b. Gọi API Tìm kiếm trực tuyến <br> Tavily/Google Search]
-            WebSearch --> Scraper[4. Cào bài viết gốc bằng Trafilatura]
-            Scraper --> FormatContext[5. Định dạng Context gửi LLM]
-            FastTrack --> Return[6. Trả về Evidences Context]
+        %%{init: {"flowchart": {"htmlLabels": true, "useMaxWidth": false}, "themeVariables": {"fontSize": "12px", "fontFamily": "Inter"}} }%%
+        flowchart TD
+            %% Style definitions
+            classDef startEnd fill:#e8f7ff,stroke:#1971c2,stroke-width:2px,color:#0f4c81;
+            classDef process fill:#ffffff,stroke:#495057,stroke-width:2px,color:#212529;
+            classDef decision fill:#fff9db,stroke:#f59f00,stroke-width:2px,color:#5c3e00;
+            classDef hit fill:#ebfbee,stroke:#2b8a3e,stroke-width:2px,color:#14401f;
+            classDef miss fill:#fff5f5,stroke:#e03131,stroke-width:2px,color:#660e0e;
+
+            Query["Từ khóa / Claim<br>cần xác minh"]:::startEnd
+            LocalSearch["1. Truy vấn<br>Vector DB Nội bộ"]:::process
+            CheckThreshold{"2. Trùng khớp dữ liệu?<br><i>Cosine Similarity >= 0.75</i>"}:::decision
+            
+            FastTrack["3a. Lấy trực tiếp kết quả<br>từ DB nội bộ<br><i>(Fast-track Hit)</i>"]:::hit
+            WebSearch["3b. Gọi API Tavily Search<br>trực tuyến<br><i>(Search Fallback Miss)</i>"]:::miss
+            
+            Scraper["4. Cào bài viết gốc<br>bằng Trafilatura"]:::process
+            FormatContext["5. Định dạng Context<br>gửi SmartBot LLM"]:::process
+            Return["6. Trả về<br>Evidences Context"]:::startEnd
+
+            %% Flow connections
+            Query --> LocalSearch
+            LocalSearch --> CheckThreshold
+            
+            CheckThreshold -->|Có - Hit| FastTrack
+            CheckThreshold -->|Không - Miss| WebSearch
+            
+            WebSearch --> Scraper
+            Scraper --> FormatContext
+            
+            FastTrack --> Return
             FormatContext --> Return
         ```
     *   *Công nghệ*: 
-        *   **Local DB**: ChromaDB/Qdrant sử dụng mô hình embedding nội địa hóa **keepitreal/vietnamese-sbert** hoặc **BGE-M3** để lưu trữ và so khớp các bài báo/tin giả đã được đính chính từ Trung tâm Tin giả Việt Nam (VAFC).
-        *   **Online DB Fallback**: Tích hợp API tìm kiếm thời gian thực (**Tavily AI Search** hoặc **Serper API**) để lấy kết quả thời sự nóng từ Google.
-        *   **Scraper Engine**: Thư viện **Trafilatura** để bóc tách text sạch từ liên kết thô (loại bỏ thẻ HTML, ads, menu).
+        *   **Local DB (ChromaDB/Qdrant)**: Sử dụng mô hình embedding nội địa hóa **keepitreal/vietnamese-sbert** hoặc **BGE-M3** để lưu trữ và so khớp văn bản pháp luật, thông tin chính thống.
+        *   **Online Search (Tavily API)**: Tìm kiếm trực tuyến đa nguồn trên các domain tin cậy khi gặp tin tức mới (Cold Start).
+            *   *Cơ chế lọc tên miền ưu tiên:* Sử dụng bộ lọc `include_domains` để chỉ định các tên miền báo chí chính thống Việt Nam (như `chinhphu.vn`, `nhandan.vn`, `tuoitre.vn`, `vtv.vn`, `vnexpress.net`,...). Việc lọc này loại bỏ hoàn toàn các trang mạng xã hội không chính thống và blog rác để bảo đảm tính pháp lý của nguồn tin chứng cứ.
+        *   **Scraper Engine (Trafilatura)**: Bóc tách text sạch từ liên kết do Tavily cung cấp.
     *   *Dữ liệu*: `Input: Claim String` $\rightarrow$ `Output: List of Top-K Evidence Documents` kèm nội dung bài báo chi tiết đã được làm sạch và nguồn gốc liên kết.
 *   **Trust Engine (Động cơ đánh giá độ tin cậy)**:
     *   *Mô tả*: Xác định tính chính xác của tuyên bố thông qua việc đối chiếu ngữ nghĩa giữa tuyên bố đầu vào và ngữ cảnh chứng cứ đã trích xuất được.
-    *   *Công nghệ*: **Gemini 2.5 Flash** (Zero-shot reasoning) thực hiện đối chiếu nhằm phát hiện mâu thuẫn hoặc sự tương đồng. Trực quan hóa phán quyết qua ba mức phân loại chính:
+    *   *Công nghệ*: **VNPT Smartbot nâng cao** (Zero-shot reasoning) thực hiện đối chiếu nhằm phát hiện mâu thuẫn hoặc sự tương đồng. Trực quan hóa phán quyết qua ba mức phân loại chính:
         *   🟢 **Đúng**: Trùng khớp với báo cáo chính thống hoặc tin đính chính.
         *   🔴 **Sai / Tin giả**: Mâu thuẫn trực tiếp với dẫn chứng hoặc trùng khớp với tin giả đã dán nhãn.
         *   🟡 **Chưa xác minh**: Thiếu dẫn chứng chính thống đối chiếu hoặc thông tin trái chiều chưa có kết luận.
@@ -108,12 +199,21 @@ flowchart TD
     *   *Dữ liệu*: `Input: Keywords` $\rightarrow$ `Output: Impact Score (0-100)` & Chỉ số sắc thái dư luận (Tỷ lệ % Tích cực/Tiêu cực/Trung tính).
 *   **Risk Engine (Động cơ phân tích rủi ro xuất bản)**:
     *   *Mô tả*: Đánh giá mức độ nhạy cảm chính trị, rủi ro pháp lý theo Luật Báo chí Việt Nam và nguy cơ xảy ra khủng hoảng truyền thông.
-    *   *Công nghệ*: Kết hợp kết quả từ `Trust Score` (độ sai lệch thông tin) và `Impact Score` (mức độ viral) đi qua hệ luật Prompt của **Gemini 2.5 Flash** đối chiếu với cẩm nang chính sách xuất bản đã được định hình trước.
+    *   *Công nghệ*: Kết hợp kết quả từ `Trust Score` (độ sai lệch thông tin) và `Impact Score` (mức độ viral) đi qua hệ luật Prompt của **VNPT Smartbot nâng cao** đối chiếu với cẩm nang chính sách xuất bản đã được định hình trước.
     *   *Dữ liệu*: `Input: Claim + Trust Score + Impact Score` $\rightarrow$ `Output: Risk Level (High / Medium / Low)` & Báo cáo rủi ro chi tiết dưới định dạng Markdown.
+### 2.3 Biên tập & Phân phối đầu ra (Delivery & Interaction Layer)
 *   **Editorial Engine (Động cơ hỗ trợ biên tập)**:
     *   *Mô tả*: Tạo ra các góc tiếp cận báo chí an toàn (Story Angles) và xây dựng dàn ý bài viết (Article Outline) tối ưu từ nguồn thông tin đã xác thực.
-    *   *Công nghệ*: **Gemini 2.5 Flash** kết hợp phương pháp RAG (Retrieval-Augmented Generation) để tổng hợp thông tin chuẩn xác, hạn chế tối đa hiện tượng "ảo giác" (hallucination) của mô hình ngôn ngữ lớn.
+    *   *Công nghệ*: **VNPT Smartbot nâng cao** kết hợp phương pháp RAG (Retrieval-Augmented Generation) để tổng hợp thông tin chuẩn xác, hạn chế tối đa hiện tượng "ảo giác" (hallucination).
     *   *Dữ liệu*: `Input: Verified Claims + Risk Report + Target Editorial Direction` $\rightarrow$ `Output: List of Story Angles` & Dàn ý cấu trúc bài viết (Article Outline).
+*   **Dashboard UI (Giao diện SmartUX)**:
+    *   *Mô tả*: Không gian làm việc số của Biên tập viên để giám sát mạng xã hội thời gian thực, xem kết quả kiểm định tin đồn (Trust/Risk Score) và duyệt/chỉnh sửa các dàn ý bài viết.
+    *   *Công nghệ*: Tích hợp SDK **VNPT SmartUX** để thu thập, phân tích hành vi tương tác và tối ưu hóa luồng trải nghiệm người dùng.
+    *   *Dữ liệu*: `Input: API Reports` $\rightarrow$ `Output: Interactive UI / Export PDF Reports / User Feedbacks`.
+*   **Trợ lý Tác nghiệp (SmartBot)**:
+    *   *Mô tả*: Trợ lý ảo hỏi đáp (Q&A) hỗ trợ phóng viên tương tác trực tiếp bằng ngôn ngữ tự nhiên để truy vấn ngữ cảnh kiểm chứng, điều chỉnh và hoàn thiện đề cương.
+    *   *Giao thức*: WebSockets cho phép trao đổi phản hồi hai chiều thời gian thực (duplex communication) dựa trên **VNPT Smartbot** (LLM nâng cao).
+    *   *Dữ liệu*: `Input: User Prompt & Search Context` $\rightarrow$ `Output: Natural Language Answers & Custom Outlines`.
 
 ---
 
