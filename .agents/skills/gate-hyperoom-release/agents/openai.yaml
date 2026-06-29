@@ -1,0 +1,4 @@
+interface:
+  display_name: "Gate HypeRoom Release"
+  short_description: "Validate HypeRoom architecture and release quality"
+  default_prompt: "Use $gate-hyperoom-release to verify this HypeRoom slice and report any release blockers."

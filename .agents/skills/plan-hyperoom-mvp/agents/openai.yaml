@@ -1,0 +1,4 @@
+interface:
+  display_name: "Plan HypeRoom MVP"
+  short_description: "Plan architecture-aligned MVP vertical slices"
+  default_prompt: "Use $plan-hyperoom-mvp to turn this feature into a buildable HypeRoom vertical slice with acceptance criteria."
