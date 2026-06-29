@@ -1,0 +1,80 @@
+import { useEffect, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import AuthButton from '../../components/auth/AuthButton'
+import AuthCard from '../../components/auth/AuthCard'
+import AuthLayout from '../../components/auth/AuthLayout'
+import OtpInput from '../../components/auth/OtpInput'
+
+export default function VerifyOtpPage() {
+  const navigate = useNavigate()
+  const [otp, setOtp] = useState('')
+  const [resetEmail, setResetEmail] = useState('')
+  const [error, setError] = useState('')
+  const [message, setMessage] = useState('')
+
+  useEffect(() => {
+    setResetEmail(sessionStorage.getItem('resetEmail') || '')
+  }, [])
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+
+    if (!/^\d{6}$/.test(otp)) {
+      setError('OTP cần đủ 6 số.')
+      return
+    }
+
+    navigate('/auth/reset-password')
+  }
+
+  const handleResendOtp = () => {
+    setMessage('Đã gửi lại OTP demo.')
+    setError('')
+  }
+
+  return (
+    <AuthLayout>
+      <AuthCard
+        title="Xác minh OTP"
+        subtitle={
+          resetEmail
+            ? `Nhập mã 6 số đã gửi tới ${resetEmail}.`
+            : 'Nhập mã 6 số đã gửi tới email khôi phục.'
+        }
+        footer={
+          <Link className="font-bold text-[#1d4ed8]" to="/auth/forgot-password">
+            Quay lại nhập email
+          </Link>
+        }
+      >
+        <form className="space-y-6" onSubmit={handleSubmit}>
+          <OtpInput
+            error={error}
+            value={otp}
+            onChange={(nextValue) => {
+              setOtp(nextValue)
+              setError('')
+              setMessage('')
+            }}
+          />
+
+          {message && (
+            <p className="rounded border border-[#157347] bg-[#d1e7dd] px-3 py-2 text-sm font-semibold text-[#157347]">
+              {message}
+            </p>
+          )}
+
+          <AuthButton>Xác minh</AuthButton>
+
+          <button
+            type="button"
+            className="w-full rounded border border-dashed border-[#3d2f2b] px-4 py-3 text-sm font-bold uppercase tracking-[0.12em] text-[#3d2f2b] transition hover:bg-[#eadfce]"
+            onClick={handleResendOtp}
+          >
+            Gửi lại mã OTP
+          </button>
+        </form>
+      </AuthCard>
+    </AuthLayout>
+  )
+}
