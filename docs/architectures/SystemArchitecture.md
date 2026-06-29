@@ -221,12 +221,12 @@ Hệ thống HypeRoom vận hành song song hai luồng dữ liệu chính phụ
 
 Để đảm bảo hiệu năng truy vấn thời gian thực và khả năng phân tích báo cáo lịch sử, hệ thống sử dụng kiến trúc Cơ sở dữ liệu hỗn hợp (Polyglot Persistence):
 
-1.  **Cơ sở dữ liệu quan hệ (PostgreSQL)**:
-    *   *Vai trò*: Lưu trữ thông tin người dùng, lịch sử phiên làm việc (sessions), nhật ký kiểm định hệ thống (Audit Trails) phục vụ hậu kiểm, và dữ liệu cấu hình của hệ thống.
+1.  **Cơ sở dữ liệu quan hệ và Vector hỗn hợp (PostgreSQL + pgvector)**:
+    *   *Vai trò*: Lưu trữ thông tin người dùng, lịch sử phiên làm việc (sessions), nhật ký kiểm định hệ thống (Audit Trails) phục vụ hậu kiểm, và dữ liệu cấu hình của hệ thống. Đồng thời lưu trữ các Vector Embedding của kho tri thức phục vụ tra cứu chéo (dữ liệu RSS báo chí chính thống, văn bản pháp luật, thông cáo báo chí của các cơ quan chính phủ).
     *   *Cơ chế Human-in-the-Loop*: Khi biên tập viên phê duyệt hoặc điều chỉnh một Claim/Risk Level trên Dashboard, dữ liệu chỉnh sửa sẽ được ghi đè vào PostgreSQL để hiệu chỉnh độ chính xác của các báo cáo sau này và làm tập dữ liệu Fine-tune prompt.
-2.  **Cơ sở dữ liệu Vector (Qdrant / Milvus)**:
-    *   *Vai trò*: Lưu trữ các Vector Embedding của kho tri thức phục vụ tra cứu chéo (dữ liệu RSS báo chí chính thống, văn bản pháp luật, thông cáo báo chí của các cơ quan chính phủ).
-    *   *Cơ chế cập nhật*: Định kỳ hàng giờ, hệ thống sẽ cào dữ liệu mới từ các nguồn RSS/Cổng thông tin chính phủ, chuyển đổi qua model **BGE-M3** để cập nhật index vào Vector DB.
+    *   *Cơ chế cập nhật Vector*: Định kỳ hàng giờ, hệ thống sẽ cào dữ liệu mới từ các nguồn RSS/Cổng thông tin chính phủ, chuyển đổi qua model **vietnamese-sbert** để cập nhật index vector bằng extension `pgvector` ngay trong DB.
+2.  **Hàng đợi thông điệp (Redis Queue)**:
+    *   *Vai trò*: Upstash Redis đóng vai trò là message broker cho hàng đợi bất đồng bộ (Celery/RQ) giúp điều phối và xử lý các tác vụ tải nặng (OCR từ SmartReader, STT từ SmartVoice).
 
 ---
 

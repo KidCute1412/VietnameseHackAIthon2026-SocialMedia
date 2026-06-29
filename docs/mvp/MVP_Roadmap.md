@@ -20,11 +20,12 @@
 - Chuẩn hóa verdict, trust score, risk level.
 - Tạo SmartBot adapter thật hoặc mock tương thích.
 
-### Day 4 - Async Pipeline và REST APIs
+### Day 4 - Async Pipeline, Redis/Queue & REST APIs
 
+- Cấu hình Celery/RQ với Upstash Redis làm message broker & kết quả store.
 - Hoàn tất `POST /api/verifications`, list, detail, feedback.
-- Chạy OCR/STT qua background jobs trong FastAPI, không phụ thuộc queue ngoài cho MVP.
-- Lưu job events và error states.
+- Chuyển OCR/STT và các tác vụ nặng qua Redis Queue worker xử lý bất đồng bộ.
+- Lưu job events và error states trong PostgreSQL.
 
 ### Day 5 - Frontend Integration, UX, SmartBot WebSocket
 
@@ -41,20 +42,21 @@
 - Chạy tối thiểu 3 vòng smoke test liên tiếp trên môi trường local hoặc staging.
 - Soát cấu hình secrets, CORS, logging, và dữ liệu nhạy cảm.
 
-### Day 7 - Demo Rehearsal, Packaging, Round 2 Readiness
+### Day 7 - Demo Rehearsal, Packaging, GTM & Unit Costs
 
-- Chạy E2E trên môi trường Docker sạch.
+- Chạy E2E trên môi trường Docker sạch (gồm cả web, api, redis, worker).
 - Soát dữ liệu demo, fallback và log lỗi.
-- Hoàn tất hướng dẫn cài đặt/chạy một lệnh và checklist trình diễn.
-- Tổng hợp điểm nâng cấp so với Vòng 1, phương án mở rộng hạ tầng, và note GTM đầu vào cho phần pitching.
+- Hoàn tất hướng dẫn cài đặt/chạy một lệnh (docker-compose up) và checklist trình diễn.
+- Hoàn thiện mô hình kinh doanh (GTM), đơn giá đơn vị dịch vụ (Unit Costs) dựa trên chi phí API VNPT/Tavily và LLM.
+- Tổng hợp điểm nâng cấp so với Vòng 1 và phương án mở rộng hạ tầng khi tăng tải.
 
 ## Risk Governance
 
 ### Architectural Constraints
 
-- MVP chỉ dùng `PostgreSQL + pgvector` trên Supabase; không dùng `Qdrant Cloud`.
+- MVP chỉ dùng `PostgreSQL + pgvector` trên Supabase; không dùng `Qdrant Cloud` làm vector store.
 - MVP chưa tích hợp `SmartUX SDK`.
-- Giữ kiến trúc modular monolith + background jobs; chưa tách Redis/queue riêng.
+- Sử dụng kiến trúc bất đồng bộ qua Redis và Queue cho các tác vụ tải nặng (OCR, STT).
 
 ### Top Risks
 
