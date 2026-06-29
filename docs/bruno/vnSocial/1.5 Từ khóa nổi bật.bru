@@ -1,0 +1,164 @@
+meta {
+  name: 1.5 Từ khóa nổi bật
+  type: http
+  seq: 5
+}
+
+post {
+  url: https://api-vnsocialplus.vnpt.vn/social-api/v1/projects/hot-keywords
+  body: json
+  auth: inherit
+}
+
+headers {
+  x-access-token: {{x_access_token}}
+}
+
+body:json {
+  {
+      "project_id": "65012f5e621e0ce1de8876f2",
+      "start_time": 1756314000000,
+      "end_time": 1756918799999,
+      "sources": []
+  }
+}
+
+settings {
+  encodeUrl: true
+}
+
+example {
+  name: 1.5 Từ khóa nổi bật
+  
+  request: {
+    url: https://api-vnsocialplus.vnpt.vn/social-api/v1/projects/hot-keywords
+    method: POST
+    mode: json
+    headers: {
+      x-access-token: {{x_access_token}}
+    }
+  
+    body:json: {
+      {
+          "project_id": "65012f5e621e0ce1de8876f2",
+          "start_time": 1756314000000,
+          "end_time": 1756918799999,
+          "sources": []
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Date: Wed, 03 Sep 2025 05:42:24 GMT
+      Content-Type: application/json; charset=utf-8
+      Content-Length: 1264
+      Connection: keep-alive
+      X-Powered-By: Express
+      Access-Control-Allow-Headers: Origin,X-Requested-With,Content-Type,Accept,x-access-token
+      Access-Control-Allow-Methods: GET,POST,OPTIONS,PUT,DELETE
+      ETag: W/"4f0-ksUyYQdxuu68JKB5Jg1MeQt5zCI"
+      Strict-Transport-Security: max-age=15724800; includeSubDomains
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+            "success": true,
+            "code": 200,
+            "object": {
+                "total": 20,
+                "keyword": [
+                    {
+                        "key": "tàu cao tốc Cát Linh - Hà Đông",
+                        "doc_count": 163
+                    },
+                    {
+                        "key": "lễ diễu hành ở Quảng trường Ba Đình",
+                        "doc_count": 162
+                    },
+                    {
+                        "key": "81 ngày đêm khốc liệt tại Thành cổ Quảng Trị",
+                        "doc_count": 105
+                    },
+                    {
+                        "key": "sự trưởng thành của Quân đội nhân dân Việt Nam",
+                        "doc_count": 92
+                    },
+                    {
+                        "key": "Triển lãm thành tựu đất nước",
+                        "doc_count": 40
+                    },
+                    {
+                        "key": "Trực tiếp Xổ Số Miền Bắc",
+                        "doc_count": 37
+                    },
+                    {
+                        "key": "Xổ Số Minh Ngọc",
+                        "doc_count": 26
+                    },
+                    {
+                        "key": "Halo Bay Show",
+                        "doc_count": 23
+                    },
+                    {
+                        "key": "xe tải loại từ 10 tấn",
+                        "doc_count": 23
+                    },
+                    {
+                        "key": "xe khách loại từ 45 chỗ trở lên",
+                        "doc_count": 22
+                    },
+                    {
+                        "key": "Quảng trường Sun Carnival",
+                        "doc_count": 22
+                    },
+                    {
+                        "key": "Công an phường Vàng Danh",
+                        "doc_count": 21
+                    },
+                    {
+                        "key": "QUẢNG NINH",
+                        "doc_count": 20
+                    },
+                    {
+                        "key": "3.120/3.321 xã, phường",
+                        "doc_count": 20
+                    },
+                    {
+                        "key": "Quảng Ninh",
+                        "doc_count": 20
+                    },
+                    {
+                        "key": "Bảo tàng Quảng Ninh",
+                        "doc_count": 19
+                    },
+                    {
+                        "key": "Cục Tần số vô tuyến điện",
+                        "doc_count": 18
+                    },
+                    {
+                        "key": "khu trưng bày hiện đại rộng 192 m2",
+                        "doc_count": 17
+                    },
+                    {
+                        "key": "Bão số 6 suy yếu thành áp thấp nhiệt đới",
+                        "doc_count": 17
+                    },
+                    {
+                        "key": "đặc khu Bạch Long Vĩ",
+                        "doc_count": 17
+                    }
+                ]
+            }
+        }
+      '''
+    }
+  }
+}

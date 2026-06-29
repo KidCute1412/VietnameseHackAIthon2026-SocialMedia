@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "Text_To_Speech (General) collection",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

@@ -1,0 +1,28 @@
+meta {
+  name: /text-to-speech/check-status
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{base_url}}/tts-service/v1/check-status
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+  Authorization: {{access_token}}
+  Token-id: {{token_id}}
+  Token-key: {{token_key}}
+}
+
+body:json {
+  {
+    "text_id" : "9020664b8819419fbc598edfb4e8eefc"
+  }
+}
+
+settings {
+  encodeUrl: true
+}

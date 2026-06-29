@@ -1,0 +1,44 @@
+meta {
+  name: ocr/dang-ky-kinh-doanh
+  type: http
+  seq: 7
+}
+
+post {
+  url: https://api.idg.vnpt.vn/rpa-service/aidigdoc/v1/ocr/dang-ky-kinh-doanh
+  body: json
+  auth: inherit
+}
+
+headers {
+  Authorization: 
+  Token-id: 
+  Token-key: 
+  mac-address: mac-address
+  Content-Type: application/json
+}
+
+body:json {
+  {
+      "page_hashes": ["idg20250917-e30bddce-2ab2-7bb2-e053-62199f0a0076/IDG01_52b9a028-937c-11f0-8f77-e33877dbef57"],
+      "token": "8928skjhfa89298jahga1771vbvb",
+      "client_session": "00-14-22-01-23-45-1548211589291",
+      "file_type": "images",
+      "details": false
+  }
+}
+
+script:post-response {
+  test("Status code is 200", function () {
+      expect(res.getStatus()).to.equal(200);
+  });
+}
+
+settings {
+  encodeUrl: true
+}
+
+docs {
+  OCR trên dev
+  - Tốc độ chậm hơn nhiều so với trên production.
+}

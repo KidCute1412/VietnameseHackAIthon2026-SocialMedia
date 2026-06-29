@@ -1,0 +1,357 @@
+meta {
+  name: 1.6 Bài viết nổi bật
+  type: http
+  seq: 6
+}
+
+post {
+  url: https://api-vnsocialplus.vnpt.vn/social-api/v1/projects/hot-posts
+  body: json
+  auth: inherit
+}
+
+headers {
+  x-access-token: {{x_access_token}}
+}
+
+body:json {
+  {
+      "project_id": "65012f5e621e0ce1de8876f2",
+      "start_time": 1756314000000,
+      "end_time": 1756918799999,
+      "source": "baochi"
+  }
+}
+
+settings {
+  encodeUrl: true
+}
+
+example {
+  name: 1.6 Bài viết nổi bật
+  
+  request: {
+    url: https://api-vnsocialplus.vnpt.vn/social-api/v1/projects/hot-posts
+    method: POST
+    mode: json
+    headers: {
+      x-access-token: {{x_access_token}}
+    }
+  
+    body:json: {
+      {
+          "project_id": "65012f5e621e0ce1de8876f2",
+          "start_time": 1756314000000,
+          "end_time": 1756918799999,
+          "source": "baochi"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Date: Wed, 03 Sep 2025 05:42:34 GMT
+      Content-Type: application/json; charset=utf-8
+      Content-Length: 79142
+      Connection: keep-alive
+      X-Powered-By: Express
+      Access-Control-Allow-Headers: Origin,X-Requested-With,Content-Type,Accept,x-access-token
+      Access-Control-Allow-Methods: GET,POST,OPTIONS,PUT,DELETE
+      ETag: W/"13526-zTDcNBbcZIVtkwB7e7YIi4gsodw"
+      Strict-Transport-Security: max-age=15724800; includeSubDomains
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+            "success": true,
+            "code": 200,
+            "object": [
+                {
+                    "userId": "",
+                    "docId": "8E940A22D480AEE269725B5AF2473588",
+                    "userName": "baoquangtri.vn",
+                    "sourceId": "dangcongsan.vn",
+                    "sourceName": "dangcongsan.vn",
+                    "postLink": "https://dangcongsan.vn/quangtri/tin-tuc-hoat-dong/huyen-thoai-nguoi-nhai-o-toa-do-lua-cua-viet.html",
+                    "domain": "dangcongsan.vn",
+                    "pictures": [
+                        "https://dangcongsan.vn/upload/2006988/20250808/96a641cf15aaf69292976577e44afd821_20250901080322.jpeg_width=500_height=-_type=resize.jpg"
+                    ],
+                    "title": "Huyền thoại người nhái ở 'tọa độ lửa' Cửa Việt",
+                    "description": "QTO - Ở tuổi 85, trung tá đặc công Lê Xuân Sênh vẫn giữ thói quen đọc lại lịch sử về Lữ đoàn 126 mỗi độ đầu tháng 9 để nhớ về đồng đội. &quot;Tôi đọc để &amp;#39;gặp lại&amp;#39; những anh em đã mất, để sống lại những trận đánh ở biển Cửa Việt&quot;, ông Sênh nói. Tháng 6/1965, chàng trai 24 tuổi Lê Xuân Sênh ở Kinh Môn, Hải Dương (nay là phường Duy Tân, TP Hải Phòng) lên đường nhập ngũ, để lại người vợ ở nhà chăm sóc hai con và mẹ già yếu. Ban đầu, ông là lính công binh thuộc Quân khu Đông Bắc, làm nhiệm vụ rà phá bom mìn, bảo vệ các tuyến vận tải trên biển đảo Quảng Ninh, Hải Phòng. Năm 1966, sau khi Mỹ ném bom phá sập cầu Cầm (Đông Triều, Quảng Ninh), binh nhì Lê Xuân Sênh cùng đơn vị tham gia các chiến dịch phá thủy lôi, đảm bảo an toàn luồng lạch. Với chiến công đầu tay này, ông được thưởng Huân chương Chiến công hạng Ba. Trung tá, Anh hùng Lực lượng vũ trang nhân dân Lê Xuân Sênh tại nhà riêng ở phường Duy Tân, TP Hải Phòng, sáng 15/8. Ảnh: Nga",
+                    "tags": "Huyền thoại người nhái ở 'tọa độ lửa' Cửa Việt,Tin tức, hoạt động",
+                    "content": "QTO - Ở tuổi 85, trung tá đặc công Lê Xuân Sênh vẫn giữ thói quen đọc lại lịch sử về Lữ đoàn 126 mỗi độ đầu tháng 9 để nhớ về đồng đội. \"Tôi đọc để 'gặp lại' những anh em đã mất, để sống lại những trận đánh ở biển Cửa Việt\", ông Sênh nói.\nTháng 6/1965, chàng trai 24 tuổi Lê Xuân Sênh ở Kinh Môn, Hải Dương (nay là phường Duy Tân, TP Hải Phòng) lên đường nhập ngũ, để lại người vợ ở nhà chăm sóc hai con và mẹ già yếu.\nBan đầu, ông là lính công binh thuộc Quân khu Đông Bắc, làm nhiệm vụ rà phá bom mìn, bảo vệ các tuyến vận tải trên biển đảo Quảng Ninh, Hải Phòng. Năm 1966, sau khi Mỹ ném bom phá sập cầu Cầm (Đông Triều, Quảng Ninh), binh nhì Lê Xuân Sênh cùng đơn vị tham gia các chiến dịch phá thủy lôi, đảm bảo an toàn luồng lạch. Với chiến công đầu tay này, ông được thưởng Huân chương Chiến công hạng Ba.\nTrung tá, Anh hùng Lực lượng vũ trang nhân dân Lê Xuân Sênh tại nhà riêng ở phường Duy Tân, TP Hải Phòng, sáng 15/8. Ảnh: Nga Thanh Tháng 8/1967, ông được tuyển chọn vào lực lượng đặc công nước thuộc Phân đội 3, Đại đội 2, Đoàn đặc công nước 126, Bộ Tư lệnh Hải quân - đơn vị tinh nhuệ bậc nhất của quân đội. Người lính trẻ được cử đi huấn luyện bí mật tại cảng Hải Phòng để trở thành người nhái.\nNăm 1969, ông Sênh là một trong 10 người xuất sắc nhất được điều động vào chiến trường Quảng Trị, chiến đấu tại cảng Cửa Việt.\nThời điểm đó, Cửa Việt là một \"tọa độ lửa\", một yết hầu chiến lược của địch. Đây là cảng quân sự trọng yếu, nơi Mỹ ngụy tiếp nhận vũ khí, đạn dược, lương thực chi viện cho mặt trận Quảng Trị và đường 9. Phía Bắc cảng là hàng rào điện tử McNamara, trên bờ là hệ thống đồn bốt, xe tăng dày đặc. Dưới nước, tàu chiến tuần tiễu ngày đêm, liên tục thả lựu đạn, rà mìn.\nNhiệm vụ của ông và đồng đội là xuyên thủng tuyến phòng thủ gần như bất khả xâm phạm này để đánh chìm các tàu vận tải của địch.\nTrận đánh đầu tiên của người nhái Lê Xuân Sênh diễn ra khi Chủ tịch Hồ Chí Minh vừa qua đời. Đơn vị phát động phong trào thi đua \"biến đau thương thành hành động\". Mục tiêu là tàu vận tải 5.000 tấn chở đầy vũ khí được mật báo đang neo đậu trong cảng.\nTổ chiến đấu của ông Sênh gồm 7 người, trong đó có 6 cán bộ và duy nhất ông Sênh là chiến sĩ, bí mật đi 20 km đường rừng để tiến vào cửa biển. Mỗi người mang theo một dao găm, lựu đạn. Ông Sênh được giao nhiệm vụ cầm hai quả mìn hẹn giờ, mỗi quả nặng 7 kg để phá tàu.\n\"Địch không để chúng tôi dễ dàng tiếp cận. Máy bay quần thảo liên tục, dưới đất là bãi mìn, các đội phục kích và cả 'cây nhiệt đới' - thiết bị báo động khi có tiếng động\", ông Sênh kể.\nĐịa hình dọc sông Bến Hải toàn cát trắng, không có chỗ ẩn nấp, là tử địa của không ít đặc công nước. Khi tiếp cận gần mục tiêu, kế hoạch bất ngờ thay đổi do tàu địch di chuyển. Thời gian không còn nhiều, cấp trên ra lệnh rút lui để bảo toàn lực lượng. Ngay lúc đó, chiến sĩ trẻ Lê Xuân Sênh đề xuất với Phân đội phó Lê Văn Tập: \"Khó khăn lắm mới vào được đây, giờ rút thì phí quá. Ta cứ đánh, nếu không kịp, các anh cứ rút trước, tôi sẽ bơi dọc bờ về sau\".\nSự táo bạo của người lính trẻ đã thuyết phục chỉ huy. Hai người ở lại. Ông Sênh và ông Tập buộc dây vào nhau để liên lạc dưới nước, rồi từ từ bơi chìm, chỉ thở bằng ống sậy.\nKhu vực cảng sáng như ban ngày vì đèn pha. Tàu tuần tiễu chạy vòng quanh, thỉnh thoảng lại ném lựu đạn thăm dò. Cách mục tiêu hơn 200 m, ông Sênh xin đi trước.\n\"Bất ngờ trời tối sầm, tôi nhận ra địch vừa ném lựu đạn ngay bên cạnh. Sức ép khiến hai tai tôi ù đặc, sặc cả nước biển\", ông kể. Nhưng may mắn hy hữu đã xảy ra. Chính vụ nổ vô tình đẩy hai người vào vùng khuất của con tàu 5.000 tấn, nơi ánh đèn không chiếu tới.\nChạm được mục tiêu, ông Sênh giật dây, ra hiệu cho đồng đội ở lại cảnh giới, còn mình tìm đến khoang máy. Ông dùng dao găm cạo lớp hà bám trên vỏ tàu để mìn dính chặt hơn, rồi bình tĩnh rút ba chốt an toàn (một chốt chống tháo, hai chốt hẹn giờ).\nNhiệm vụ hoàn thành, hai người quay ra thì gặp dòng nước ngược. Ông Tập dần đuối sức, vừa ngoi lên thở thì bị địch phát hiện. Đạn bắn xối xả, lựu đạn nổ rát tai. Hai người phải lặn sâu, nương theo các mạn thuyền khác để thoát thân. Gần một tiếng sau, họ về đến điểm tập kết.\nKhi cả đội vừa rút ra xa chừng 2 km, hai tiếng nổ long trời làm rung chuyển cả một vùng, nhấn chìm con tàu 5.000 tấn. Trận đánh đã làm tê liệt cảng Cửa Việt trong 7 ngày, chặn đứng một nguồn cung vũ khí khổng lồ của địch.\nTrung tá, Anh hùng Lực lượng vũ trang nhân dân Lê Xuân Sênh kể về trận cùng đồng đội đánh chìm tàu chiến 5.000 tấn của Mỹ đêm 13/11/1969. Video: Quỳnh Nga\nMột tháng sau trận đánh táo bạo đó, chiến sĩ Lê Xuân Sênh được đề bạt thẳng lên làm chỉ huy phân đội người nhái. Với kinh nghiệm thực chiến và khả năng phán đoán, ông được đồng đội tin tưởng đặt cho biệt danh \"Mũi nhọn thọc sâu, đánh đâu thắng đó\".\nTừ 1969 đến 1972, phân đội do ông Sênh chỉ huy đã trực tiếp đánh chìm thêm 17 tàu địch, riêng ông một mình đánh chìm hai tàu chiến hạng nặng, với đủ loại trọng tải từ vài trăm tấn đến 15.000 tấn. Dù là chỉ huy, ông vẫn luôn có mặt trong mọi chuyến trinh sát thực địa, tìm ra những luồng lạch an toàn, nghiên cứu quy luật của địch để giảm thiểu thương vong cho đồng đội.\nVới những chiến công đặc biệt xuất sắc, năm 1972, phân đội trưởng Lê Xuân Sênh được tuyên dương Anh hùng Lực lượng vũ trang nhân dân khi mới 31 tuổi. Cuộc đời binh nghiệp của ông được đánh dấu bằng 5 Huân chương Chiến công hạng Ba, hai Huân chương Chiến công hạng Nhì, 6 lần đạt danh hiệu Dũng sĩ đánh tàu. Năm 1970 và 1971 ông là Chiến sĩ Quyết thắng.\n\"Những người nhái luôn xác định bản thân là 'cảm tử quân'. Ai cũng thủ sẵn một quả lựu đạn bên người. Nếu bị phát hiện, thà hy sinh chứ không để bị bắt, lộ bí mật quân sự\", người lính già nói.\nKhi được hỏi về kỷ niệm đáng nhớ nhất của những năm tháng khói lửa, ông Sênh chỉ vào bức ảnh mặc bộ quần áo hải quân, chụp vội trong lần tạt qua nhà trước khi vào chiến trường.\n\"Tôi đưa tấm ảnh cho vợ và dặn nếu tôi sống trở về thì đó là ảnh kỷ niệm, còn nếu hy sinh thì làm ảnh thờ\", ông nói.\nTrung tá Lê Xuân Sênh bên cạnh bức ảnh kỷ niệm chụp vội ở Đông Triều, Quảng Ninh trước năm 1969, khi chuẩn bị nhận nhiệm vụ tại biển Cửa Việt, Quảng Trị. Ảnh: Quỳnh Nguyễn Những chiến công của ông Sênh và đồng đội đã góp phần làm nên lịch sử anh hùng của Lữ đoàn 126. Từ năm 1966 đến 1973, tại mặt trận Cửa Việt - Đông Hà, đặc công Hải quân đã đánh gần 300 trận, nhấn chìm và đánh hỏng hơn 300 tàu thuyền các loại, phá hủy hàng vạn tấn vũ khí, phương tiện chiến tranh của địch, góp phần quan trọng vào công cuộc giải phóng Quảng Trị và thống nhất đất nước.\nTrong những năm tháng ông Sênh biền biệt nơi chiến trường, vợ ông, bà Nguyễn Thị Bác, 84 tuổi, là hậu phương vững chắc nơi quê nhà. Một mình gánh vác việc gia đình, nuôi dạy hai con và phụng dưỡng mẹ chồng, bà chưa một lời than vãn.\n\"Tôi không biết chồng làm nhiệm vụ cụ thể gì, chỉ tâm niệm một điều: Chồng đi chiến đấu để giành lại độc lập thì mình ở nhà phải chu toàn mọi việc để anh yên tâm, chỉ mong gia đình sớm đoàn tụ trong hòa bình\", bà Bác nói.\nTrung tá Lê Xuân Sênh và vợ, bà Nguyễn Thị Bác, 84 tuổi tại nhà riêng ở phường Duy Tân, TP Hải Phòng, sáng 15/8. Ảnh: Nga Thanh Hòa bình lập lại, trung tá Lê Xuân Sênh được cử đi học, sau giữ các chức vụ trợ lý Phòng Cán bộ Hải Quân, Phó Trưởng phòng Doanh trại, Cục Hậu cần, Quân chủng Hải quân. Từ tháng 5/1991, ông nghỉ hưu, trở về với cuộc sống bình dị, làm ruộng, đánh cá, cùng vợ bù đắp những năm tháng xa cách.\nKhi được hỏi có bao giờ sợ hãi không, người anh hùng Cửa Việt khẳng định ranh giới giữa sự sống và cái chết mong manh, nhưng không ai trong số những người lính của Lữ đoàn 126 nghĩ đến sợ hãi.\n\"Chúng tôi không được phép lùi bước vì phía sau là quê hương, là gia đình. Con đường duy nhất là chiến thắng để giành lại hòa bình, độc lập\", ông nói.\nNga Thanh - Quỳnh Nguyễn (Theo Vnexpress)",
+                    "logoLink": [
+                        "https://console-vnsocial.vnpt.vn/assets/icon-news/dangcongsan.vn_logo.png"
+                    ],
+                    "senti": "neutral",
+                    "type": "",
+                    "isSpam": false,
+                    "createDate": "2025-09-01T08:43:00.000+07:00",
+                    "numInteractions": 0,
+                    "numComments": 0,
+                    "numShares": 0,
+                    "updateDate": "2025-09-01T08:51:55.090+07:00"
+                },
+                {
+                    "userId": "",
+                    "docId": "943196B892A96C0070C28252E80EC50A",
+                    "userName": "",
+                    "sourceId": "antv.gov.vn",
+                    "sourceName": "antv.gov.vn",
+                    "postLink": "https://antv.gov.vn/phap-luat-3/truy-xet-nhanh-bat-doi-tuong-cuop-tai-san--273F774F8.html",
+                    "domain": "antv.gov.vn",
+                    "pictures": [
+                        "https://images.antv.gov.vn/public/uploads/2025/08/31/68b4772ba70ae67fa5e891b5.png?w=1280&h=720"
+                    ],
+                    "title": "Truy xét nhanh, bắt đối tượng cướp tài sản",
+                    "description": "(ANTV) - Sau 3 giờ khẩn trương truy xét nóng, Phòng Cảnh sát Hình sự Công an tỉnh Quảng Trị phối hợp với Công an xã Quảng Ninh, Công an phường Đồng Sơn và Công an phường Đồng Thuận đã bắt đối tượng Hà Tuấn Phi (sinh năm 2008, trú tại xã Quảng Ninh, tỉnh Quảng Trị) về hành vi cướp tài sản.",
+                    "tags": "",
+                    "content": "Trước đó, 1 phụ nữ trú tại thôn Xuân Sơn, xã Trường Ninh, tỉnh Quảng Trị đến Phòng Cảnh sát Hình sự trình báo sự việc. Vào khoảng 15h ngày 30/8, khi chị dừng lại trên đường Hồ Chí Minh, đoạn qua khu vực rừng tràm thuộc thôn Lệ Kỳ, xã Quảng Ninh để nghe điện thoại thì bất ngờ có 1 nam thanh niên cũng đi xe mô tô chạy vượt lên rồi dừng lại, dùng tay bóp cổ đẩy chị vào phía trong khu vực rừng tràm để khống chế đe dọa, cướp một điện thoại di động nhãn hiệu Samsung S21.\nVào cuộc điều tra, chỉ trong thời gian ngắn, cơ quan công an đã xác định, làm rõ đối tượng Hà Tuấn Phi và thu giữ tang vật liên quan đến vụ cướp tài sản./.",
+                    "logoLink": [
+                        "https://console-vnsocial.vnpt.vn/assets/icon-news/Defaul_logo.png"
+                    ],
+                    "senti": "negative",
+                    "type": "",
+                    "isSpam": false,
+                    "createDate": "2025-09-01T08:55:00.000+07:00",
+                    "numInteractions": 0,
+                    "numComments": 0,
+                    "numShares": 0,
+                    "updateDate": "2025-09-01T09:03:19.776+07:00"
+                },
+                {
+                    "userId": "",
+                    "docId": "F7FFF0E2CD01D698BEE487C0BF0FFBD9",
+                    "userName": "Hoàng Anh",
+                    "sourceId": "dangcongsan.vn",
+                    "sourceName": "dangcongsan.vn",
+                    "postLink": "https://dangcongsan.vn/quangninh/tin-tuc-hoat-dong/chuan-do-doc-do-viet-cuong-nguoi-con-vung-mo-va-ban-hung-ca-truong-sa-bat-tu.html",
+                    "domain": "dangcongsan.vn",
+                    "pictures": [
+                        "https://dangcongsan.vn/upload/2006988/20250624/88bf4ffe2ff10085c9eb7297af50bb12tin_20b_c3_a0i_20AHLLVT_20Coong_2982025_7.jpg"
+                    ],
+                    "title": "Chuẩn Đô đốc Đỗ Viết Cường: Người con Vùng mỏ và bản hùng ca Trường Sa bất tử",
+                    "description": "Ở tuổi đôi mươi, mang thương tích trận mạc và ý chí thép của lính đặc công nước, Đỗ Viết Cường – người con vùng mỏ Quảng Ninh đã ghi danh vào lịch sử với danh hiệu Anh hùng Lực lượng vũ trang nhân dân, góp mặt trong trận Trường Sa lịch sử mùa xuân 1975. Hành trình ấy khắc họa chân dung người lính quả cảm, biểu tượng của thế hệ trẻ Quảng Ninh dấn thân vì Tổ quốc. Anh hùng trẻ tuổi từ vùng biển đất mỏ Giữa những năm tháng ác liệt nhất của cuộc kháng chiến chống Mỹ, khi đế quốc Mỹ tăng cường phong tỏa đường biển, hòng cắt đứt tuyến hậu cần chiến lược chi viện cho miền Nam, lực lượng đặc công nước đã trở thành “mũi nhọn” của Hải quân nhân dân Việt Nam. Trong đội ngũ gan dạ ấy, có chàng trai trẻ Đỗ Viết Cường quê ở Quảng Hà, xã ven biển của Quảng Ninh. Tháng 4/1968, khi vừa tròn 18 tuổi, anh khoác ba lô lên đường nhập ngũ với khát khao góp phần bảo vệ từng bãi bờ, cửa biển của quê hương vùng mỏ. Những ngày đầu tại đơn vị, chàng trai trẻ Đỗ Viết Cường phải đối mặt với những buổi huấn luyện đ",
+                    "tags": "Chuẩn Đô đốc Đỗ Viết Cường: Người con Vùng mỏ và bản hùng ca Trường Sa bất tử,Tin tức, hoạt động",
+                    "content": "Ở tuổi đôi mươi, mang thương tích trận mạc và ý chí thép của lính đặc công nước, Đỗ Viết Cường – người con vùng mỏ Quảng Ninh đã ghi danh vào lịch sử với danh hiệu Anh hùng Lực lượng vũ trang nhân dân, góp mặt trong trận Trường Sa lịch sử mùa xuân 1975. Hành trình ấy khắc họa chân dung người lính quả cảm, biểu tượng của thế hệ trẻ Quảng Ninh dấn thân vì Tổ quốc.\nAnh hùng trẻ tuổi từ vùng biển đất mỏ\nGiữa những năm tháng ác liệt nhất của cuộc kháng chiến chống Mỹ, khi đế quốc Mỹ tăng cường phong tỏa đường biển, hòng cắt đứt tuyến hậu cần chiến lược chi viện cho miền Nam, lực lượng đặc công nước đã trở thành “mũi nhọn” của Hải quân nhân dân Việt Nam. Trong đội ngũ gan dạ ấy, có chàng trai trẻ Đỗ Viết Cường quê ở Quảng Hà, xã ven biển của Quảng Ninh. Tháng 4/1968, khi vừa tròn 18 tuổi, anh khoác ba lô lên đường nhập ngũ với khát khao góp phần bảo vệ từng bãi bờ, cửa biển của quê hương vùng mỏ.\nNhững ngày đầu tại đơn vị, chàng trai trẻ Đỗ Viết Cường phải đối mặt với những buổi huấn luyện đặc biệt gian khổ, như lặn sâu hàng giờ dưới nước đục, tập di chuyển bí mật, nín thở vượt qua lớp rào thép gai và bãi mìn dày đặc. Huấn luyện đặc công nước không chỉ đòi hỏi thể lực dẻo dai, mà còn rèn giũa ý chí thép, sự kiên nhẫn và tinh thần kỷ luật cao độ. Mồ hôi, muối mặn của biển và bùn đất bám chặt lên cơ thể, nhưng cũng chính là thứ hun đúc bản lĩnh của người lính đặc công.\nChân dung Anh hùng Lực lượng vũ trang nhân dân Đỗ Viết Cường thời trẻ. Ảnh: Tư liệu.\nNhờ sự nỗ lực phi thường, chỉ một thời gian ngắn sau đó, từ một chiến sĩ trẻ, Đỗ Viết Cường đã được tin tưởng giao trọng trách Phân đội trưởng Đặc công nước của Đội 1, Đoàn 126 Hải quân. Vị trí ấy chỉ dành cho những người không chỉ gan dạ, giỏi kỹ chiến thuật mà còn có khả năng chỉ huy trong điều kiện chiến trường khắc nghiệt và nguy hiểm. Những đêm đen đặc quánh mùi thuốc súng ở Cửa Việt, anh cùng đồng đội lặng lẽ lặn ngầm, áp sát mạn tàu địch, gắn thuốc nổ rồi rút lui âm thầm dưới làn đạn bắn thẳng xuống mặt sông và ánh đèn pha quét sáng. Chỉ một sơ suất nhỏ cũng có thể để lại mạng sống dưới lòng nước lạnh giá.\nNhưng bất chấp hiểm nguy luôn cận kề, chiến công của phân đội do anh chỉ huy vẫn nối dài: 7 tàu, xà lan địch bị đánh chìm, 7 chiếc khác bị phá hỏng khiến tuyến hậu cần ven biển miền Trung của quân Mỹ - Ngụy tê liệt trong nhiều tháng. Trong một trận đánh ác liệt ở Cửa Việt, viên đạn lạc xuyên qua ngón áp út tay phải, làm nát xương thịt. Không kịp chờ cứu thương, giữa sông nước mênh mông, người lính trẻ ấy tự chặt đi hai đốt ngón tay để cầm máu, rồi vẫn bình tĩnh đưa đồng đội bị thương nặng hơn lên bờ trước.\nVết thương chưa kịp khép miệng, ngón tay cụt vẫn rỉ máu mỗi lần thay băng, nhưng Đỗ Viết Cường vẫn xung phong tiếp tục ra trận. Anh được giao chỉ huy phân đội đánh sập cầu Ngô Xá Đông – cây cầu mà trước đó nhiều toán đặc công đã phải rút lui vì rào thép gai ken dày và ổ phục kích dày đặc của địch. Đêm 3/11/1972, anh dẫn đầu đội hình lặn sâu, vượt qua chướng ngại, cài mìn và kích nổ thành công, phá sập cây cầu chiến lược, chặn đứng tuyến tiếp tế của địch. Trận đánh ấy không chỉ chứng minh sự mưu trí, dũng cảm của bộ đội đặc công nước, mà còn khẳng định bản lĩnh của người chỉ huy trẻ: quyết đoán, bình tĩnh và gan dạ.\nTrong suốt giai đoạn 1970-1972, Đỗ Viết Cường hai lần bị thương nặng, để lại mảnh đạn còn găm trong cơ thể và bàn tay không còn nguyên vẹn. Nhưng anh chưa từng than phiền, nhụt chí hay chùn bước. Với đồng đội, anh luôn là điểm tựa vững vàng, thường động viên anh em bằng câu nói giản dị mà ấm áp: “Đau mấy cũng phải ráng, thắng rồi về ngắm biển quê mình!”.\nĐến tháng 9/1973, khi mới 23 tuổi, Thượng sĩ, Phân đội trưởng Đỗ Viết Cường được Nhà nước phong tặng danh hiệu cao quý Anh hùng Lực lượng vũ trang nhân dân – một trong những người con Quảng Ninh trẻ tuổi nhất được bước lên đài Tổ quốc ghi công giữa khói lửa chiến tranh. Hình ảnh người lính trẻ với dáng người gầy, ngón tay cụt quấn băng trắng, ngực đeo huân chương sáng lấp lánh, nhưng nụ cười vẫn bình dị và ánh mắt tràn đầy niềm tin của tuổi trẻ vùng mỏ, đã để lại xúc động trong lòng đồng đội và nhân dân.\nVinh quang đến sớm, nhưng chưa bao giờ là điểm dừng. Bởi khi ấy, đất nước vẫn còn chia cắt, quần đảo Trường Sa – phần lãnh thổ thiêng liêng của Tổ quốc vẫn nằm trong tay quân đội Sài Gòn. Sau tuổi 23 rực lửa ấy, Đỗ Viết Cường lại khoác ba lô lên đường, bước vào vai trò mới là người chỉ huy đặc công nước dẫn đầu mũi tiến công, cùng đồng đội vượt sóng ra Trường Sa, góp phần vào chiến dịch lịch sử mùa xuân năm 1975.\nTrận Trường Sa lịch sử và bản lĩnh của một người chỉ huy Bước sang mùa xuân năm 1975 - thời khắc quyết định của cuộc kháng chiến chống Mỹ cứu nước, Hải quân nhân dân Việt Nam nhận nhiệm vụ đặc biệt. Đó là giải phóng quần đảo Trường Sa, nơi có vị trí chiến lược đặc biệt quan trọng về chính trị, quân sự, kinh tế. Trong đội hình ấy, Đỗ Viết Cường khi đó đã là một trong những chỉ huy trẻ, được giao chỉ huy một mũi đặc công nước tiến công. Sứ mệnh mà ông và đồng đội đều hiểu rõ mức độ hiểm nguy, nhưng ai nấy đều quyết tâm hoàn thành bằng mọi giá.\nBức ảnh hiếm hoi ghi lại cảnh Chuẩn đô đốc Đỗ Viết Cường làm việc khi còn công tác tại Bộ Tham mưu, Bộ tư lệnh Quân chủng Hải Quân. (Ảnh: Tư liệu).\nTàu chở đặc công nước của ta không phải là chiến hạm lớn, mà là những tàu vận tải cải trang thành tàu cá, thường xuyên thay đổi số hiệu để tránh bị địch phát hiện. Toàn bộ lực lượng đặc công nước trong đó có nhiều người mới ra viện, vết thương còn chưa lành sẹo, phải nằm sâu dưới khoang hàng chật hẹp suốt ba ngày lênh đênh trên biển. Đó là ba ngày sóng to, thiếu khí, thiếu nước ngọt; mồ hôi quyện mùi dầu máy, không khí đặc quánh, nhưng không ai hé một lời than vãn. Bởi phía trước họ, Tổ quốc đang chờ.\nKhi tàu đến gần mục tiêu, Đỗ Viết Cường chỉ huy anh em dùng xuồng cao su, lặng lẽ chèo tay áp sát đảo. Trong bóng đêm đặc quánh, mặt biển động dữ dội, những ngọn đèn pha trên đảo Song Tử Tây quét ngang mặt nước, lính gác căng mắt quan sát. Đặc công nước phải lặn sâu, chỉ ngoi lên thở qua chiếc ống thở nhỏ xíu gần như vô hình nếu nhìn từ xa. Trong khoảnh khắc đó, kinh nghiệm, bản lĩnh thép và sự bình tĩnh của người chỉ huy trẻ thể hiện rõ nhất. Ông lặng lẽ quan sát, xác định hướng tiến công chính xác bằng chiếc địa bàn (la bàn) chịu nước – kỷ vật mà ông từng gọi là “mắt dẫn đường” trên biển đêm.\n4 giờ sáng ngày 14/4/1975, đúng thời điểm quyết định, đặc công nước đồng loạt nổ súng. Chỉ trong chưa đầy 30 phút, quân ta đã làm chủ hoàn toàn đảo Song Tử Tây, bắt sống toàn bộ quân địch, thu giữ vũ khí, giữ nguyên công trình phòng thủ. Đó không chỉ là chiến thắng về quân sự, mà còn là thắng lợi về ý chí, về nghệ thuật tác chiến táo bạo, quyết đoán của bộ đội đặc công nước, trong đó có dấu ấn sâu đậm của người chỉ huy trẻ Đỗ Viết Cường.\nChưa đầy mười ngày sau, Đỗ Viết Cường tiếp tục được giao nhiệm vụ chỉ huy một trong hai mũi tấn công giải phóng đảo Sơn Ca. Đây là trận đánh đòi hỏi mưu trí và tinh thần thép, bởi địch vẫn đang tăng cường phòng thủ, lường trước khả năng quân ta sẽ tiếp tục tập kích. Đêm 24/4/1975, ông cùng đồng đội lặn ngầm, áp sát đảo. Biển đêm tối mịt, sóng vỗ dữ dội, nhưng từng người lính vẫn lặng lẽ tiến lên, chờ đợi thời khắc thích hợp.\nTrong khoảnh khắc ngắn ngủi, khi nhận ra điểm sơ hở của địch, Đỗ Viết Cường ra hiệu lệnh xung phong. Chỉ trong khoảng nửa giờ, quân ta tiêu diệt và bắt sống toàn bộ quân địch trên đảo, thu giữ vũ khí, giữ nguyên trạng công trình phòng thủ. Chiến thắng nhanh gọn ấy tiếp tục chứng minh khả năng quan sát, phán đoán và quyết đoán của người chỉ huy đặc công nước trẻ tuổi vốn đã tôi luyện qua nhiều năm lăn lộn ngoài chiến trường.\nKhi kể lại, ông từng nói về hai kỷ vật đặc biệt quan trọng của người lính đặc công nước: Chiếc địa bàn chịu nước và chiếc ống thở bé xíu. Địa bàn giúp ông và đồng đội xác định hướng, định vị tàu địch và căn thời điểm nổ súng. Còn chiếc ống thở lại là “bùa hộ mệnh” để họ ẩn mình dưới nước hàng giờ, tránh tầm mắt lính gác và ánh đèn pha soi quét mặt biển. Chính nhờ đó, các đợt tấn công của đặc công nước luôn đạt yếu tố bất ngờ là nhân tố quyết định làm nên chiến thắng.\nBức ảnh gia đình Chuẩn đô đốc Đỗ Viết Cường. Ảnh: Đỗ Hùng.\nĐặc biệt, ông luôn khắc ghi lời Bác Hồ dạy: “Đặc công là công tác đặc biệt, là vinh dự đặc biệt, cần phải cố gắng đặc biệt”. Câu nói trở thành kim chỉ nam trong mọi hành động, mọi quyết định của ông, từ khi còn là chiến sĩ trẻ cho đến lúc là chỉ huy.\nĐỉnh điểm của chiến dịch là ngày 29/4/1975, quân ta giành quyền kiểm soát đảo Trường Sa lớn. Với những chiến sĩ đặc công nước như Đỗ Viết Cường, đó là khoảnh khắc khép lại bản hùng ca trên biển Đông trước ngày toàn thắng 30/4 lịch sử. Nhìn lại chặng đường ấy, đồng đội vẫn nhắc đến ông với tất cả sự nể phục về người chỉ huy dám đi sâu, lặn xa, quyết đoán và không ngại hy sinh.\nHòa bình lập lại, hành trình binh nghiệp của Đỗ Viết Cường chưa dừng lại. Ông tiếp tục trải qua nhiều vị trí quan trọng như Đoàn phó rồi Lữ đoàn trưởng Lữ đoàn Hải quân đánh bộ 147 – một trong những đơn vị chủ lực của Quân chủng Hải quân. Sau đó là Trưởng phòng Binh chủng – Bộ Tham mưu Quân chủng, rồi Phó Tham mưu trưởng Quân chủng Hải quân. Dù ở cương vị nào, ông vẫn giữ vẹn nguyên tác phong của người lính đặc công nước: Kiệm lời, nghiêm túc, kỷ luật nhưng luôn gần gũi và chân thành.\nCuối năm 2010, ông nghỉ hưu với quân hàm Chuẩn Đô đốc – Cấp hàm cao hiếm có đối với một người xuất thân từ lính đặc công nước. Ở tuổi xế chiều, ông vẫn giữ tác phong bình dị, trầm lắng, vẫn nặng lòng với đồng đội, với những kỷ vật của một thời đạn bom và với quê hương Quảng Ninh – nơi đã nuôi dưỡng tinh thần thép của người lính đặc công nước năm xưa. Trong mắt gia đình, đồng chí, đồng đội, ông không chỉ là một Chuẩn Đô đốc hay Anh hùng Lực lượng vũ trang nhân dân, mà còn là người cha, người anh, người đồng đội mẫu mực, kiệm lời nhưng giàu tình nghĩa.\nKhi ông về với đất mẹ vào tháng 9/2023, ký ức về ông không chỉ còn trên những tấm huân chương, trong hồ sơ quân công, mà còn sống mãi trong lòng bao thế hệ như minh chứng chân thật nhất của một cuộc đời trọn vẹn vì Tổ quốc. Từ vùng biển đất mỏ, hành trình của Anh hùng Lực lượng vũ trang nhân dân Đỗ Viết Cường đã hòa vào dòng chảy lịch sử dân tộc, để lại dấu ấn không phai về một người con đất mỏ can trường, bình dị nhưng phi thường. Và hôm nay, nhắc đến ông, không chỉ nhắc đến chiến công, mà còn nhắc đến tinh thần bất khuất và tình yêu nước nồng nàn - thứ đã hun đúc nên “bông hoa thép” giữa biển trời Tổ quốc.",
+                    "logoLink": [
+                        "https://console-vnsocial.vnpt.vn/assets/icon-news/dangcongsan.vn_logo.png"
+                    ],
+                    "senti": "positive",
+                    "type": "",
+                    "isSpam": false,
+                    "createDate": "2025-09-01T10:34:00.000+07:00",
+                    "numInteractions": 0,
+                    "numComments": 0,
+                    "numShares": 0,
+                    "updateDate": "2025-09-01T11:26:53.157+07:00"
+                },
+                {
+                    "userId": "",
+                    "docId": "C91FC4572AE12CCCD916125149DDDE6E",
+                    "userName": "TD",
+                    "sourceId": "vksndtc.gov.vn",
+                    "sourceName": "vksndtc.gov.vn",
+                    "postLink": "https://vksndtc.gov.vn/tin-tuc/tin-hoat-dong-vksnd-dia-phuong/tin-hoat-dong-vksnd-dia-phuong-dien-bien--quang-ni-d3-t13318.html",
+                    "domain": "vksndtc.gov.vn",
+                    "pictures": [
+                        "http://vksndtc.gov.vn/knd/tt/PublishingImages/TinTuc/AnhDaiDien/đp.png"
+                    ],
+                    "title": "Tin hoạt động VKSND địa phương Điện Biên – Quảng Ninh – Viện kiểm sát quân sự Quân khu 5",
+                    "description": "Tin hoạt động VKSND địa phương ngày 01/9/2025 gồm những nội dung chính sau: VKSND tỉnh Điện Biên kiểm tra việc triển khai thực hiện Chỉ thị số 01 năm 2024 đối với VKSND khu vực 5, tỉnh Điện Biên; VKSND tỉnh Quảng Ninh kiểm tra toàn diện công tác năm 2025 tại các VKSND khu vực; Lãnh đạo Viện kiểm sát quân sự Quân khu 5 dự Lễ công bố Quyết định đặc xá đợt 2 năm 2025.",
+                    "tags": "Tin hoạt động VKSND địa phương Điện Biên – Quảng Ninh – Viện kiểm sát quân sự Quân khu 5;Tin hoạt động VKSND địa phương ngày 01/9/2025 gồm những nội dung chính sau: VKSND tỉnh Điện Biên kiểm tra việc triển khai thực hiện Chỉ thị số 01 năm 2024 đối với VKSND khu vực 5, tỉnh Điện Biên; VKSND tỉnh Quảng Ninh kiểm tra toàn diện công tác năm 2025 tại các VKSND khu vực; Lãnh đạo Viện kiểm sát quân sự Quân khu 5 dự Lễ công bố Quyết định đặc xá đợt 2 năm 2025.;",
+                    "content": "Tin hoạt động VKSND địa phương ngày 01/9/2025 gồm những nội dung chính sau: VKSND tỉnh Điện Biên kiểm tra việc triển khai thực hiện Chỉ thị số 01 năm 2024 đối với VKSND khu vực 5, tỉnh Điện Biên; VKSND tỉnh Quảng Ninh kiểm tra toàn diện công tác năm 2025 tại các VKSND khu vực; Lãnh đạo Viện kiểm sát quân sự Quân khu 5 dự Lễ công bố Quyết định đặc xá đợt 2 năm 2025.\nVKSND tỉnh Điện Biên: Vừa qua, VKSND tỉnh Điện Biên đã tiến hành kiểm tra toàn diện tại VKSND khu vực 5, tỉnh Điện Biên về việc triển khai thực hiện Chỉ thị số 01/CT-VKSTC ngày 12/12/2024 của Viện trưởng VKSND tối cao.\nĐoàn kiểm tra VKSND tỉnh Điện Biên kiểm tra việc thực hiện\nChỉ thị số 01 tại VKSND khu vực 5\nĐoàn kiểm tra đã nghe đồng chí Thào A Di, Viện trưởng VKSND khu vực 5 báo cáo kết quả quán triệt, triển khai thực hiện Chỉ thị số 01 của Viện trưởng VKSND tối cao; kết quả công tác thực hành quyền công tố và kiểm sát các hoạt động tư pháp; kết quả công tác xây dựng Ngành thời điểm từ 01/10/2024 đến 31/7/2025.\nSau hai ngày làm việc tích cực, nghiêm túc, khẩn trương và hiệu quả, Đoàn kiểm tra đánh giá VKSND khu vực 5 đã nghiêm túc quán triệt, triển khai Chỉ thị số 01, bám sát nhiệm vụ chính trị địa phương, đạt nhiều kết quả tích cực, bảo đảm chất lượng công tác ngày càng được nâng cao. Bên cạnh những ưu điểm, Đoàn cũng thẳng thắn chỉ ra một số tồn tại, hạn chế và yêu cầu đơn vị kịp thời khắc phục thiếu sót, tiếp tục phát huy tinh thần trách nhiệm, chủ động đổi mới phương pháp quản lý, nâng cao chất lượng công tác nghiệp vụ.\nPhát biểu kết luận cuộc kiểm tra, đồng chí Vũ Trung Thành, Viện trưởng VKSND tỉnh Điện Biên, Trưởng đoàn đã đánh giá, ghi nhận một số kết quả của đơn vị đã đạt được trong việc triển khai thực hiện Chỉ thị số 01 của Viện trưởng VKSND tối cao và Kế hoạch số 01 của VKSND tỉnh Điện Biên. Đồng chí yêu cầu tập thể đơn vị VKSND khu vực 5 tiếp tục triển khai và thi hành các chủ trương, chính sách của Đảng, pháp luật của Nhà nước, các đạo luật mới về tư pháp liên quan đến ngành Kiểm sát trong thời kỳ sau khi sắp xếp, tinh gọn bộ máy; đổi mới công tác quản lý, chỉ đạo, điều hành gắn với tình hình thực tiễn của địa phương và đơn vị mình.\nĐồng thời bố trí, sắp xếp lại cán bộ, Kiểm sát viên cho phù hợp đáp ứng các yêu cầu mới về thực hiện nhiệm vụ; nâng cao chất lượng công tác giải quyết tố giác, tin báo tội phạm và kiến nghị khởi tố, công tác lập hồ sơ kiểm sát; tăng cường công tác tự đào tạo cán bộ...nhằm thực hiện tốt chức năng, nhiệm vụ của Ngành và nhiệm vụ chính trị của địa phương.\nVKSND tỉnh Quảng Ninh: Vừa qua, 03 Đoàn kiểm tra của VKSND tỉnh Quảng Ninh đã tiến hành kiểm tra toàn diện kết quả thực hiện kế hoạch công tác năm 2025 tại các VKSND khu vực 1, 3, 5. Qua đó đánh giá những ưu điểm, chỉ ra tồn tại, hạn chế của các đơn vị, đồng thời hướng dẫn, giải đáp các khó khăn, vướng mắc để các đơn vị thực hiện tốt hơn chức năng, nhiệm vụ được giao.\nĐồng chí Phạm Viết Vượng, Viện trưởng VKSND tỉnh Quảng Ninh\ncông bố quyết định kiểm tra tại VKSND khu vực 1\nTrên cơ sở báo cáo của các đơn vị, Đoàn kiểm tra đã tiến hành kiểm tra hồ sơ, sổ sách, các chuyên đề, tài liệu liên quan đến công tác chỉ đạo điều hành và việc thực hiện các khâu công tác của đơn vị. Theo đó, trong năm 2025, các VKSND khu vực đã không ngừng đổi mới phương pháp lãnh đạo, chỉ đạo, điều hành, nêu cao tinh thần trách nhiệm, chủ động thực hiện tốt các chức năng, nhiệm vụ được giao, nâng cao chất lượng thực hành quyền công tố và kiểm sát hoạt động tư pháp\nBên cạnh đó, Đoàn cũng chỉ ra một số tồn tại, hạn chế trong từng khâu công tác, đề nghị các đơn vị kịp thời đề ra phương hướng chấn chỉnh, khắc phục.\nPhát biểu chỉ đạo tại buổi kiểm tra, đồng chí Viện trưởng VKSND tỉnh Quảng Ninh Phạm Viết Vượng đánh giá cao những thành tích mà các đơn vị đã đạt được trong năm 2025. Đồng chí cũng yêu cầu tập thể Lãnh đạo, cán bộ công chức của đơn vị nghiêm túc tiếp thu những ý kiến tham gia của Đoàn kiểm tra, phát huy hơn nữa trách nhiệm nêu gương của người đứng đầu, quản lý tốt cán bộ, tránh để xảy ra oan, sai, vi phạm; duy trì tốt mối quan hệ đoàn kết trong nội bộ cơ quan; chấp hành nghiêm các quy chế, quy định về nghiệp vụ; phối hợp chặt chẽ, có hiệu quả với các cơ quan tố tụng trong giải quyết các vụ án, phấn đấu hoàn thành vượt các chỉ tiêu trong kế hoạch công tác năm 2025.\nViện kiểm sát quân sự Quân khu 5: Ngày 01/9/2025, tại Trại giam quân sự khu vực Miền Trung (T10) và Trại tạm giam Quân khu 5 (B14) đã tổ chức Lễ công bố Quyết định đặc xá đợt 2 năm 2025 của Chủ tịch nước cho 06 phạm nhân.\nTrước đó, các Trại đã phối hợp với các cơ quan chức năng tích cực chuẩn bị cho công tác đặc xá với các bước lựa chọn, xét duyệt chặt chẽ, dân chủ, công khai, đúng đối tượng, đúng pháp luật. Kết quả soát xét thể hiện: Trong quá trình giáo dục, cải tạo phạm nhân, đơn vị đã phối hợp chặt chẽ với gia đình và cơ quan chức năng, chính quyền địa phương trong thực hiện chính sách khoan hồng của Đảng và Nhà nước; 06 phạm nhân được đặc xá lần này đã chấp hành tốt các quy định, nội quy nơi giam giữ, biết ăn năn hối cải, được đánh giá xếp loại cải tạo tốt.\nĐại diện Lãnh đạo đơn vị trao Quyết định đặc xá tại T10\nĐặc xá năm 2025 (đợt 2) tiếp tục khẳng định chính sách khoan hồng của Đảng và Nhà nước ta đối với những người phạm tội. Sau Lễ công bố Quyết định đặc xá của Chủ tịch nước, Trại giam quân sự khu vực Miền Trung và Trại tạm giam Quân khu 5 cũng đã phát động phong trào thi đua nhằm khơi dậy tinh thần cải tạo, học tập cho các phạm nhân còn ở lại tin tưởng vào chính sách khoan hồng của Đảng, Nhà nước đối với người phạm tội, khuyến khích họ tích cực rèn luyện, phấn đấu, quyết tâm cải tạo tốt, sớm trở về đoàn tụ gia đình, trở thành người công dân có ích của xã hội.",
+                    "logoLink": [
+                        "https://console-vnsocial.vnpt.vn/assets/icon-news/Defaul_logo.png"
+                    ],
+                    "senti": "neutral",
+                    "type": "",
+                    "isSpam": false,
+                    "createDate": "2025-09-02T00:00:00.000+07:00",
+                    "numInteractions": 0,
+                    "numComments": 0,
+                    "numShares": 0,
+                    "updateDate": "2025-09-02T06:32:22.824+07:00"
+                },
+                {
+                    "userId": "",
+                    "docId": "0B37AA85B03801DED1827EB39B546520",
+                    "userName": "",
+                    "sourceId": "baovephapluat.vn",
+                    "sourceName": "baovephapluat.vn",
+                    "postLink": "https://baovephapluat.vn/cong-to-kiem-sat-tu-phap/an-ninh-trat-tu/nghiem-tri-hanh-vi-gay-roi-trat-tu-cong-cong-tren-dia-ban-mong-cai-183648.html",
+                    "domain": "baovephapluat.vn",
+                    "pictures": [
+                        "https://baovephapluat.vn/data/images/0/2025/09/01/thinhpv/1-5.jpg?w=400",
+                        "https://baovephapluat.vn/data/images/0/2025/09/01/thinhpv/1-4.jpg?dpi=150&quality=100&w=820"
+                    ],
+                    "title": "Nghiêm trị hành vi gây rối trật tự công cộng trên địa bàn Móng Cái",
+                    "description": "Ngày 1/9, Công an tỉnh Quảng Ninh cho biết, đơn vị đã tạm giữ hình sự 6 đối tượng để điều tra về hành vi “Gây rối trật tự công cộng” sau vụ ẩu đả nghiêm trọng xảy ra tại địa bàn phường Móng Cái 1, khiến nhiều người bị thương và gây mất an ninh trật tự.",
+                    "tags": "nhóm thanh thiếu niên,gây rối trật tự công cộng,hỗn chiến,khu vực gần cửa khẩu,phường móng cái 1,",
+                    "content": "6 đối tượng bị Công an tỉnh Quảng Ninh tạm giữ để điều tra về hành vi gây rối trật tự công cộng.\nTheo điều tra, khoảng 22h30 ngày 13/8/2025, tại đường Hữu Nghị, phường Móng Cái 1, từ mâu thuẫn cá nhân giữa B.T.A. (SN 2009) và Đ.Q.A. (SN 2009), hai nhóm thanh thiếu niên đã chặn xe, lao vào đánh nhau. Các đối tượng dùng tay, chân, gạch đá, gậy bi-a tấn công nhau, trong đó N.B.L. còn rút dao chém trúng lưng B.V.T.\nHậu quả vụ ẩu đả khiến 4 người bị thương, bao gồm cả những người dân vô tình có mặt gần hiện trường. Hành vi này đã gây hoang mang, mất an ninh trật tự nghiêm trọng tại khu vực cửa khẩu.\nNgay sau khi tiếp nhận tin báo, Công an phường Móng Cái 1 phối hợp Phòng Cảnh sát hình sự đã nhanh chóng truy xét, triệu tập các đối tượng liên quan, gồm T.T.D.A., P.D.K., Đ.B.H., N.Đ.H., P.M.C. và Đ.Q.A.\nCơ quan Công an khẳng định, đây là hành vi vi phạm pháp luật nghiêm trọng, tiềm ẩn nguy cơ gây thương tích, thậm chí đe dọa tính mạng. Vụ việc cũng gióng lên hồi chuông cảnh tỉnh về tình trạng thanh thiếu niên tụ tập, mang theo hung khí để giải quyết mâu thuẫn.\nLực lượng chức năng khuyến cáo giới trẻ tuyệt đối không tụ tập gây gổ, cần tìm cách hòa giải hoặc nhờ người lớn, cơ quan chức năng can thiệp; đồng thời kêu gọi gia đình, nhà trường và toàn xã hội tăng cường phối hợp quản lý, giáo dục, định hướng để phòng ngừa những hành vi bạo lực đáng tiếc.",
+                    "logoLink": [
+                        "https://console-vnsocial.vnpt.vn/assets/icon-news/baovephapluat.vn_logo.png"
+                    ],
+                    "senti": "negative",
+                    "type": "",
+                    "isSpam": false,
+                    "createDate": "2025-09-02T15:49:00.000+07:00",
+                    "numInteractions": 0,
+                    "numComments": 0,
+                    "numShares": 0,
+                    "updateDate": "2025-09-02T16:03:20.035+07:00"
+                },
+                {
+                    "userId": "",
+                    "docId": "DBA323D2B740E49C88EEC42388A632F5",
+                    "userName": "Trần Trang",
+                    "sourceId": "thuonghieucongluan.com.vn",
+                    "sourceName": "thuonghieucongluan.com.vn",
+                    "postLink": "https://thuonghieucongluan.com.vn/quang-ninh-chuyen-doi-so-trong-cong-tac-khuyen-nong-a278168.html",
+                    "domain": "thuonghieucongluan.com.vn",
+                    "pictures": [
+                        "https://thuonghieucongluan.com.vn//media.thuonghieucongluan.vn/resize_640x360/uploads/2025/09/01/khuyen-nong-1756710210.jpg",
+                        "https://media.thuonghieucongluan.vn/uploads/2025/09/01/khuyen-nong-1756710210.jpg",
+                        "https://media.thuonghieucongluan.vn/uploads/2025/09/01/khuyen-nong-1-1756710210.jpg"
+                    ],
+                    "title": "Quảng Ninh chuyển đổi số trong công tác khuyến nông",
+                    "description": "Trong bối cảnh chuyển đổi số trở thành động lực quan trọng cho phát triển nông nghiệp bền vững, giúp nông dân tiếp cận tri thức mới, ứng dụng vào sản xuất nhằm nâng cao năng suất, chất lượng sản phẩm, đồng thời mở rộng thị trường tiêu thụ, Trung tâm Khuyến nông tỉnh Quảng Ninh (Sở NN&MT) đang từng bước chuyển đổi từ phương thức hoạt động truyền thống sang môi trường số.",
+                    "tags": "Quảng Ninh chuyển đổi số trong công tác khuyến nông",
+                    "content": "Những năm gần đây, Trung tâm Khuyến nông tỉnh đã tích cực triển khai nhiều mô hình ứng dụng công nghệ số trong sản xuất. Các giải pháp nổi bật gồm sử dụng cảm biến IoT, trí tuệ nhân tạo (AI), hệ thống điều khiển tự động trong quản lý chuồng trại, ao nuôi; số hóa nhật ký sản xuất, truy xuất nguồn gốc sản phẩm; chuẩn hóa quy trình kỹ thuật thành video, tài liệu trực quan để nông dân dễ tiếp cận, hạn chế sai sót trong canh tác.\nHTX nuôi tôm công nghệ cao Cẩm Phả hiện đang áp dụng các công nghệ mới vào sản xuất, giúp giảm thiểu nguy cơ rủi ro về dịch bệnh. (Ảnh: QMG)Thực tế đã chứng minh hiệu quả rõ rệt. Nhiều cơ sở sản xuất, hợp tác xã khi áp dụng công nghệ mới đã đạt năng suất, lợi nhuận vượt trội, đồng thời nâng cao tính cạnh tranh trên thị trường. Điển hình là HTX nuôi tôm công nghệ cao Cẩm Phả (xã Hải Hòa). Tại mỗi ao nuôi, HTX đều gắn mã định danh nhận diện, có hệ thống mái che chuyên dụng điều chỉnh nhiệt độ, ánh sáng; trang bị giàn quạt, oxy đáy và bộ phận kiểm soát dịch bệnh.\nĐặc biệt, HTX còn đầu tư kính hiển vi cùng đội ngũ kỹ sư trực tiếp theo dõi độ mặn, chất lượng tảo để bảo đảm điều kiện tốt nhất cho tôm phát triển. Nhờ đó, sản phẩm của HTX không chỉ giảm thiểu nguy cơ dịch bệnh, mà còn đủ tiêu chuẩn xuất khẩu sang các thị trường khó tính, mỗi tháng cung ứng ra thị trường khoảng 45 tấn tôm thẻ chân trắng.\nĐể cụ thể hóa Nghị quyết số 57 của Bộ Chính trị, năm 2025, Trung tâm Khuyến nông tỉnh đã đề xuất thực hiện nhiệm vụ khoa học cấp tỉnh “Ứng dụng các biện pháp canh tác khoa học, tiên tiến trong sản xuất lúa nhằm giảm phát thải khí nhà kính, bảo vệ môi trường tại Quảng Ninh”. Song song, đơn vị chủ động nghiên cứu thử nghiệm các giống cây trồng mới như na bở, vải chín sớm...; đồng thời đề xuất xây dựng trạm chuyển giao kỹ thuật nông nghiệp tại xã Đầm Hà. Các nhiệm vụ nghiên cứu khoa học đều được rà soát, đánh giá khả năng phù hợp của đối tượng với thực tế sản xuất của địa phương.\nTrong hợp tác quốc tế, Trung tâm Khuyến nông đóng vai trò đầu mối triển khai các dự án ứng dụng công nghệ tiên tiến nước ngoài. Một ví dụ điển hình là dự án “Thử nghiệm ứng dụng công nghệ Nhật Bản nhằm nâng cao năng lực chế biến nông sản, hướng tới phát triển nông nghiệp bền vững” do Cơ quan Hợp tác Quốc tế Nhật Bản (JICA) viện trợ không hoàn lại. Dự án này hứa hẹn sẽ góp phần cải thiện năng lực chế biến, gia tăng giá trị nông sản và nâng cao hiệu quả sản xuất cho nông dân Quảng Ninh. Từ những kết quả bước đầu, giai đoạn 2026-2030, Trung tâm Khuyến nông tỉnh xác định một số nhiệm vụ trọng tâm: nghiên cứu, ứng dụng giống cây trồng mới và công nghệ cao trong sản xuất; phát triển mô hình chăn nuôi tuần hoàn, an toàn sinh học; chuyển giao kỹ thuật lâm nghiệp theo tiêu chuẩn quốc gia và quốc tế; quản lý môi trường chuồng trại, ao nuôi bằng hệ thống giám sát từ xa, cảnh báo thông minh.\nĐồng thời, Trung tâm đẩy mạnh ứng dụng công nghệ sinh học, công nghệ số, tự động hóa trong trồng cây ăn quả, lúa, chăn nuôi và nuôi trồng thủy sản; phát triển mô hình rừng thâm canh, bảo tồn và nhân giống cây dược liệu, lâm sản ngoài gỗ nhằm thích ứng biến đổi khí hậu. Mục tiêu xuyên suốt là nâng cao năng suất, chất lượng, giảm chi phí đầu vào, giảm phát thải, xây dựng nền nông nghiệp xanh, bền vững, qua đó tạo niềm tin cho nông dân và thúc đẩy nhanh quá trình ứng dụng tiến bộ kỹ thuật.\nTrung tâm Khuyến nông tỉnh tổ chức tập huấn \"Kỹ thuật canh tác lúa chất lượng cao, giảm phát thải\" cho các hộ nông dân trên địa bàn một số phường, xã. (Ảnh: Đơn vị cung cấp)Dù đạt được những kết quả bước đầu, nhưng quá trình chuyển đổi số trong công tác khuyến nông của tỉnh vẫn đối mặt với nhiều thách thức. Hạ tầng công nghệ thông tin chưa đồng bộ, nguồn lực đầu tư hạn chế, cơ sở dữ liệu về cây trồng, vật nuôi chưa chuẩn hóa. Đội ngũ cán bộ khuyến nông còn thiếu kiến thức chuyên sâu về công nghệ số, trong khi trình độ tiếp cận công nghệ của nhiều nông dân còn thấp. Bên cạnh đó, cơ chế, chính sách hỗ trợ chuyển đổi số trong nông nghiệp chưa thật sự rõ ràng, thiếu hướng dẫn cụ thể...\nĐại diện Trung tâm Khuyến nông tỉnh Quảng Ninh, nhấn mạnh đây chính là những “điểm nghẽn” cần sớm được tháo gỡ. Theo đó, tỉnh cần tiếp tục đầu tư hạ tầng công nghệ thông tin đến tận cơ sở, xây dựng và hoàn thiện cơ sở dữ liệu nông nghiệp lớn phục vụ huấn luyện AI. Đồng thời, cần ban hành cơ chế, chính sách cụ thể nhằm khuyến khích doanh nghiệp, hợp tác xã và nông dân tham gia ứng dụng công nghệ cao, phát triển mô hình sản xuất thông minh. Khi có sự đồng hành của Nhà nước, doanh nghiệp, nhà khoa học và người dân, chuyển đổi số trong khuyến nông Quảng Ninh sẽ trở thành động lực quan trọng thúc đẩy ngành nông nghiệp phát triển hiện đại, hiệu quả và bền vững.",
+                    "logoLink": [
+                        "https://console-vnsocial.vnpt.vn/assets/icon-news/thuonghieucongluan.com.vn_logo.png"
+                    ],
+                    "senti": "positive",
+                    "type": "",
+                    "isSpam": false,
+                    "createDate": "2025-09-01T14:05:00.000+07:00",
+                    "numInteractions": 0,
+                    "numComments": 0,
+                    "numShares": 0,
+                    "updateDate": "2025-09-01T14:12:07.105+07:00"
+                },
+                {
+                    "userId": "kenhtingame.com",
+                    "docId": "D7434A1E3AC33EDCBEDA8841601E3DBC",
+                    "userName": "kenhtingame.com",
+                    "sourceId": "kenhtingame.com",
+                    "sourceName": "kenhtingame.com",
+                    "postLink": "https://kenhtingame.com/gaming-gear/nhan-duoc-yeu-cau-chuyen-khoan-200-trieu-dong-tu-so-dien-thoai-083860613-nguoi-phu-nu-ngay-lap-tuc-trinh-bao-cong-an/538532",
+                    "domain": "kenhtingame.com",
+                    "pictures": [
+                        "https://static4.kenhtingame.com/News/Img/29082025/avatar1756434979609-1756434980024731841317-261-0-1046-1500-crop-17564349925154190960jpg.jpg"
+                    ],
+                    "title": "Nhận được yêu cầu chuyển khoản 200 triệu đồng từ số điện thoại 0838.606.13, người phụ nữ ngay lập tức trình báo Công an",
+                    "description": "Ngay khi tiếp nhận tin báo, Công an phường Hòa Bình phối hợp với  Phòng Cảnh sát hình sự (Công an Thành phố) triển khai các biện pháp nghiệp vụ, tiến hành xác minh, điều tra làm rõ vụ việc.\n                             - Kênh Tin Game với thông tin mới nhất, đánh giá các Game hay đang chơi, công nghệ Game trong nước và thế giới cực nhanh. Kênh Tin Game cập nhật tin tức Game liên tục 24/24. Cập nhật tin tức game online, game mobile mới ra hay nhất hiện nay đang thu hút nhiều game thủ Việt Nam",
+                    "tags": "",
+                    "content": "Ngay khi tiếp nhận tin báo, Công an phường Hòa Bình phối hợp với Phòng Cảnh sát hình sự (Công an Thành phố) triển khai các biện pháp nghiệp vụ, tiến hành xác minh, điều tra làm rõ vụ việc. Công an phường Hoà Bình và Phòng Cảnh sát hình sự trao làm việc với mẹ con chị Nguyễn Thị Th. (Ảnh: Công an TP. Hải Phòng) Theo Cổng TTĐT Công an TP. Hải Phòng, ngày 27/8, Công an phường Hòa Bình tiếp nhận đơn trình báo của chị Nguyễn Thị Th. (sinh năm 1987, trú tại tổ dân phố 7, phường Hoà Bình) về việc con trai chị – cháu Trần M.Th (sinh năm 2007) có dấu hiệu bị bắt cóc. Theo trình báo, khoảng 10h sáng cùng ngày, cháu Th. điều khiển xe máy BKS 15AA-08004 rời khỏi nhà. Chỉ nửa tiếng sau, chị Th. bất ngờ nhận được cuộc gọi từ số điện thoại lạ 0838.606.131, yêu cầu gia đình đưa tiền chuộc để được “thả” con trai. Không dừng lại ở đó, nhiều số khác liên tục gọi đến đe doạ sẽ “cắt tay, chân” cháu Th. nếu gia đình không chuyển tiền. Qua xác minh ban đầu, Công an phát hiện xe máy của cháu Th. tại nhà nghỉ Thú Biển (tổ dân phố 10, phường Bạch Đằng). Từ dữ liệu camera, lực lượng chức năng thấy cháu rời nhà nghỉ, sau đó lên một chiếc ô tô Xpander (không rõ biển kiểm soát) đi về hướng Thuỷ Nguyên. Thực chất, cháu Th. không hề bị bắt cóc. Cháu bị một đối tượng giả danh Công an gọi điện, “gán” cho liên quan đến 2 vụ án ma tuý và mua bán dữ liệu cá nhân. Đối tượng yêu cầu nộp 200 triệu đồng để được “xóa tội”, đồng thời buộc cháu tham gia nhóm chat, gọi video 24/24h để giám sát. Vì lo sợ, cháu Th. làm theo toàn bộ chỉ dẫn: báo cáo lịch trình sinh hoạt, nhắn tin qua lại để đánh lạc hướng gia đình, tự đến nhà nghỉ, rồi đặt xe công nghệ di chuyển đến nhiều địa điểm khác nhau. Thời điểm rời nhà, cháu mang theo gần 2 triệu đồng và đã dùng toàn bộ số tiền này để trả phí di chuyển. Nhận thấy vụ việc có tính chất phức tạp, Công an phường Hòa Bình đã báo cáo Phòng Cảnh sát hình sự Công an TP. Hải Phòng để phối hợp điều tra. Trung tá Vũ Hữu Hiệu – Phó Đội trưởng Đội 3 – trực tiếp chỉ huy tổ công tác phối hợp cùng lực lượng địa phương triển khai các biện pháp nghiệp vụ. Tại đây, tổ công tác đã phân tích, giải thích rõ cho gia đình chị Th. về thủ đoạn “bắt cóc online” và hướng dẫn cách xử lý. Nhờ sự phối hợp này, gia đình đã liên lạc được với cháu Th. qua điện thoại và Zalo, trấn an tinh thần, giúp cháu dừng làm theo mọi chỉ dẫn của kẻ lừa đảo. Kết quả, cháu Trần M.Th. trở về nhà an toàn, không bị ảnh hưởng đến sức khoẻ. Vụ việc cũng được ngăn chặn kịp thời khi cháu đang trên đường đến địa phận Quảng Ninh. Từ vụ việc trên, Công an phường Hoà Bình cảnh báo người dân: - Khi nhận được thông tin về việc người thân bị “bắt cóc”, cần bình tĩnh, tuyệt đối không chuyển tiền theo yêu cầu. - Nhanh chóng liên hệ cơ quan Công an gần nhất để được hỗ trợ. - Đặc biệt cảnh giác trước những cuộc gọi lạ, yêu cầu quay video, chụp ảnh hay di chuyển bất thường. Trong bối cảnh công nghệ số phát triển, tội phạm mạng ngày càng tinh vi, thay đổi thủ đoạn liên tục. Dù nhiều cơ quan báo chí, truyền thông đã thường xuyên cảnh báo, song không ít người vẫn rơi vào “bẫy” vì tâm lý hoảng loạn, thiếu cảnh giác. CÙNG CHUYÊN MỤC Trải qua 20 năm, điện thoại đã khiến hàng loạt món đồ công nghệ \"tuyệt... Taylor Swift đính hôn: Instagram \"nổ tung\" với loạt kỷ lục, Meta cũng ... Cách nhận 100 nghìn đồng ăn \"Tết Độc lập\" 2/9, làm ngay các bước sau... Abxylute ra mắt máy chơi game cầm tay Windows 3D không cần kính, giá 1... Dữ liệu của 270.000 nhân viên Intel bị hacker tải về \"dễ như ăn kẹo\"... Google cảnh báo người dùng Gmail: Đổi mật khẩu Gmail ngay lập tức!... Tặng 100.000 đồng/người cho toàn dân mừng Tết độc lập: VNeID lại khó t... Bộ đôi laptop AI mỏng, nhẹ cho mùa tựu trường Realme ra mắt smartphone với pin sử dụng đến 5 ngày",
+                    "logoLink": [
+                        "https://console-vnsocial.vnpt.vn/assets/icon-news/Defaul_logo.png"
+                    ],
+                    "senti": "neutral",
+                    "type": "",
+                    "isSpam": false,
+                    "createDate": "2025-08-29T13:14:14.000+07:00",
+                    "numInteractions": 0,
+                    "numComments": 0,
+                    "numShares": 0,
+                    "updateDate": "2025-08-29T14:47:04.944+07:00"
+                },
+                {
+                    "userId": "",
+                    "docId": "805DEB452168D901D48D43D233D80746",
+                    "userName": "",
+                    "sourceId": "cadn.com.vn",
+                    "sourceName": "cadn.com.vn",
+                    "postLink": "https://cadn.com.vn/hoc-tap-trao-doi-kinh-nghiem-giua-cong-an-tp-da-nang-va-cong-an-tinh-quang-ninh-post318390.html",
+                    "domain": "cadn.com.vn",
+                    "pictures": [
+                        "https://filesdata.cadn.com.vn/filesdata/460x435/1200/2025/8/29/a4_1.jpg",
+                        "https://filesdata.cadn.com.vn//filedatacadn/media/1200/2025/8/29/a4_1.jpg"
+                    ],
+                    "title": "Học tập, trao đổi kinh nghiệm giữa Công an TP Đà Nẵng và Công an tỉnh Quảng Ninh",
+                    "description": "Sáng 29-8, Đoàn công tác của Công an tỉnh Quảng Ninh gồm đại diện các phòng nghiệp vụ do Thượng tá Vũ Đình Khải - Phó Trưởng Phòng Tham mưu Công an tỉnh làm Trưởng đoàn đã đến thăm, làm việc và trao đổi kinh nghiệm tại Công an TP Đà Nẵng. Tiếp và làm việc với đoàn có Thượng tá Phạm Trường Sơn - Trưởng Phòng Tham mưu Công an TP Đà Nẵng cùng lãnh đạo các phòng, đơn vị liên quan.",
+                    "tags": "bao cong an, báo công an, cong an da nang, da nang, bao cong an TP Da nang, hiep dam, hiếp dâm, dam chem, đâm chém, cuong hiep, cưỡng hiếp, cong an, công an, công, an, cong, an, bao, báo, bao chi, báo chí, tien, tiền, tham, tham nhung, tham nhũng, tin, tin tuc, tin tức, tin tức mọi mặt, tin tuc moi mat, hoat dong, hoạt động, kich, kích, thich, thích, kích thích, giet, giết, hung, hung khí, bong da, bóng đá, v-league 2009, 2009, van hoa, văn hóa, van hoa nghe thuat, văn hóa nghệ thuật, gia, giá, gia dat, giá đất, hanh chinh, hành chính, hanh chinh cong, hành chính công, giao thong, giao thông, an toàn giao thông, tinh, tình, bẫy tình, bay tinh, con gai, con gái, ky nhan, kỳ nhân, cach mang, cách mạng, xam luoc, xâm lược, ham hiep, hãm hiếp, to cao, tố cáo, Vietnam, Viet Nam, Vietnam News, Daily News, Online Internet Magazine, VASC, Portal, Thoi su, Bao Dien tu, VietNews, Hanoi, Ha Noi, Saigon, Sai gon, Tin tuc, Tintuc, nhung vu an kinh dien, những vụ án, kinh điển, kinh điển, những vụ á",
+                    "content": "Sáng 29-8, Đoàn công tác của Công an tỉnh Quảng Ninh gồm đại diện các phòng nghiệp vụ do Thượng tá Vũ Đình Khải - Phó Trưởng Phòng Tham mưu Công an tỉnh làm Trưởng đoàn đã đến thăm, làm việc và trao đổi kinh nghiệm tại Công an TP Đà Nẵng. Tiếp và làm việc với đoàn có Thượng tá Phạm Trường Sơn - Trưởng Phòng Tham mưu Công an TP Đà Nẵng cùng lãnh đạo các phòng, đơn vị liên quan.\nQuang cảnh cuộc làm viêc và trao đổi kinh nghiệm giữa Công an hai địa phương.\nTại buổi làm việc, Thượng tá Phạm Trường Sơn đã chia sẻ những kết quả nổi bật trong công tác đảm bảo an ninh quốc gia, giữ gìn trật tự an toàn xã hội, đấu tranh phòng chống tội phạm và triển khai chuyển đổi số trên địa bàn Đà Nẵng. Đặc biệt, Công an TP đã chủ động tham mưu cấp ủy, chính quyền nhiều giải pháp hiệu quả trong phòng ngừa, đấu tranh với các loại tội phạm, nhất là tội phạm nổi hiện nay như tội phạm đường phố, tội phạm sử dụng công nghệ cao, điều tra khám phá chuyên án kinh tế, ma túy trên địa bàn; công tác quản lý Nhà nước về ANTT, cải cách hành chính, thực hiện Đề án 06 và Dự án Cơ sở dữ liệu quốc gia về dân cư...\nPhát biểu tại buổi làm việc, đại diện đoàn công tác, Thượng tá Vũ Đình Khải cảm ơn sự tiếp đón nồng nhiệt , chu đáo của Công an TP Đà Nẵng đồng thời đánh giá cao những giải pháp, kinh nghiệm, kết quả mà Công an TP Đà Nẵng đã đạt được, đặc biệt trong việc tổ chức, triển khai giải pháp phòng ngừa xã hội; đấu tranh với tội phạm công nghệ cao, tội phạm kinh tế, ma túy; những kinh nghiệm trong công tác đảm bảo ANTT tại cơ sở.\nThượng tá Vũ Đình Khải mong muốn các đơn vị Công an TP Đà Nẵng tiếp tục và thường xuyên kết nối, trao đổi, tiếp thu những cách làm hay, sáng kiến mới của cả hai địa phương; từ đó, áp dụng có hiệu quả, sáng tạo, phù hợp với tình hình thực tế tại đơn vị và tin tưởng rằng thời gian tới Công an 2 địa phương tiếp tục gắn bó, thắt chặt thêm mối quan hệ trên tất cả các lĩnh vực, phối hợp hiệu quả trong công tác đấu tranh phòng chống tội phạm, đảm bảo ANTT trên địa bàn.\nN.N",
+                    "logoLink": [
+                        "https://console-vnsocial.vnpt.vn/assets/icon-news/cadn.com.vn_logo.png"
+                    ],
+                    "senti": "neutral",
+                    "type": "",
+                    "isSpam": false,
+                    "createDate": "2025-08-30T07:10:00.000+07:00",
+                    "numInteractions": 0,
+                    "numComments": 0,
+                    "numShares": 0,
+                    "updateDate": "2025-08-30T07:35:59.521+07:00"
+                },
+                {
+                    "userId": "",
+                    "docId": "AFC5B9A779484984E2BAA3836BF24DE5",
+                    "userName": "Hà Tâm",
+                    "sourceId": "dangcongsan.vn",
+                    "sourceName": "dangcongsan.vn",
+                    "postLink": "https://dangcongsan.vn/quangninh/tin-tuc-hoat-dong/bieu-duong-chuc-sac-chuc-viec-giao-dan-cong-giao-tieu-bieu-trong-phong-trao-toan-dan-bao-ve-antq.html",
+                    "domain": "dangcongsan.vn",
+                    "pictures": [
+                        "https://dangcongsan.vn/upload/2006988/20250624/6a487509678891c34e4e9e9a0c4541d1adfa42fd08.jpg"
+                    ],
+                    "title": "Biểu dương chức sắc, chức việc, giáo dân Công giáo tiêu biểu trong phong trào Toàn dân bảo vệ ANTQ",
+                    "description": "Ngày 28/8, tại phường Bãi Cháy, Công an tỉnh Quảng Ninh tổ chức hội nghị gặp mặt, biểu dương chức sắc, chức việc, giáo dân Công giáo tiêu biểu có thành tích trong phong trào Toàn dân bảo vệ an ninh Tổ quốc (ANTQ) lần thứ XIII, giai đoạn 2024-2025. Thượng tá Phạm Văn Dũng, Phó Giám đốc Công an tỉnh, chủ trì hội nghị. Trong 2 năm qua, phong trào Toàn dân bảo vệ ANTQ tại các xứ đạo, họ đạo được giữ vững và phát triển. Nhiều giáo dân tham gia đảm nhận vai trò là trưởng thôn, khu, bảo vệ dân phố, là lực lượng nòng cốt trong việc giữ gìn ANTT ở địa phương. Ban hành giáo các giáo xứ, giáo họ đã tham gia vào tổ tự quản, tổ hòa giải để giải quyết các vụ việc mâu thuẫn, đoàn kết lương giáo; cung cấp nhiều thông tin có giá trị cho chính quyền và lực lượng Công an trong đấu tranh phòng chống tội phạm. Duy trì và phát huy hiệu quả các mô hình, phong trào Toàn dân bảo vệ ANTQ ở vùng giáo như “Xứ đạo 5 không”, “Bình yên họ đạo”, “Tiếng kẻng an ninh”,... Lãnh đạo Công an tỉnh trao Giấy khen của Giám đ",
+                    "tags": "Biểu dương chức sắc, chức việc, giáo dân Công giáo tiêu biểu trong phong trào Toàn dân bảo vệ ANTQ,Tin tức, hoạt động",
+                    "content": "Ngày 28/8, tại phường Bãi Cháy, Công an tỉnh Quảng Ninh tổ chức hội nghị gặp mặt, biểu dương chức sắc, chức việc, giáo dân Công giáo tiêu biểu có thành tích trong phong trào Toàn dân bảo vệ an ninh Tổ quốc (ANTQ) lần thứ XIII, giai đoạn 2024-2025. Thượng tá Phạm Văn Dũng, Phó Giám đốc Công an tỉnh, chủ trì hội nghị.\nTrong 2 năm qua, phong trào Toàn dân bảo vệ ANTQ tại các xứ đạo, họ đạo được giữ vững và phát triển. Nhiều giáo dân tham gia đảm nhận vai trò là trưởng thôn, khu, bảo vệ dân phố, là lực lượng nòng cốt trong việc giữ gìn ANTT ở địa phương. Ban hành giáo các giáo xứ, giáo họ đã tham gia vào tổ tự quản, tổ hòa giải để giải quyết các vụ việc mâu thuẫn, đoàn kết lương giáo; cung cấp nhiều thông tin có giá trị cho chính quyền và lực lượng Công an trong đấu tranh phòng chống tội phạm. Duy trì và phát huy hiệu quả các mô hình, phong trào Toàn dân bảo vệ ANTQ ở vùng giáo như “Xứ đạo 5 không”, “Bình yên họ đạo”, “Tiếng kẻng an ninh”,...\nLãnh đạo Công an tỉnh trao Giấy khen của Giám đốc Công an tỉnh cho các chức sắc, chức việc, giáo dân công giáo tiêu biểu trong phong trào Toàn dân bảo vệ ANTQ.\nCác phong trào đoàn kết giúp nhau phát triển kinh tế, nâng cao đời sống, gương mẫu thực hiện quy chế dân chủ và tham gia xây dựng chính quyền, đoàn thể; tham gia các hoạt động từ thiện, nhân đạo luôn được các chức sắc, chức việc và bà con giáo dân Công giáo trong tỉnh Quảng Ninh thực hiện hiệu quả.\nQua hội nghị, các đại biểu Công giáo rất phấn khởi, tin tưởng vào cấp ủy, chính quyền và lực lượng Công an. Đồng thời khẳng định sẽ tiếp tục làm cho các phong trào trong vùng giáo đi lên, bà con giáo dân chấp hành tốt đường lối, chính sách của Đảng, pháp luật của Nhà nước; tích cực phát triển kinh tế, giảm nghèo, thực hiện tốt cuộc vận động “Toàn dân đoàn kết xây dựng nông thôn mới - đô thị văn minh”, phong trào Toàn dân bảo vệ ANTQ, nâng cao cảnh giác trước âm mưu của các thế lực thù địch, phần tử xấu lợi dụng vấn đề “tôn giáo” để chia rẽ khối đại đoàn kết dân tộc.\nPhát biểu tại hội nghị, Thượng tá Phạm Văn Dũng, Phó Giám đốc Công an tỉnh nhấn mạnh để củng cố vững chắc khối đại đoàn kết dân tộc, phát huy vai trò tích cực của đồng bào Công giáo trong phong trào toàn dân bảo vệ ANTQ, các linh mục thông qua hoạt động mục vụ cần kịp thời nắm bắt nguyện vọng chính đáng của giáo dân với các cấp chính quyền, vận động giáo dân chấp hành tốt pháp luật. Đồng thời tham gia có hiệu quả vào phong trào Toàn dân bảo vệ ANTQ. Với các vị chức việc, giáo dân tiêu biểu tiếp tục phát huy các thành tích đạt được, chấp hành tốt chính sách pháp luật; làm tốt công tác tự quản ở các xứ đạo, họ đạo; kịp thời phát hiện những hoạt động lợi dụng tôn giáo, các hành vi vi phạm pháp luật để báo cáo cho chính quyền và lực lượng Công an. Tăng cường vận động đồng bào Công giáo đẩy mạnh phát triển kinh tế, nâng cao đời sống vật chất tinh thần, hạn chế các yếu tố để các thế lực thù địch, phản động lợi dụng chống phá Nhà nước, chia rẽ khối đại đoàn kết dân tộc.\nCác phòng nghiệp vụ lựa chọn, tham mưu lãnh đạo Công an tỉnh báo cáo Bộ Công an mô hình phong trào Toàn dân bảo vệ ANTQ đặc biệt tiêu biểu xuất sắc trong đồng bào Công giáo tỉnh Quảng Ninh để nhân rộng trên quy mô toàn quốc.\nTại hội nghị, lãnh đạo Công an tỉnh trao tặng giấy khen cho 32 chức sắc, chức việc, giáo dân công giáo tiêu biểu trong phong trào Toàn dân bảo vệ ANTQ trong giai đoạn 2024-2025.",
+                    "logoLink": [
+                        "https://console-vnsocial.vnpt.vn/assets/icon-news/dangcongsan.vn_logo.png"
+                    ],
+                    "senti": "positive",
+                    "type": "",
+                    "isSpam": false,
+                    "createDate": "2025-08-28T16:35:00.000+07:00",
+                    "numInteractions": 0,
+                    "numComments": 0,
+                    "numShares": 0,
+                    "updateDate": "2025-08-28T22:11:41.002+07:00"
+                },
+                {
+                    "userId": "",
+                    "docId": "355E0E59D9895B8E1B5727AD2F6DF47F",
+                    "userName": "Lan Chi",
+                    "sourceId": "baoquangtri.vn",
+                    "sourceName": "baoquangtri.vn",
+                    "postLink": "https://baoquangtri.vn/xa-hoi/202509/tu-lang-chien-dau-den-lang-kieu-mau-5c3459d/",
+                    "domain": "baoquangtri.vn",
+                    "pictures": [
+                        "https://baoquangtri.vn/file//2c97e081942a2a4401942a2ce33c0003/082025/2_4_20250830161600.jpeg",
+                        "https://baoquangtri.vn/file/2c97e081942a2a4401942a2ce33c0003/082025/2_4_20250830161600.jpeg",
+                        "https://baoquangtri.vn/file/2c97e081942a2a4401942a2ce33c0003/082025/4_2_20250830162005.jpg"
+                    ],
+                    "title": "Từ làng chiến đấu đến làng kiểu mẫu",
+                    "description": "QTO - Từng là chiến trường khốc liệt, nơi mỗi tấc đất đều thấm đẫm máu xương của các thế hệ cha anh, nay những làng quê như Ninh Châu, Trường Ninh đã khoác lên mình “chiếc áo mới”. Bộ mặt nông thôn nơi đây khởi sắc, đời sống của người dân ngày càng nâng cao, tạo nên bức tranh tươi sáng về sự đổi mới và phát triển.",
+                    "tags": "ninh trường, trường ninh",
+                    "content": "QTO - Từng là chiến trường khốc liệt, nơi mỗi tấc đất đều thấm đẫm máu xương của các thế hệ cha anh, nay những làng quê như Ninh Châu, Trường Ninh đã khoác lên mình “chiếc áo mới”. Bộ mặt nông thôn nơi đây khởi sắc, đời sống của người dân ngày càng nâng cao, tạo nên bức tranh tươi sáng về sự đổi mới và phát triển.\nKiên cường trong kháng chiến\nNhững ngày tháng Tám lịch sử, chúng tôi có dịp về thăm Bảo tàng thôn Quảng Xá, xã Ninh Châu, nơi ghi dấu những ngày tháng hào hùng nhưng cũng đầy bi tráng của người dân Quảng Xá trong cuộc kháng chiến chống thực dân Pháp. Mỗi hiện vật nơi đây đều kể lại một câu chuyện về lòng dũng cảm, về ý chí kiên cường và tinh thần “Quyết tử để Tổ quốc quyết sinh”.\nSau khi thực dân Pháp quay lại xâm lược nước ta, thực hiện lời kêu gọi của Ủy ban kháng chiến phủ Quảng Ninh, làng chiến đấu Quảng Xá tích cực tích trữ lương thực, vũ khí chuẩn bị đánh địch, bảo vệ làng. Ngày 2/4/1947, quân Pháp từ đồn Mỹ Trung đổ bộ lên Quảng Xá và Bình Thôn. Quân địch đến đầu làng Quảng Xá thì toàn dân được lệnh đồng loạt đánh trống, mõ, phèng la vang dậy và nổ vài phát súng về phía địch. Do không biết rõ thực lực của ta, địch phải dè chừng, rút lui. Ngày 3/7/1947, quân Pháp tăng cường thêm lực lượng, tiến đánh làng Quảng Xá lần thứ hai.\nTượng đài làng chiến đấu Quảng Xá - Ảnh: L.C\n“Với vũ khí chiến đấu thô sơ nhưng Nhân dân Quảng Xá đã anh dũng chiến đấu đến hơi thở cuối cùng. Hơn 80 người đã hy sinh, trong đó có 41 chiến sĩ dân quân, tự vệ. Lòng dũng cảm, sự hy sinh “Quyết tử để Tổ quốc quyết sinh”, một phen sống chết với quân thù bảo vệ làng, bảo vệ quê hương mãi mãi chói ngời trang sử, lưu danh cho hậu thế. Hằng năm, vào ngày 11/2 âm lịch, Nhân dân và cán bộ thôn Quảng Xá tổ chức dâng hương tại tượng đài làng chiến đấu Quảng Xá để tưởng nhớ công lao của các anh hùng liệt sĩ đã hy sinh trong cuộc chiến bảo vệ quê hương”, Bí thư Chi bộ thôn Quảng Xá Dương Trung Thoàn cho biết.\nTrong những năm tháng kháng chiến chống thực dân Pháp, làng Lộc Long, xã Trường Ninh, trở thành biểu tượng của ý chí quật cường, tinh thần cách mạng bất khuất. Với địa hình làng hình vuông, được bao bọc bởi hàng rào tre kiên cố, người dân Lộc Long đã tận dụng lợi thế này để biến nơi đây thành một chiến lũy vững chắc, che giấu cán bộ, bộ đội và bảo vệ tài sản, tính mạng người dân.\nTheo chân Bí thư Chi bộ thôn Lộc Long Nguyễn Văn Thơm, chúng tôi tới thăm di tích lịch sử tiếng bom cây đa Lộc Long, nơi ghi dấu chiến công, tinh thần chiến đấu anh dũng của quân và dân Lộc Long. Những dòng chữ trên tấm bia tưởng niệm đã khắc họa rõ nét giờ phút lịch sử hào hùng: “Nơi đây, ngày 16/7/1949, trung đội du kích thôn Lộc Long đã mưu trí, dũng cảm gài bom phục kích đánh bại cuộc càn quét của giặc Pháp. Tiếng bom cây đa Lộc Long là thắng lợi đầu tiên của du kích ta hưởng ứng phong trào “Quảng Bình quật khởi”, gây tiếng vang lớn, có tác động tích cực đối với phong trào chiến tranh du kích của Nhân dân huyện Quảng Ninh, góp phần thực hiện thắng lợi cuộc kháng chiến chống thực dân Pháp ở tỉnh Quảng Bình (cũ)”.\nLộc Long không chỉ là một ngôi làng, mà còn là biểu tượng của lòng yêu nước, ý chí kiên cường, bất khuất của người dân Quảng Bình trong cuộc kháng chiến chống thực dân Pháp.\nCác tuyến đường ở thôn Lộc Long được đầu tư nâng cấp, cảnh quan xanh-sạch-đẹp - Ảnh: L.C\nNhững “làng quê đáng sống”\nTừ một vùng quê nghèo bị tàn phá nặng nề bởi chiến tranh, đến nay, thôn Quảng Xá đang đổi thay từng ngày với những tuyến đường được mở rộng, trải bê tông sạch, đẹp. Những ngôi nhà cao tầng mọc lên san sát, minh chứng cho cuộc sống ấm no, hạnh phúc của người dân. Sự “thay da, đổi thịt” này là thành quả của sự đồng lòng, chung sức giữa chính quyền địa phương và người dân.\nTrưởng thôn Quảng Xá Nguyễn Văn Phúcho biết, thôn được công nhận nông thôn mới (NTM) kiểu mẫu vào năm 2020. Cùng với sự hỗ trợ của Nhà nước, Mặt trận và các đoàn thể trong thôn đã tích cực vận động Nhân dân hiến đất, hiến tài sản mở rộng đường giao thông. Toàn thôn đã đóng góp hơn 2 tỉ đồng và hàng nghìn ngày công để làm đường giao thông nông thôn, xây dựng nhà văn hóa... Hiện, toàn thôn có tỉ lệ đường bê tông hóa đạt 95%, hầu hết các tuyến đường đều có điện chiếu sáng. Cảnh quan đường làng, ngõ xóm được giữ gìn sáng-xanh-sạch đẹp, diện mạo nông thôn không ngừng đổi mới.\nQuảng Xá và Lộc Long-hai làng quê giàu truyền thống cách mạng-đã và đang viết tiếp trang sử hào hùng bằng những thành tựu phát triển kinh tế-xã hội đáng tự hào. Sự đổi mới này không chỉ thể hiện ý chí quật cường, tinh thần đoàn kết của người dân mà còn là minh chứng rõ nét cho hiệu quả của chương trình xây dựng NTM, góp phần làm rạng danh thêm truyền thống cách mạng của quê hương.\nToàn thôn có 500 hộ dân, gần 1.500 khẩu. Nhà ở dân cư trên địa bàn thôn đạt tiêu chuẩn theo quy định, có kiến trúc phù hợp, gọn gàng, sạch sẽ; 100% các hộ gia đình được sử dụng nước sinh hoạt hợp vệ sinh. Quảng Xá tự hào luôn giữ vững danh hiệu làng văn hóa gần 30 năm liên tục, từ năm 1998 đến nay. Tỉ lệ gia đình đạt danh hiệu “Gia đình văn hóa” hằng năm đạt trên 90%.\nVề thăm thôn NTM kiểu mẫu Lộc Long, chúng tôi không khỏi ngạc nhiên trước sự thay đổi ấn tượng, rõ nét trong phát triển kinh tế nông nghiệp, xây dựng NTM của vùng quê này. Lộc Long hôm nay đã khoác lên mình diện mạo mới với hệ thống đường giao thông nông thôn rộng mở, cứng hóa nối dài tới khắp các đường làng, ngõ xóm. Cơ sở vật chất văn hóa, thể dục-thể thao được đầu tư đồng bộ. Người dân đồng thuận, quyết tâm thực hiện nếp sống văn minh và tích cực phát triển kinh tế.\nTheo Trưởng thôn Lộc Long Nguyễn Thị Hiển, được công nhận là khu dân cư NTM kiểu mẫu vào năm 2019, đến nay, diện mạo hạ tầng và đời sống của người dân ở thôn Lộc Long có sự chuyển biến mạnh mẽ. 100% đường trục thôn, liên thôn, ngõ, xóm đã được bê tông hoặc cứng hóa; 100% các hộ gia đình trong khu được sử dụng nước sinh hoạt hợp vệ sinh; 100% nhà ở hộ dân bảo đảm kiên cố và bán kiên cố, không có nhà tạm bợ dột nát; thu nhập bình quân 70 triệu đồng/ người/năm và đến đầu năm 2025 chỉ còn 12 hộ nghèo.\nLan Chi",
+                    "logoLink": [
+                        "https://console-vnsocial.vnpt.vn/assets/icon-news/Defaul_logo.png"
+                    ],
+                    "senti": "positive",
+                    "type": "",
+                    "isSpam": false,
+                    "createDate": "2025-09-01T07:27:00.000+07:00",
+                    "numInteractions": 0,
+                    "numComments": 0,
+                    "numShares": 0,
+                    "updateDate": "2025-09-01T08:04:31.285+07:00"
+                }
+            ]
+        }
+      '''
+    }
+  }
+}

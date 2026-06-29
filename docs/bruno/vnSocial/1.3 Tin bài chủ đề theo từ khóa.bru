@@ -1,0 +1,365 @@
+meta {
+  name: 1.3 Tin bài chủ đề theo từ khóa
+  type: http
+  seq: 3
+}
+
+post {
+  url: https://api-vnsocialplus.vnpt.vn/social-api/v1/projects/posts
+  body: json
+  auth: inherit
+}
+
+headers {
+  x-access-token: {{x_access_token}}
+}
+
+body:json {
+  {
+      "project_id": "659375db02d0a2846d952551",
+      "source": "baochi",
+      "start_time": 1703610000000,
+      "end_time": 1704214799000,
+      "from": 0,
+      "size": 10,
+      "reactionary": false,
+      "province": "Hà Nội"
+  }
+}
+
+settings {
+  encodeUrl: true
+}
+
+example {
+  name: 1.3 Tin bài chủ đề theo từ khóa
+  
+  request: {
+    url: https://api-vnsocialplus.vnpt.vn/social-api/v1/projects/posts
+    method: POST
+    mode: json
+    headers: {
+      x-access-token: {{x_access_token}}
+    }
+  
+    body:json: {
+      {
+          "project_id": "659375db02d0a2846d952551",
+          "source": "baochi",
+          "start_time": 1703610000000,
+          "end_time": 1704214799000,
+          "from": 0,
+          "size": 10,
+          "province": "Hà Nội",
+          "reactionary": false
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Date: Tue, 02 Jan 2024 07:34:27 GMT
+      Content-Type: application/json; charset=utf-8
+      Content-Length: 64782
+      Connection: keep-alive
+      X-Powered-By: Express
+      Access-Control-Allow-Headers: Origin,X-Requested-With,Content-Type,Accept,x-access-token
+      Access-Control-Allow-Methods: GET,POST,OPTIONS,PUT,DELETE
+      ETag: W/"fd0e-i2Pk1DpZfC16NQOS2MuH++D45fU"
+      Strict-Transport-Security: max-age=15724800; includeSubDomains
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+            "success": true,
+            "code": 200,
+            "object": [
+                {
+                    "userId": "tapchidulich.net.vn",
+                    "userName": "www.tapchidulich.net.vn",
+                    "sourceId": "tapchidulich.net.vn",
+                    "sourceName": "tapchidulich.net.vn",
+                    "postLink": "http://www.tapchidulich.net.vn/ha-noi-don-tiep-va-phuc-vu-402-nghin-luot-khach-dip-tet-duong-lich.html",
+                    "domain": "tapchidulich.net.vn",
+                    "pictures": [
+                        "http://www.tapchidulich.net.vn/FileManager/Anh%20web%202024/Thang%201/0110/hanoidontiepvaphucvu402nghinluotkhach.png"
+                    ],
+                    "title": "Hà Nội đón tiếp và phục vụ 402 nghìn lượt khách dịp Tết Dương lịch",
+                    "description": "(Tạp chí Du lịch) – Thông tin từ Sở Du lịch Hà Nội cho biết, dịp Tết Dương lịch 2024, Hà Nội đón tiếp và phục vụ khoảng 402 nghìn lượt khách, tăng 65% so với cùng kỳ năm 2023.",
+                    "tags": "",
+                    "content": "Giám đốc Sở Du lịch Hà Nội Đặng Hương Giang cho biết, dịp nghỉ Tết Dương lịch năm nay thời gian nghỉ ngắn ngày nên nhiều người dân chọn phương án nghỉ ngơi, du lịch tại chỗ thay vì thực hiện hành trình di chuyển xa. Trong dịp này, ước tính khách du lịch đến Hà Nội đạt 402 nghìn lượt khách, tăng 65% so với cùng kỳ năm trước. Trong đó, khách du lịch quốc tế ước đạt 72 nghìn lượt khách, tăng 2,1 lần; khách du lịch nội địa ước đạt 330 nghìn lượt khách, tăng 59%. Tổng thu từ khách du lịch ước đạt gần 1,5 nghìn tỷ đồng, tăng 73% so với cùng kỳ năm 2023. Ước tính công suất sử dụng phòng bình quân khối khách sạn dịp này đạt khoảng 60% (trong đó khách nội địa ước đạt khoảng 35,3%; khách quốc tế đạt khoảng 24,7%); tăng 7,8% so với cùng kỳ năm 2023. Một số khách sạn, căn hộ hạng 4-5 sao, hay khu vực phố cổ và các homestay, resort ngoại thành có công suất sử dụng phòng cao như: Khách sạn Capela 90%; Khách sạn Lacasa Hotel khoảng 90%; Khách sạn Grand Vista Hà Nội 76,4%; Khách sạn Lasieta 85%; Khách sạn ; Khách sạn Flower Garden 84%; Khách sạn conifer 73%; Khách sạn Pullman 67,25%; Khách sạn Wyndham 57%; Khách sạn Sunway Hanoi 74%; Khách sạn JW Mariott 71,4%; Khách sạn Novotel Thái Hà 60%; Khách sạn Bảo Sơn 55%... Tại các trung tâm thương mại, mua sắm, ăn uống, giải trí đạt chuẩn phục vụ khách du lịch lượt khách và sức mua tăng cao, ước tính doanh thu tăng khoảng 16% so với cùng kỳ năm 2023. Trong dịp Tết Dương lịch năm nay, nhiều khu, điểm tham quan du lịch trên địa bàn Hà Nội đã ra mắt nhiều chương trình, sản phẩm du lịch mới, tổ chức các hoạt động, sự kiện hấp dẫn nhằm kích cầu, thu hút khách du lịch đến tham quan và trải nghiệm. Điển hình như Chương trình “Chào năm mới 2024” tại Quảng trường Đông kinh Nghĩa Thục và Quảng trường Cách mạng Tháng Tám; Chùm các hoạt động văn hóa, biểu diễn nghệ thuật, ẩm thực chào đón năm mới, hội chợ xúc tiến thương mại và trưng bày sản phẩm OCOP, sản phẩm nông nghiệp, triển lãm cây cảnh nghệ thuật tại các tuyến phố đi bộ, điểm tham quan. Đặc biệt, vào tối 31/12/2023 tại phố đi bộ thành cổ Sơn Tây, UBND thị xã Sơn Tây tổ chức chương trình chào năm mới 2024 và phát động “Năm Du lịch Sơn Tây - xứ Đoài 2024” với chùm hoạt động hội chợ xúc tiến thương mại gắn kết quảng bá du lịch, văn hóa; triển lãm trang phục tại không gian trà Vân, trình diễn ẩm thực tại Bếp Làng, trải nghiệm sơn mài tại không gian của nghệ nhân Nguyễn Tấn Phát ở Làng cổ Đường Lâm. Cũng trong dịp này, Không gian phố đi bộ khu vực hồ Hoàn Kiếm, phố đi bộ Trần Nhân Tông và phụ cận được cho phép kéo dài đến hết ngày 1/1/2024 cùng với các hoạt động biểu diễn nghệ thuật truyền thống để phục vụ người dân và du khách. Hoàng thành Thăng Long tổ chức hoạt động chào cờ trước cửa sân Đoan Môn, gợi nhớ lại lễ chào cờ lịch sử đầu tiên sau ngày Giải phóng Thủ đô của 69 năm về trước; Di tích quốc gia đặc biệt lịch sử - danh lam thắng cảnh hồ Hoàn Kiếm và đền Ngọc Sơn tổ chức hoạt động trưng bày 40 bức ảnh quý về đền Ngọc Sơn; Di tích Văn Miếu - Quốc Tử Giám tổ chức chương trình trải nghiệm đêm với chủ đề “Tinh hoa đạo học”; Chương trình đạp xe khám phá Hà Nội về đêm với chủ đề “Đêm Thăng Long - Hà Nội”. Công viên Thống Nhất tổ chức Lễ hội “Miền hoa” với nhiều loại hoa độc đáo khoe sắc; Làng Văn hóa - Du lịch các dân tộc Việt Nam diễn ra chuỗi hoạt động “Chợ phiên - Chào năm mới 2024”; Tour tham quan những làng hoa, cây cảnh nổi tiếng của Hà Nội: làng sinh vật cảnh Hồng Vân, điểm du lịch Phù Đổng, khu du lịch Nhật Tân, hồ Tây… Các hoạt động cắm trại, leo núi, đi bộ địa hình tại các vùng ngoại thành thành phố cũng diễn ra sôi động… Thanh Minh",
+                    "logoLink": [
+                        "https://console-vnsocial.vnpt.vn/assets/icon-news/tapchidulich.net.vn_logo.png"
+                    ],
+                    "senti": "neutral",
+                    "type": "",
+                    "isSpam": false,
+                    "createDate": "2024-01-02T14:09:00.000+07:00",
+                    "updateDate": "2024-01-02T14:31:09.201+07:00",
+                    "docId": "59EA1183FC47FA77A72727092811DB48",
+                    "numShares": 0,
+                    "numComments": 0,
+                    "numInteractions": 0
+                },
+                {
+                    "userId": "",
+                    "userName": "Bảo Thoa",
+                    "sourceId": "congthuong.vn",
+                    "sourceName": "congthuong.vn",
+                    "postLink": "https://congthuong.vn/ha-noi-don-402-nghin-luot-khach-du-lich-trong-ky-nghi-tet-duong-lich-2024-295510.html",
+                    "domain": "congthuong.vn",
+                    "pictures": [
+                        "https://congthuong-cdn.mastercms.vn/stores/news_dataimages/2024/012024/02/10/in_social/hanoi20240102105423.jpg?randTime=1704170144",
+                        "https://congthuong.vn/stores/tpl_site_cfg_logo_watermark/anhhn/062020/24/08/lazyload.gif?rt=20200624084446",
+                        "https://congthuong-cdn.mastercms.vn/stores/news_dataimages/2024/012024/02/10/in_article/hanoi20240102105423.jpg?rt=20240102105424"
+                    ],
+                    "title": "Hà Nội đón 402 nghìn lượt khách du lịch trong kỳ nghỉ Tết Dương lịch 2024",
+                    "description": "Trong 3 ngày nghỉ Tết Dương lịch 2024, ước tính khách du lịch đến Hà Nội đạt 402 nghìn lượt khách, tăng 65% so với cùng kỳ năm trước.",
+                    "tags": "Hà Nội,Du lịch Hà Nội,du lịch,khách du lịch",
+                    "content": "Trong 3 ngày nghỉ Tết Dương lịch 2024, ước tính khách du lịch đến Hà Nội đạt 402 nghìn lượt khách, tăng 65% so với cùng kỳ năm trước.\nSở Du lịch Hà Nội cho biết, trong kỳ nghỉ Tết Dương lịch 2024, khách du lịch quốc tế đến Hà Nội ước đạt 72 nghìn lượt khách, tăng 2,1 lần; khách du lịch nội địa ước đạt 330 nghìn lượt khách, tăng 59%. Tổng thu từ khách du lịch ước đạt gần 1,5 nghìn tỷ đồng, tăng 73% so với cùng kỳ năm 2023.\nNhằm phục vụ du khách và người dân trong kỳ nghỉ Tết Dương lịch 2024, nhiều khu, điểm tham quan du lịch trên địa bàn thành phố Hà Nội đã ra mắt nhiều chương trình, sản phẩm du lịch mới cũng như tổ chức các hoạt động, sự kiện hấp dẫn nhằm kích cầu, thu hút khách du lịch đến tham quan và trải nghiệm.\nNhư, chương trình “Chào năm mới 2024” (chương trình Countdown) tại Quảng trường Đông Kinh Nghĩa Thục; chuỗi các hoạt động văn hóa, biểu diễn nghệ thuật, ẩm thực chào đón năm mới, hội chợ xúc tiến thương mại và trưng bày sản phẩm OCOP, sản phẩm nông nghiệp, triển lãm cây cảnh nghệ thuật tại các tuyến phố đi bộ, điểm tham quan.\nKhách du lịch quốc tế đến Hà Nội ước đạt 72 nghìn lượt khách, tăng 2,1 lần. Ảnh: TTXVN \t\t \t Hay vào tối 31/12/2023, tại phố đi bộ Thành cổ Sơn Tây, UBND thị xã Sơn Tây tổ chức chương trình chào năm mới 2024 và phát động “Năm Du lịch Sơn Tây - xứ Đoài 2024” với chuỗi hoạt động hội chợ xúc tiến thương mại gắn kết quảng bá du lịch, văn hóa; triển lãm trang phục tại không gian trà Vân, trình diễn ẩm thực tại Bếp Làng...\nCũng trong dịp này, không gian phố đi bộ khu vực hồ Hoàn Kiếm, phố đi bộ Trần Nhân Tông và phụ cận kéo dài hoạt động đến hết ngày 1/1/2024, cùng với đó là các hoạt động biểu diễn nghệ thuật truyền thống để phục vụ người dân và du khách. Hoàng thành Thăng Long tổ chức hoạt động chào cờ trước cửa sân Đoan Môn, gợi nhớ lại lễ chào cờ lịch sử đầu tiên sau ngày Giải phóng Thủ đô của 69 năm về trước.\nDi tích quốc gia đặc biệt lịch sử - danh lam thắng cảnh hồ Hoàn Kiếm và đền Ngọc Sơn có hoạt động trưng bày những bức ảnh quý về đền Ngọc Sơn. Di tích Văn Miếu - Quốc Tử Giám đã diễn ra chương trình trải nghiệm đêm với chủ đề \"Tinh hoa đạo học\"; chương trình đạp xe khám phá Hà Nội về đêm với chủ đề “Đêm Thăng Long - Hà Nội”. Các hoạt động cắm trại, leo núi, đi bộ địa hình tại các vùng ngoại thành thành phố cũng diễn ra sôi động…\nĐặc biệt, Khu du lịch hồ Hoàn Kiếm - phụ cận và khu vực phố cổ Hà Nội đón trên 150.000 lượt khách, di tích Văn Miếu - Quốc Tử Giám đón khoảng 15.500 lượt khách, Khu di tích Hoàng thành Thăng Long đón khoảng 12.000 lượt khách. Vườn quốc gia Ba Vì đón khoảng 8.000 lượt khách...\nĐể đảm bảo các hoạt động du lịch diễn ra an toàn, lành mạnh, Sở Du lịch Hà Nội đã chỉ đạo các đơn vị kinh doanh dịch vụ du lịch chấp hành nghiêm các quy định pháp luật về hoạt động lữ hành, hướng dẫn viên, vận chuyển khách du lịch gắn với việc đảm bảo trật tự đô thị, trật tự công cộng, lòng đường, hè phố. Đồng thời, xử lý các hành vi đeo bám, chèo kéo, ép giá, bắt chẹt khách du lịch… tại các điểm đến du lịch trên địa bàn thành phố.",
+                    "logoLink": [
+                        "https://console-vnsocial.vnpt.vn/assets/icon-news/congthuong.vn_logo.png"
+                    ],
+                    "senti": "neutral",
+                    "type": "",
+                    "isSpam": false,
+                    "createDate": "2024-01-02T11:34:00.000+07:00",
+                    "updateDate": "2024-01-02T11:51:07.552+07:00",
+                    "docId": "5BA783CBFDE39CF3728FDBFBE7CE160A",
+                    "numShares": 0,
+                    "numComments": 0,
+                    "numInteractions": 0
+                },
+                {
+                    "userId": "",
+                    "userName": "Thanh Xuân",
+                    "sourceId": "anninhthudo.vn",
+                    "sourceName": "anninhthudo.vn",
+                    "postLink": "https://www.anninhthudo.vn/tet-duong-lich-2024-tong-thu-tu-hoat-dong-du-lich-ha-noi-dat-gan-1500-ty-dong-post563039.antd",
+                    "domain": "anninhthudo.vn",
+                    "pictures": [
+                        "https://image.anninhthudo.vn/1200x630/Uploaded/2024/bpcpcwvo/2024_01_02/bien-nguoi-do-ve-trung-tam-ha-noi-va-tp-ho-chi-minh-cho-don-nam-moi-2024-6-1704032010-923-width2000height1335-1590.jpg",
+                        "https://photo-cms-anninhthudo.epicdn.me/w660/Uploaded/2024/bpcpcwvo/2024_01_02/426ae082-051c-4c82-aadb-d215cac056e3-1384-4353-911.jpeg"
+                    ],
+                    "title": "Tết dương lịch 2024, tổng thu từ hoạt động du lịch Hà Nội đạt gần 1.500 tỷ đồng",
+                    "description": "trong 3 ngày nghỉ Tết Dương lịch (từ ngày 30/12/2023 - 1/1/2024), ước tính khách du lịch đến Hà Nội đạt 402 nghìn lượt khách, tăng 65% so với cùng kỳ năm trước.",
+                    "tags": "du lịch Thủ đô",
+                    "content": "Trong đó, khách du lịch quốc tế ước đạt 72 nghìn lượt khách, tăng 2,1 lần; khách du lịch nội địa ước đạt 330 nghìn lượt khách, tăng 59%. Tổng thu từ khách du lịch ước đạt gần 1.500 tỷ đồng, tăng 73% so với cùng kỳ năm 2023.\nTrong kỳ nghỉ lễ, các khu, điểm tham quan du lịch trên địa bàn Hà Nội đã ra mắt nhiều chương trình, sản phẩm du lịch mới cũng như tổ chức các hoạt động, sự kiện hấp dẫn nhằm kích cầu, thu hút khách du lịch đến tham quan và trải nghiệm.\nĐiển hình như chương trình \"Chào năm mới 2024\" (chương trình Countdown) tại Quảng trường Đông Kinh Nghĩa Thục và Quảng trường Cách mạng Tháng Tám. Chùm các hoạt động văn hóa, biểu diễn nghệ thuật, ẩm thực chào đón năm mới, hội chợ xúc tiến thương mại và trưng bày sản phẩm OCOP, sản phẩm nông nghiệp, triển lãm cây cảnh nghệ thuật tại các tuyến phố đi bộ, điểm tham quan. Đặc biệt vào tối 31/12/2023, tại phố đi bộ thành cổ Sơn Tây, ngay trong chương trình chào năm mới 2024, địa phương đã phát động \"Năm Du lịch Sơn Tây - xứ Đoài 2024\", tổ chức chùm hoạt động hội chợ xúc tiến thương mại gắn kết quảng bá du lịch, văn hóa...\nPhố đi bộ Hồ Gươm đông nghẹt du khách vào tối ngày 31/12\nCũng trong dịp này, không gian phố đi bộ khu vực hồ Hoàn Kiếm, phố đi bộ Trần Nhân Tông và phụ cận được phép kéo dài đến hết ngày 1/1/2024, đồng thời duy trì các hoạt động biểu diễn nghệ thuật truyền thống để phục vụ người dân và du khách. Hoàng thành Thăng Long tổ chức hoạt động chào cờ trước cửa sân Đoan Môn, gợi nhớ lại lễ chào cờ lịch sử đầu tiên sau ngày Giải phóng Thủ đô của 69 năm về trước. Di tích quốc gia đặc biệt lịch sử - danh lam thắng cảnh hồ Hoàn Kiếm và đền Ngọc Sơn tổ chức hoạt động trưng bày 40 bức ảnh quý về đền Ngọc Sơn. Di tích Văn Miếu - Quốc Tử Giám tổ chức chương trình trải nghiệm đêm với chủ đề \"Tinh hoa đạo học\"; chương trình đạp xe khám phá Hà Nội về đêm với chủ đề \"Đêm Thăng Long - Hà Nội\". Công viên Thống Nhất tổ chức lễ hội \"Miền hoa\" với nhiều loại hoa độc đáo khoe sắc. Làng Văn hóa - Du lịch các dân tộc Việt Nam diễn ra chuỗi hoạt động \"Chợ phiên - Chào năm mới 2024\". Ngoài ra, các hoạt động cắm trại, leo núi, đi bộ địa hình tại các vùng ngoại thành thành phố cũng diễn ra sôi động…\nThông tin từ nhiều điểm du lịch cho thấy, Hà Nội vẫn là điểm đến hấp dẫn người dân, du khách vào dịp Tết Dương lịch năm nay.\nCụ thể, Khu du lịch hồ Hoàn Kiếm - phụ cận và khu vực phố cổ Hà Nội đón khoảng gần 150.000 lượt khách. Vườn thú Hà Nội đón 24.653 lượt khách. Di tích nhà tù Hỏa Lò đón 6.090 lượt khách. Di tích Văn Miếu - Quốc Tử Giám đón 15.500 lượt khách. Khu di tích Hoàng thành Thăng Long đón 9.098 lượt khách. Vườn Quốc gia Ba Vì đón gần 4.800 lượt khách. Bảo tàng dân tộc học đón gần 4.500 lượt khách. Phố đi bộ thị xã Sơn Tây với sự kiện chào năm mới cùng khai trương năm du lịch Sơn Tây 2024 đón khoảng hơn 4.000 lượt khách. Ba điểm du lịch Dương Xá, Phù Đổng, Bát Tràng của huyện Gia Lâm đón khoảng 10.000 lượt khách. Các điểm du lịch trên địa bàn huyện Quốc Oai đón khoảng 4.200 lượt khách.\nTheo Giám đốc Sở Du lịch Hà Nội Đặng Hương Giang, dịp Tết Dương lịch năm nay thời gian nghỉ ngắn ngày nên nhiều người dân chọn phương án nghỉ ngơi, du lịch tại chỗ thay vì thực hiện hành trình di chuyển xa. Đáng chú ý, trong 402.000 lượt khách đến Hà Nội dịp này, ước tính có 72.000 lượt khách quốc tế, tăng 2,1 lần và khách du lịch nội địa ước đạt 330.000 lượt khách, tăng 59% so với cùng kỳ năm trước.",
+                    "logoLink": [
+                        "https://console-vnsocial.vnpt.vn/assets/icon-news/anninhthudo.vn_logo.png"
+                    ],
+                    "senti": "neutral",
+                    "type": "",
+                    "isSpam": false,
+                    "createDate": "2024-01-02T11:26:00.000+07:00",
+                    "updateDate": "2024-01-02T11:29:01.408+07:00",
+                    "docId": "DEC3EED14D40DE0124D7BAF43267D2C3",
+                    "numShares": 0,
+                    "numComments": 0,
+                    "numInteractions": 0
+                },
+                {
+                    "userId": "baothainguyen.vn",
+                    "userName": "baothainguyen.vn",
+                    "sourceId": "baothainguyen.vn",
+                    "sourceName": "baothainguyen.vn",
+                    "postLink": "https://baothainguyen.vn/que-huong-dat-nuoc/202401/du-lich-tet-duong-lich-tai-ha-noi-khach-dong-doanh-thu-tang-8430972/",
+                    "domain": "baothainguyen.vn",
+                    "pictures": [
+                        "https://baothainguyen.vn/file/e7837c027f6ecd14017ffa4e5f2a0e34/012024/img_8015_20240102101304.jpeg"
+                    ],
+                    "title": "Du lịch Tết Dương lịch tại Hà Nội: Khách đông, doanh thu tăng",
+                    "description": "Trong 3 ngày nghỉ Tết Dương lịch (từ 30-12-2023 đến 1-1-2024), ước tính khách du lịch đến Hà Nội đạt 402 nghìn lượt, tăng 65% so với cùng kỳ năm trước. Tổng thu từ khách du lịch tăng 73% so với cùng kỳ năm 2023.",
+                    "tags": "",
+                    "content": "Trong 3 ngày nghỉ Tết Dương lịch (từ 30-12-2023 đến 1-1-2024), ước tính khách du lịch đến Hà Nội đạt 402 nghìn lượt, tăng 65% so với cùng kỳ năm trước. Tổng thu từ khách du lịch tăng 73% so với cùng kỳ năm 2023. \nCác điểm du lịch, lưu trú lượng khách tăng cao \nDịp nghỉ Tết Dương lịch năm nay có thời gian nghỉ ngắn nên nhiều người dân chọn phương án nghỉ ngơi tại chỗ thay vì di chuyển xa. \nSở Du lịch Hà Nội cho biết, 3 ngày nghỉ, ước tính, khách du lịch đến Hà Nội đạt 402 nghìn lượt, tăng 65% so với cùng kỳ năm trước. Trong đó, khách quốc tế ước đạt 72 nghìn lượt, tăng 2,1 lần; khách nội địa ước đạt 330 nghìn lượt, tăng 59%. Tổng thu từ khách du lịch ước đạt gần 1,5 nghìn tỷ đồng, tăng 73% so với cùng kỳ năm 2023. \nTheo số liệu cung cấp của một số điểm du lịch, di tích, bảo tàng, công viên, khu sinh thái, nghỉ dưỡng du lịch trên địa bàn, lượng khách tăng mạnh. Điển hình, điểm du lịch hồ Hoàn Kiếm - phụ cận và khu vực phố cổ Hà Nội đón khoảng 150.000 lượt khách; Vườn thú Hà Nội đón 24.653 lượt khách; Di tích Nhà tù Hỏa Lò đón 6.090 lượt khách; Di tích Văn Miếu - Quốc Tử Giám đón 15.500 lượt khách; Khu di tích Hoàng thành Thăng Long đón 9.098 lượt khách; Bảo tàng Dân tộc học đón gần 4.500 lượt khách. \nỞ ngoại thành, Vườn Quốc gia Ba Vì đón gần 4.800 lượt khách; Khu vui chơi giải trí Tuần Châu - Hà Nội đón 1.500 lượt khách; Điểm du lịch làng nghề sinh vật cảnh Hồng Vân đón 2.635 lượt khách; Khu du lịch Ao Vua đón 1.800 lượt khách; phố đi bộ thị xã Sơn Tây với sự kiện chào năm mới, khai trương Năm du lịch Sơn Tây 2024 đón khoảng hơn 4.000 lượt khách; 3 điểm du lịch: Dương Xá, Phù Đổng, Bát Tràng của huyện Gia Lâm đón khoảng 10.000 lượt khách; các điểm du lịch trên địa bàn huyện Quốc Oai đón khoảng 4.200 lượt khách. \nVề hoạt động kinh doanh khách sạn, trong 3 ngày nghỉ Tết, công suất sử dụng phòng bình quân khối khách sạn ước đạt khoảng 60% (trong đó, khách nội địa ước đạt khoảng 35,3%; khách quốc tế đạt khoảng 24,7%); tăng 7,8% so với cùng kỳ năm 2023. \nMột số khách sạn, căn hộ hạng 4-5 sao, hay khu vực phố cổ và các homestay, resort ngoại thành có công suất sử dụng phòng cao như: Capella đạt 90%; Lacasa Hotel khoảng 90%; Grand Vista Hà Nội 76,4%; Lasieta 85%; Flower Garden 84%; Conifer 73%; Pullman 67,25%; Wyndham 57%; Sunway Hanoi 74%; JW Mariott 71,4%; Novotel Thái Hà 60%... \nTại các trung tâm thương mại, mua sắm, ăn uống, giải trí, lượt khách và sức mua tăng cao, ước tính doanh thu tăng khoảng 16% so với cùng kỳ năm 2023 \nThắng lợi từ chiến lược xây dựng sản phẩm \nCó được doanh thu tốt, thu hút lượng khách đông trong kỳ nghỉ Tết Dương lịch, nhiều khu, điểm tham quan du lịch đã ra mắt nhiều chương trình, sản phẩm du lịch mới cũng như tổ chức các hoạt động, sự kiện hấp dẫn nhằm kích cầu, thu hút khách du lịch đến tham quan và trải nghiệm. \nĐiển hình như: Chương trình “Chào năm mới 2024” (chương trình Countdown) tại Quảng trường Đông kinh Nghĩa Thục và Quảng trường Cách mạng Tháng Tám; chùm các hoạt động văn hóa, biểu diễn nghệ thuật, ẩm thực chào đón năm mới, hội chợ xúc tiến thương mại và trưng bày sản phẩm OCOP, sản phẩm nông nghiệp, triển lãm cây cảnh nghệ thuật tại các tuyến phố đi bộ, điểm tham quan. \nĐiểm nhấn là vào tối 31-12-2023, tại phố đi bộ thành cổ Sơn Tây, UBND thị xã Sơn Tây tổ chức chương trình chào năm mới 2024 và phát động “Năm Du lịch Sơn Tây - xứ Đoài 2024”… Di tích quốc gia đặc biệt lịch sử - danh lam thắng cảnh hồ Hoàn Kiếm và đền Ngọc Sơn tổ chức hoạt động trưng bày 40 bức ảnh quý về đền Ngọc Sơn. Sản phẩm tour đêm tại các di tích Nhà tù Hỏa Lò, Văn Miếu - Quốc Tử Giám, Hoàng thành Thăng Long mang đến trải nghiệm mới lạ cho du khách. \nTheo ghi nhận, các hoạt động cắm trại, leo núi, đi bộ địa hình tại các vùng ngoại thành thành phố cũng diễn ra sôi động… \nĐánh giá hiệu quả du lịch Thủ đô trong kỳ nghỉ Tết, Giám đốc Sở Du lịch Hà Nội Đặng Hương Giang cho biết, với nỗ lực làm mới sản phẩm, có thể khẳng định, Hà Nội luôn là điểm đến hấp dẫn người dân, du khách vào dịp Tết Dương lịch năm nay. \nĐể bảo đảm hoạt động du lịch Tết an toàn, chất lượng, Sở đã thành lập đoàn kiểm tra chấn chỉnh các đơn vị kinh doanh du lịch, xử lý các hành vi đeo bám, chèo kéo, ép giá, bắt chẹt khách… tại các điểm đến du lịch. Vì thế, trong đợt nghỉ Tết không để xảy ra sự cố đáng tiếc nào. \n“Du lịch Hà Nội trong đợt Tết Dương lịch cơ bản an toàn, vui tươi, thêm khẳng định, Hà Nội - Điểm đến an toàn, chất lượng, chuyên nghiệp”, bà Đặng Hương Giang cho biết. \n",
+                    "logoLink": [
+                        "https://console-vnsocial.vnpt.vn/assets/icon-news/baothainguyen.vn_logo.png"
+                    ],
+                    "senti": "positive",
+                    "type": "",
+                    "isSpam": false,
+                    "createDate": "2024-01-02T10:15:00.000+07:00",
+                    "updateDate": "2024-01-02T10:53:16.263+07:00",
+                    "docId": "699DAEA23A234C0CFBBE3B0787B98B5C",
+                    "numShares": 0,
+                    "numComments": 0,
+                    "numInteractions": 0
+                },
+                {
+                    "userId": "bvhttdl.gov.vn",
+                    "userName": "B? van hoa, th? thao v\ufffd du l?ch",
+                    "sourceId": "bvhttdl.gov.vn",
+                    "sourceName": "bvhttdl.gov.vn",
+                    "postLink": "https://bvhttdl.gov.vn/402-nghin-luot-khach-du-lich-den-ha-noi-dip-nghi-tet-duong-lich-20240102094837547.htm",
+                    "domain": "bvhttdl.gov.vn",
+                    "pictures": [
+                        "https://bvhttdl.mediacdn.vn/zoom/600_315/291773308735864832/2024/1/2/avatar1704163521239-17041635217841413978783.jpg"
+                    ],
+                    "title": "402 nghìn lượt khách du lịch đến Hà Nội dịp nghỉ Tết Dương lịch",
+                    "description": "Theo Sở Du lịch Hà Nội, trong 3 ngày nghỉ Tết Dương lịch (từ ngày 30/12/2023 - 1/1/2024), ước tính khách du lịch đến Hà Nội đạt 402 nghìn lượt khách, tăng 65% so với cùng kỳ năm trước.",
+                    "tags": "",
+                    "content": "Du khách quốc tế vui chơi tại không gian phố đi bộ hồ Hoàn Kiếm trong ngày đầu kỳ nghỉ Tết Dương lịch 2024. Ảnh: Phạm Kiên/TTXVN Trong đó, khách du lịch quốc tế ước đạt 72 nghìn lượt khách, tăng 2,1 lần; khách du lịch nội địa ước đạt 330 nghìn lượt khách, tăng 59%. Tổng thu từ khách du lịch ước đạt gần 1.500 tỷ đồng, tăng 73% so với cùng kỳ năm 2023. Cũng trong 3 ngày nghỉ, công suất sử dụng phòng bình quân khối khách sạn ước đạt khoảng 60% (trong đó khách nội địa ước đạt khoảng 35,3%; khách quốc tế đạt khoảng 24,7%), tăng 7,8% so với cùng kỳ năm 2023. Một số khách sạn, căn hộ hạng 4-5 sao có công suất sử dụng phòng cao như: Khách sạn Capela 90%, Lacasa Hotel khoảng 90%, Grand Vista Hà Nội 76,4%, Lasieta 85%, Flower Garden 84%... Tại các trung tâm thương mại, mua sắm, ăn uống, giải trí đạt chuẩn phục vụ khách du lịch, lượt khách và sức mua tăng cao, ước tính doanh thu tăng khoảng 16% so với cùng kỳ năm 2023. Trong kỳ nghỉ, nhiều khu, điểm tham quan du lịch trên địa bàn thành phố Hà Nội đã ra mắt nhiều chương trình, sản phẩm du lịch mới cũng như tổ chức các hoạt động, sự kiện hấp dẫn nhằm kích cầu, thu hút khách du lịch đến tham quan và trải nghiệm. Điển hình như: Chương trình “Chào năm mới 2024” (chương trình Countdown) tại Quảng trường Đông Kinh Nghĩa Thục; chuỗi các hoạt động văn hóa, biểu diễn nghệ thuật, ẩm thực chào đón năm mới, hội chợ xúc tiến thương mại và trưng bày sản phẩm OCOP, sản phẩm nông nghiệp, triển lãm cây cảnh nghệ thuật tại các tuyến phố đi bộ, điểm tham quan; đặc biệt vào tối 31/12/2023, tại phố đi bộ Thành cổ Sơn Tây, UBND thị xã Sơn Tây tổ chức chương trình chào năm mới 2024 và phát động “Năm Du lịch Sơn Tây - xứ Đoài 2024” với chuỗi hoạt động hội chợ xúc tiến thương mại gắn kết quảng bá du lịch, văn hóa; triển lãm trang phục tại không gian trà Vân, trình diễn ẩm thực tại Bếp Làng... Người dân Thủ đô vui chơi tại không gian phố đi bộ hồ Hoàn Kiếm trong ngày đầu kỳ nghỉ Tết Dương lịch 2024. Ảnh: Phạm Kiên/TTXVN Cũng trong dịp này, không gian phố đi bộ khu vực hồ Hoàn Kiếm, phố đi bộ Trần Nhân Tông và phụ cận được cho phép kéo dài hoạt động đến hết ngày 1/1/2024, cùng với đó là các hoạt động biểu diễn nghệ thuật truyền thống để phục vụ người dân và du khách. Hoàng thành Thăng Long tổ chức hoạt động chào cờ trước cửa sân Đoan Môn, gợi nhớ lại lễ chào cờ lịch sử đầu tiên sau ngày Giải phóng Thủ đô của 69 năm về trước. Di tích quốc gia đặc biệt lịch sử - danh lam thắng cảnh hồ Hoàn Kiếm và đền Ngọc Sơn có hoạt động trưng bày những bức ảnh quý về đền Ngọc Sơn. Di tích Văn Miếu - Quốc Tử Giám đã diễn ra chương trình trải nghiệm đêm với chủ đề \"Tinh hoa đạo học\". Cùng với đó, còn có chương trình đạp xe khám phá Hà Nội về đêm với chủ đề “Đêm Thăng Long - Hà Nội”. Các hoạt động cắm trại, leo núi, đi bộ địa hình tại các vùng ngoại thành thành phố cũng diễn ra sôi động… Có thể khẳng định, Hà Nội vẫn là điểm đến hấp dẫn người dân, du khách vào dịp Tết Dương lịch năm nay. Theo một số điểm du lịch di tích, bảo tàng, công viên, khu sinh thái, nghỉ dưỡng du lịch trên địa bàn, trong 3 ngày nghỉ Tết Dương lịch, số lượng khách tham quan tăng cao. Khu du lịch hồ Hoàn Kiếm – phụ cận và khu vực phố cổ Hà Nội đón trên 150.000 lượt khách, di tích Văn Miếu – Quốc Tử Giám đón khoảng 15.500 lượt khách, Khu di tích Hoàng thành Thăng Long đón khoảng 12.000 lượt khách. Vườn Quốc gia Ba Vì đón khoảng 8.000 lượt khách... Trong thời gian nghỉ lễ, Sở Du lịch Hà Nội đã chỉ đạo các đơn vị kinh doanh dịch vụ du lịch chấp hành nghiêm các quy định pháp luật về hoạt động lữ hành, hướng dẫn viên, vận chuyển khách du lịch gắn với việc đảm bảo trật tự đô thị, trật tự công cộng, lòng đường, hè phố; xử lý các hành vi đeo bám, chèo kéo, ép giá, bắt chẹt khách du lịch… tại các điểm đến du lịch trên địa bàn thành phố. Theo TTXVN",
+                    "logoLink": [
+                        "https://console-vnsocial.vnpt.vn/assets/icon-news/Defaul_logo.png"
+                    ],
+                    "senti": "neutral",
+                    "type": "",
+                    "isSpam": false,
+                    "createDate": "2024-01-02T09:59:00.000+07:00",
+                    "updateDate": "2024-01-02T10:07:14.819+07:00",
+                    "docId": "A4008D456C1CA44CF3AF52CF86AF2872",
+                    "numShares": 0,
+                    "numComments": 0,
+                    "numInteractions": 0
+                },
+                {
+                    "userId": "",
+                    "userName": "",
+                    "sourceId": "baodienbienphu.com.vn",
+                    "sourceName": "baodienbienphu.com.vn",
+                    "postLink": "https://baodienbienphu.com.vn/tin-tuc/du-lich/211908/khoi-sac-du-lich-dip-dau-nam-moi",
+                    "domain": "baodienbienphu.com.vn",
+                    "pictures": [
+                        "http://baodienbienphu.com.vn/Uploads/image/News/Thumbnails/2024/1/Thumbnails02582024095805.jpg",
+                        "https://hnm.1cdn.vn/2024/01/01/dl.jpg"
+                    ],
+                    "title": "Khởi sắc du lịch dịp đầu năm mới",
+                    "description": "Chào năm mới 2024, du lịch Việt Nam tiếp tục khởi sắc khi nhận tin vui về hoạt động đón khách tại nhiều điểm đến. Các tỉnh, thành phố đều có nhiều chương trình vui chơi hấp dẫn để tăng trải nghiệm cho du khách trong kỳ nghỉ Tết Dương lịch 2024 (từ ngày 30-12-2023 đến 1-1-2024).",
+                    "tags": "<p style=\"text-align:justify\">Chào năm mới 2024, du lịch Việt Nam tiếp tục khởi sắc khi nhận tin vui về hoạt động đón khách tại nhiều điểm đến. Các tỉnh, thành phố đều có nhiều chương trình vui chơi hấp dẫn để tăng trải nghiệm cho du khách trong kỳ nghỉ Tết Dương lịch 2024 (từ ngày 30-12-2023 đến 1-1-2024).</p>",
+                    "content": "Du khách vui chơi, tham quan Công viên Thủ Lệ (quận Ba Đình). Ảnh: Quang Thái\nHà Nội - Điểm đến hút khách\nLà trung tâm du lịch lớn của cả nước, Thủ đô Hà Nội thu hút nhiều người dân và du khách trong kỳ nghỉ Tết Dương lịch năm nay. Với thời gian nghỉ ngắn ngày, nhiều gia đình đã lựa chọn ở lại Hà Nội để trải nghiệm các hoạt động vui chơi và nghỉ dưỡng. Gia đình chị Nguyễn Anh Thư (quận Cầu Giấy, quê ở Thanh Hóa) năm nay không về quê mà đưa bố mẹ lên Hà Nội để vui chơi đón năm mới. “Thời tiết năm nay nắng ấm, chúng tôi đưa bố mẹ đi chơi phố đi bộ hồ Hoàn Kiếm, thưởng thức ẩm thực ở phố cổ”, chị Anh Thư chia sẻ.\nCòn gia đình anh Trần Tuấn Đạt (quận Thanh Xuân) lại lựa chọn một khu nghỉ dưỡng ở Ba Vì để cùng gia đình nghỉ ngơi, vui đón năm mới. “Thời gian nghỉ ngắn ngày nên chúng tôi quyết định nghỉ dưỡng tại Hà Nội thay vì du lịch xa. Hiện nay, Hà Nội có rất nhiều sản phẩm du lịch hấp dẫn như tour đêm, du lịch trải nghiệm văn hóa và có nhiều khu nghỉ dưỡng chất lượng có thể đáp ứng nhu cầu của các thành viên trong gia đình”, anh Đạt bày tỏ.\nTheo ghi nhận của phóng viên Báo Hànộimới, trong kỳ nghỉ Tết Dương lịch năm nay, nhiều điểm đến của Hà Nội thu hút người dân và du khách như: Không gian đi bộ hồ Hoàn Kiếm và phụ cận, Công viên Thủ Lệ, làng cổ Đường Lâm, lễ hội \"Miền hoa\" tại Công viên Thống Nhất, Làng Văn hóa du lịch các dân tộc Việt Nam... Nhiều cơ sở lưu trú ở ngoại thành Hà Nội đã kín khách như: Làng Mít, Glory (Sơn Tây); Tản Đà, Medi Thiên Sơn, Ao Vua (Ba Vì)... Quản lý vận hành khu resort Melia Ba Vì Mountain Retreat Hoàng Văn Phương cho biết, lượng khách đặt phòng tại khu nghỉ dưỡng này đã kín từ trước kỳ nghỉ lễ.\nDu lịch đầu năm mới tại Hà Nội hứa hẹn mang đến sự khởi sắc cho du lịch Thủ đô trong năm 2024. Chủ tịch Hội lữ hành Hà Nội Phùng Quang Thắng đánh giá, những tín hiệu vui của du lịch Thủ đô đầu năm mới sẽ tạo “đòn bẩy” để các đơn vị, địa phương tiếp tục xây dựng sản phẩm mới, chất lượng, có tính cạnh tranh và phù hợp với nhu cầu của du khách hơn. Hiện nay, Sở Du lịch Hà Nội đang phối hợp với các địa phương xây dựng và phát triển nhiều tuyến du lịch ngoại thành như: Tuyến Trung tâm Hà Nội - Thanh Oai - Thanh Trì - Thường Tín - Phú Xuyên và tuyến trung tâm Hà Nội - Thanh Oai - Ứng Hòa - Mỹ Đức. “Những sản phẩm du lịch ngoại thành gắn với văn hoá và làng nghề sẽ là điểm nhấn góp phần tăng sức hấp dẫn của du lịch Hà Nội trong năm 2024”, ông Phùng Quang Thắng nhận định.\nDu lịch gần lên ngôi\nChào năm mới 2024, nhiều tỉnh, thành phố tổ chức các sự kiện để kích cầu du lịch. Tỉnh Điện Biên mở cửa miễn phí Bảo tàng Chiến thắng lịch sử Điện Biên Phủ cho nhân dân các dân tộc trên địa bàn tỉnh Điện Biên trong ngày đầu năm mới 2024. Huyện Mù Cang Chải (tỉnh Yên Bái) tổ chức lễ hội hoa tớ dày gắn với tôn vinh khèn Mông vừa được công nhận là Di sản văn hóa phi vật thể quốc gia ở loại hình nghệ thuật trình diễn dân gian. Tỉnh Hà Giang tổ chức Ngày hội Văn hóa dân tộc Dao với kỳ vọng đón 10 nghìn khách trong kỳ nghỉ Tết. Thị xã Sa Pa (tỉnh Lào Cai) tổ chức chuỗi sự kiện Lễ hội mùa đông “Sa Pa - Thiên đường tuyết rơi năm 2023 - Chào xuân Giáp Thìn 2024” diễn ra từ ngày 20-12-2023 đến 1-1-2024 thu hút khá đông khách du lịch, nhiều cơ sở lưu trú thông báo kín chỗ từ nhiều ngày trước Tết.\nTheo các đơn vị lữ hành, du lịch Tết Dương lịch 2023 có lượng khách tăng hơn so với cùng kỳ năm trước nhưng lượng khách phân bổ đồng đều nên không có sự quá tải. Tổng Giám đốc Công ty Du lịch Flamingo Redtour Nguyễn Công Hoan đánh giá, do kỳ nghỉ ngắn ngày nên xu hướng khách lựa chọn những tour gần, di chuyển ngắn. Với tour nội địa, khách có xu hướng nghỉ tại chỗ hoặc di chuyển gần Hà Nội (với khách Hà Nội). Trong đó, tour thu hút khách vẫn là hành trình đến Đông - Tây Bắc, tiêu biểu là: Sa Pa (Lào Cai), Đồng Văn (Hà Giang), Ba Bể (Bắc Kạn), Bản Giốc (Cao Bằng), Lạng Sơn, Mộc Châu (Sơn La), Tà Xùa (Sơn La)… Với quốc tế, du lịch vùng biên ở các cửa khẩu Móng Cái - Đông Hưng hay tour đi Lào, Campuchia được khách lựa chọn nhiều do tiện di chuyển.\nTín hiệu vui của du lịch Việt trong ngày đầu năm mới 2024 còn là sự khởi sắc từ du lịch đường biển. Ngay trong dịp nghỉ Tết này, Việt Nam đón 5 chuyến tàu biển quốc tế “xông đất” tại các cảng biển trên cả nước, đưa hàng nghìn du khách trải nghiệm hành trình xuyên Việt.\nCục trưởng Cục Du lịch quốc gia Việt Nam Nguyễn Trùng Khánh cho biết, ngành Du lịch đang đặt ra nhiều mục tiêu cao trong năm 2024, đó là đón 17-18 triệu lượt khách quốc tế; phục vụ 110 triệu lượt khách du lịch nội địa. Với những tín hiệu khởi sắc từ đầu năm 2024, du lịch Việt Nam kỳ vọng có thể nhanh chóng khôi phục được thị trường bằng thời điểm trước dịch Covid-19.",
+                    "logoLink": [
+                        "https://console-vnsocial.vnpt.vn/assets/icon-news/baodienbienphu.com.vn_logo.png"
+                    ],
+                    "senti": "positive",
+                    "type": "",
+                    "isSpam": false,
+                    "createDate": "2024-01-02T09:58:00.000+07:00",
+                    "updateDate": "2024-01-02T10:08:56.048+07:00",
+                    "docId": "05536F3AFB17E408E434DA5BB8A4E4E5",
+                    "numShares": 0,
+                    "numComments": 0,
+                    "numInteractions": 0
+                },
+                {
+                    "userId": "doanhnghieptiepthi.vn",
+                    "userName": "doanhnghieptiepthi.vn",
+                    "sourceId": "doanhnghieptiepthi.vn",
+                    "sourceName": "doanhnghieptiepthi.vn",
+                    "postLink": "https://doanhnghieptiepthi.vn/402000-luot-khach-du-lich-den-ha-noi-dip-tet-duong-lich-16124010209453846.htm",
+                    "domain": "doanhnghieptiepthi.vn",
+                    "pictures": [
+                        "https://dntt.mediacdn.vn/zoom/600_315/197608888129458176/2024/1/2/du-lich-17041628654861541003789-44-0-419-600-crop-1704162943613874207640.jpg"
+                    ],
+                    "title": "402.000 lượt khách du lịch đến Hà Nội dịp Tết Dương lịch - Doanh nghiệp và Tiếp thị",
+                    "description": "Trong 03 ngày nghỉ Tết Dương lịch (từ ngày 30/12/2023 đến ngày 01/01/2024), ước tính khách du lịch đến Hà Nội đạt 402 nghìn lượt khách, tăng 65% so với cùng kỳ năm trước.",
+                    "tags": "",
+                    "content": "Trong đó, khách du lịch quốc tế ước đạt 72.000 lượt khách, tăng 2,1 lần; khách du lịch nội địa ước đạt 330.000 lượt khách, tăng 59%. Tổng thu từ khách du lịch ước đạt gần 1.500 tỷ đồng, tăng 73% so với cùng kỳ năm 2023. Cũng trong 3 ngày nghỉ, công suất sử dụng phòng bình quân khối khách sạn ước đạt khoảng 60% (trong đó khách nội địa ước đạt khoảng 35,3%; khách quốc tế đạt khoảng 24,7%), tăng 7,8% so với cùng kỳ năm 2023. Ảnh minh họa: Báo Hà Nội mới Một số khách sạn, căn hộ hạng 4-5 sao, hay khu vực phố cổ và các homestay, resort ngoại thành có công suất sử dụng phòng cao như: Khách sạn Capela 90%; Khách sạn Lacasa Hotel khoảng 90%; Khách sạn Grand Vista Hà Nội 76,4%; Khách sạn Lasieta 85%; Khách sạn Flower Garden 84%; Khách sạn Conifer 73%; Khách sạn Pullman 67,25%; Khách sạn Wyndham 57%; Khách sạn Sunway Hanoi 74%; Khách sạn JW Mariott 71,4%; Khách sạn Novotel Thái Hà 60%; Khách sạn Bảo Sơn 55%... Tại các trung tâm thương mại, mua sắm, ăn uống, giải trí đạt chuẩn phục vụ khách du lịch lượt khách và sức mua tăng cao, ước tính doanh thu tăng khoảng 16% so với cùng kỳ năm 2023. Trong kỳ nghỉ lễ Tết Dương lịch năm nay, nhiều khu, điểm tham quan du lịch trên địa bàn Thành phố đã ra mắt nhiều chương trình, sản phẩm du lịch mới cũng như tổ chức các hoạt động, sự kiện hấp dẫn nhằm kích cầu, thu hút khách du lịch đến tham quan và trải nghiệm. Điển hình như: Chương trình \"Chào năm mới 2024\" (chương trình Countdown) tại Quảng trường Đông kinh Nghĩa Thục và Quảng trường Cách mạng Tháng Tám; Chùm các hoạt động văn hóa, biểu diễn nghệ thuật, ẩm thực chào đón năm mới, hội chợ xúc tiến thương mại và trưng bày sản phẩm OCOP, sản phẩm nông nghiệp, triển lãm cây cảnh nghệ thuật tại các tuyến phố đi bộ, điểm tham quan;… Theo số liệu cung cấp của một số điểm du lịch di tích, bảo tàng, công viên, khu sinh thái, nghỉ dưỡng du lịch trên địa bàn, từ ngày 30/12/2023 -31/12/2023: Khu du lịch hồ Hoàn Kiếm - phụ cận và khu vực phố cổ Hà Nội đón khoảng gần 150.000 lượt khách, Vườn thú Hà Nội đón 24.653 lượt khách, Di tích Nhà Tù Hỏa Lò đón 6.090 lượt khách, Di tích Văn Miếu - Quốc Tử Giám đón 15.500 lượt khách, Khu di tích Hoàng Thành Thăng Long đón 9.098 lượt khách, Vườn Quốc gia Ba Vì đón gần 4.800 lượt khách, Khu vui chơi giải trí Tuần Châu - Hà Nội đón 1.500 lượt khách, Điểm du lịch làng nghề sinh vật cảnh Hồng Vân đón 2.635 lượt khách, Khu du lịch Ao Vua đón 1.800 lượt khách, Bảo tàng dân tộc học đón gần 4.500 lượt khách... Trong thời gian nghỉ lễ, Sở Du lịch Hà Nội đã chỉ đạo các đơn vị kinh doanh dịch vụ du lịch chấp hành nghiêm các quy định pháp luật về hoạt động lữ hành, hướng dẫn viên, vận chuyển khách du lịch gắn với việc đảm bảo trật tự đô thị, trật tự công cộng, lòng đường, hè phố; xử lý các hành vi đeo bám, chèo kéo, ép giá, bắt chẹt khách du lịch… tại các điểm đến du lịch trên địa bàn thành phố.Huyền My (t/h)",
+                    "logoLink": [
+                        "https://console-vnsocial.vnpt.vn/assets/icon-news/doanhnghieptiepthi.vn_logo.png"
+                    ],
+                    "senti": "neutral",
+                    "type": "",
+                    "isSpam": false,
+                    "createDate": "2024-01-02T09:46:00.000+07:00",
+                    "updateDate": "2024-01-02T09:50:14.023+07:00",
+                    "docId": "097A4F40D6E3E59065497C36C7ECA12F",
+                    "numShares": 0,
+                    "numComments": 0,
+                    "numInteractions": 0
+                },
+                {
+                    "userId": "bvhttdl.gov.vn",
+                    "userName": "Bộ văn hoa, thể thao và du lịch",
+                    "sourceId": "bvhttdl.gov.vn",
+                    "sourceName": "bvhttdl.gov.vn",
+                    "postLink": "https://bvhttdl.gov.vn/an-tuong-du-lich-hoa-binh-20240102084114436.htm",
+                    "domain": "bvhttdl.gov.vn",
+                    "pictures": [
+                        "https://bvhttdl.mediacdn.vn/zoom/600_315/291773308735864832/2024/1/2/avatar1704159359686-17041593604451436840516-111-0-861-1200-crop-17041594671171991403340.jpg"
+                    ],
+                    "title": "Ấn tượng du lịch Hòa Bình",
+                    "description": "Năm 2023, nhiều hoạt động kích cầu du lịch của tỉnh được triển khai. Trên cơ sở đẩy mạnh kế hoạch phát triển du lịch, Hòa Bình đã tăng tốc và phục hồi ấn tượng về du lịch. Các chỉ tiêu về khách, tổng thu về khách du lịch đều đạt và vượt kế hoạch đề ra.",
+                    "tags": "",
+                    "content": "Các hoạt động trải nghiệm thú vị tại điểm du lịch cộng đồng bản Chà Đáy, xã Pà Cò (Mai Châu) góp phần thu hút du khách. Chương trình kích cầu du lịch năm 2023 với thông điệp \"Hòa Bình - Điểm đến du lịch xanh - Trải nghiệm trọn vẹn” đã khởi động chuỗi sự kiện về du lịch địa phương. Nhiều hoạt động của các điểm đến, các sản phẩm du lịch mới, hấp dẫn, đặc trưng của các huyện, thành phố trong tỉnh đã được giới thiệu, quảng bá tới du khách trong nước, quốc tế, như: Ngày hội văn hóa - thể thao – du lịch (VH-TT-DL) các dân tộc vùng cao Tân Lạc; ngày hội VH-TT-DL TP Hòa Bình; ngày hội VH-TT và quảng bá du lịch huyện Đà Bắc; khai trương tuyến phố đi bộ TP Hòa Bình; Liên hoan làng du lịch cộng đồng (DLCĐ) các tỉnh Tây Bắc mở rộng... Qua đó tạo điều kiện để các khu, điểm, đơn vị hoạt động du lịch giới thiệu các sản phẩm, đưa ra các chương trình ưu đãi và cam kết đảm bảo chất lượng dịch vụ nhằm thu hút du khách. Hiện nay, toàn tỉnh có gần 500 cơ sở lưu trú du lịch, gồm 48 khách sạn, 270 nhà nghỉ, 180 homestay tiêu chuẩn phục vụ khách du lịch. Các điểm đến được du khách đặc biệt yêu thích và lựa chọn là khu du lịch nghỉ dưỡng, sinh thái và du lịch cộng đồng. Nổi bật là các khu nghỉ dưỡng, sinh thái Serena Kim Bôi Resort; An Lạc Ecofam Hot and Springs (Kim Bôi); Avana Retreat, Mai Châu Lodge; Mai Châu Hideaway, Ba Khan Village Rerort (Mai Châu), Maida Lodge, Xoan Retreat (Đà Bắc)... Về loại hình DLCĐ hút khách ở các điểm đến trong khu du lịch huyện Mai Châu (bản Lác - xã Chiềng Châu, bản Hịch - xã Mai Hịch, bản Chà Đáy - xã Pà Cò, bản Hang Kia - xã Hang Kia...); khu du lịch hồ Hòa Bình có điểm DLCĐ bản Ngòi - xã Suối Hoa (Tân Lạc), bản Ké - xã Hiền Lương, bản Sưng - xã Cao Sơn, bản Đá Bia - xã Tiền Phong (Đà Bắc)... Trong năm, một chiến dịch truyền thông xuyên suốt và rộng khắp đã góp phần thúc đẩy hoạt động du lịch. Nhiều đoàn Famtrip và Presstrip đến quảng bá về du lịch Hòa Bình. Tỉnh cũng tiến hành khảo sát đánh giá tiềm năng các khu, tuyến, điểm du lịch trên địa bàn, tập trung quảng bá, xúc tiến truyền thông du lịch cho đồng bào dân tộc thiểu số và miền núi các huyện: Tân Lạc, Mai Châu, Đà Bắc; làm sách và clip quảng bá du lịch Hòa Bình, tiếp tục đăng các bài viết về du lịch trên trang web. Bên cạnh đó, tỉnh tham dự hội nghị quảng bá xúc tiến du lịch tỉnh Bình Định và TP Hà Nội, tham dự chuỗi sự kiện Festival Tinh hoa Tây Bắc tại TP Hồ Chí Minh; Tuần Du lịch – văn hóa Tây Bắc mở rộng tại TP Cần Thơ... Trước đây, khách du lịch thường đến Hòa Bình vào dịp đầu năm (du lịch lễ hội, tâm linh), mùa hè (du lịch sinh thái, nghỉ dưỡng) thì năm 2023 lại có thêm những tháng cuối năm sôi động với sự \"bùng nổ” các hoạt động du lịch do tỉnh và các huyện, thành phố tổ chức. Liên hoan Làng DLCĐ các tỉnh Tây Bắc mở rộng tại huyện Mai Châu là một trong những điểm nhấn cho các sự kiện du lịch của năm, thu hút các thành viên trong nhóm Tây Bắc mở rộng, sự tham gia của tỉnh Ninh Bình, Hiệp hội Du lịch tỉnh cùng sự hội tụ của 10 làng DLCĐ. Trong 3 ngày diễn ra liên hoan (17-19/11), hơn 35.000 lượt người dân và du khách đã tham dự các hoạt động, trong đó đón trên 12.000 lượt du khách, doanh thu ước đạt hơn 10 tỷ đồng. Liên hoan có nhiều hoạt động phong phú, hấp dẫn như: thi trưng bày gian hàng giới thiệu các sản phẩm văn hóa - du lịch, thi ẩm thực, thi thuyết minh giới thiệu về các làng DLCĐ, biểu diễn văn nghệ và trình diễn trang phục dân tộc, nghề truyền thống, trò chơi dân gian... đã để lại tình cảm tốt đẹp trong lòng người dân và du khách. Theo đồng chí Bùi Xuân Trường, Phó Giám đốc Sở VH-TT&DL, du lịch Hòa Bình đang trên đà khởi sắc. Các đơn vị tập trung đầu tư, chỉnh trang, nâng cấp cơ sở vật chất để đón tiếp, phục vụ khách du lịch. Hiện nay, nguồn khách chủ yếu của tỉnh là thị trường nội địa, đến từ Hà Nội, Hải Phòng, Quảng Ninh và một số địa phương khu vực phía Bắc, các tỉnh miền Trung, miền Nam. Thị trường khách du lịch quốc tế đến từ Hàn Quốc, Pháp, Úc, Anh và thị trường tiềm năng Trung Quốc, Đài Loan, Mỹ, Đức, Nga, Tây Âu. Năm 2023, số lượng khách du lịch đến với tỉnh tăng nhanh, đặc biệt vào dịp cuối tuần và những kỳ nghỉ lễ. Du lịch đã góp phần quan trọng cho tăng trưởng kinh tế, tạo việc làm cho người lao động, từng bước hội nhập quốc tế. Hoạt động kinh doanh du lịch đạt được kết quả đáng phấn khởi, tỉnh đón 3,8 triệu lượt khách tham quan, du lịch, tăng 21,5% so với năm 2022, đạt 108,6% kế hoạch năm, trong đó đón 450 nghìn lượt khách quốc tế. Tổng thu từ khách du lịch đạt 4.000 tỷ đồng, thực hiện 102,6% kế hoạch năm.",
+                    "logoLink": [
+                        "https://console-vnsocial.vnpt.vn/assets/icon-news/Defaul_logo.png"
+                    ],
+                    "senti": "positive",
+                    "type": "",
+                    "isSpam": false,
+                    "createDate": "2024-01-02T08:47:00.000+07:00",
+                    "updateDate": "2024-01-02T08:54:15.901+07:00",
+                    "docId": "7082773F6642722B0B3A881E80CCCFB7",
+                    "numShares": 0,
+                    "numComments": 0,
+                    "numInteractions": 0
+                },
+                {
+                    "userId": "",
+                    "userName": "VÂN NGA",
+                    "sourceId": "baophunuthudo.vn",
+                    "sourceName": "baophunuthudo.vn",
+                    "postLink": "https://baophunuthudo.vn/thoi-su/402-nghin-khach-den-ha-noi-trong-3-ngay-nghi-tet-duong-lich-127202.html",
+                    "domain": "baophunuthudo.vn",
+                    "pictures": [
+                        "https://images.baophunuthudo.vn/zoom/1000/Uploaded/ngant/2024_01_01/du_khach_VOAA.jpg",
+                        "https://images.baophunuthudo.vn/zoom/1000/uploaded/ngant/2024_01_01/du_khach_voaa.jpg",
+                        "https://images.baophunuthudo.vn/uploaded/ngant/2024_01_01/du_khach_voaa.jpg"
+                    ],
+                    "title": "402 nghìn khách đến Hà Nội trong 3 ngày nghỉ Tết Dương lịch",
+                    "description": "(PNTĐ) - Theo Sở Du lịch Hà Nội, 3 ngày nghỉ Tết Dương lịch (từ ngày 30/12/2023 đến ngày 01/01/2024), ước tính khách du lịch đến Hà Nội đạt 402 nghìn lượt khách, tăng 65% so với cùng kỳ năm trước.",
+                    "tags": "3 ngày nghỉ Tết Dương lịch 2024 có 402 nghìn khách đến Hà Nội, du lịch, du lịch Hà Nội",
+                    "content": "(PNTĐ) - Theo Sở Du lịch Hà Nội, 3 ngày nghỉ Tết Dương lịch (từ ngày 30/12/2023 đến ngày 01/01/2024), ước tính khách du lịch đến Hà Nội đạt 402 nghìn lượt khách, tăng 65% so với cùng kỳ năm trước.\nDu khách đến tham quan tại Bảo tàng gốm Bát Tràng - Trung tâm Tinh hoa làng nghề Việt\nKhách du lịch quốc tế ước đạt 72 nghìn lượt khách, tăng 2,1 lần; khách du lịch nội địa ước đạt 330 nghìn lượt khách, tăng 59%. Tổng thu từ khách du lịch ước đạt gần 1,5 nghìn tỷ đồng, tăng 73% so với cùng kỳ năm 2023.\nVề hoạt động lưu trú, ước tính 03 ngày nghỉ lễ (từ ngày 30/12/2023 đến hết ngày 01/01/2024); công suất sử dụng phòng bình quân khối khách sạn ước đạt khoảng 60% (trong đó khách nội địa ước đạt khoảng 35,3%; khách quốc tế đạt khoảng 24,7%); tăng 7,8% so với cùng kỳ năm 2023.\nMột số khách sạn, căn hộ hạng 4-5 sao, hay khu vực phố cổ và các homestay, resort ngoại thành có công suất sử dụng phòng cao như: Khách sạn Capela 90%; Khách sạn Lacasa Hotel khoảng 90%; Khách sạn Grand Vista Hà Nội 76,4%; Khách sạn Lasieta 85%; Khách sạn Flower Garden 84%; Khách sạn Conifer 73%; Khách sạn Pullman 67,25%; Khách sạn Wyndham 57%; Khách sạn Sunway Hanoi 74%; Khách sạn JW Mariott 71,4%; Khách sạn Novotel Thái Hà 60%; Khách sạn Bảo Sơn 55%...\nTại các trung tâm thương mại, mua sắm, ăn uống, giải trí đạt chuẩn phục vụ khách du lịch lượt khách và sức mua tăng cao, ước tính doanh thu tăng khoảng 16% so với cùng kỳ năm 2023.\nTrong kỳ nghỉ lễ Tết Dương lịch năm nay, nhiều khu, điểm tham quan du lịch trên địa bàn Thành phố đã ra mắt nhiều chương trình, sản phẩm du lịch mới cũng như tổ chức các hoạt động, sự kiện hấp dẫn nhằm kích cầu, thu hút khách du lịch đến tham quan và trải nghiệm. Điển hình như: Chương trình \"Chào năm mới 2024\" (chương trình Countdown) tại Quảng trường Đông kinh Nghĩa Thục và Quảng trường Cách mạng Tháng Tám; Chùm các hoạt động văn hóa, biểu diễn nghệ thuật, ẩm thực chào đón năm mới, hội chợ xúc tiến thương mại và trưng bày sản phẩm OCOP, sản phẩm nông nghiệp, triển lãm cây cảnh nghệ thuật tại các tuyến phố đi bộ, điểm tham quan…\nĐặc biệt vào tối 31/12/2023, tại phố đi bộ thành cổ Sơn Tây, UBND thị xã Sơn Tây tổ chức chương trình chào năm mới 2024 và phát động \"Năm Du lịch Sơn Tây - xứ Đoài 2024\" với chùm hoạt động hội chợ xúc tiến thương mại gắn kết quảng bá du lịch, văn hóa; triển lãm trang phục tại không gian trà Vân, trình diễn ẩm thực tại Bếp Làng, trải nghiệm sơn mài tại không gian của nghệ nhân Nguyễn Tấn Phát ở Làng cổ Đường Lâm.\nCũng trong dịp này, không gian phố đi bộ khu vực hồ Hoàn Kiếm, phố đi bộ Trần Nhân Tông và phụ cận được cho phép kéo dài đến hết ngày 01/01/2024, cùng với đó là các hoạt động biểu diễn nghệ thuật truyền thống để phục vụ người dân và du khách được duy trì diễn ra trong không gian này; Hoàng thành Thăng Long tổ chức hoạt động chào cờ trước cửa sân Đoan Môn, gợi nhớ lại lễ chào cờ lịch sử đầu tiên sau ngày Giải phóng Thủ đô của 69 năm về trước; Di tích quốc gia đặc biệt lịch sử - danh lam thắng cảnh hồ Hoàn Kiếm và đền Ngọc Sơn tổ chức hoạt động trưng bày 40 bức ảnh quý về đền Ngọc Sơn; Di tích Văn Miếu - Quốc Tử Giám tổ chức chương trình trải nghiệm đêm với chủ đề \"Tinh hoa đạo học\".\nChương trình đạp xe khám phá Hà Nội về đêm với chủ đề \"Đêm Thăng Long - Hà Nội\"; Công viên Thống Nhất tổ chức Lễ hội \"Miền hoa\" với nhiều loại hoa độc đáo khoe sắc; Làng Văn hóa - Du lịch các dân tộc Việt Nam diễn ra chuỗi hoạt động \"Chợ phiên - Chào năm mới 2024\"; Tour tham quan những làng hoa, cây cảnh nổi tiếng của Hà Nội: làng sinh vật cảnh Hồng Vân, điểm du lịch Phù Đổng, khu du lịch Nhật Tân, hồ Tây…\nCác hoạt động cắm trại, leo núi, đi bộ địa hình tại các vùng ngoại thành thành phố cũng diễn ra sôi động… Có khẳng định, Hà Nội vẫn là điểm đến hấp dẫn người dân, du khách vào dịp Tết Dương lịch năm nay.\nTheo số liệu cung cấp của một số điểm du lịch di tích, bảo tàng, công viên, khu sinh thái, nghỉ dưỡng du lịch trên địa bàn, từ ngày 30/12/2023 -31/12/2023: Khu du lịch hồ Hoàn Kiếm - phụ cận và khu vực phố cổ Hà Nội đón khoảng gần 150.000 lượt khách, Vườn thú Hà Nội đón 24.653 lượt khách, Di tích Nhà Tù Hỏa Lò đón 6.090 lượt khách, Di tích Văn Miếu - Quốc Tử Giám đón 15.500 lượt khách, Khu di tích Hoàng Thành Thăng Long đón 9.098 lượt khách.\nVườn Quốc gia Ba Vì đón gần 4.800 lượt khách, Khu vui chơi giải trí Tuần Châu - Hà Nội đón 1.500 lượt khách, Điểm du lịch làng nghề sinh vật cảnh Hồng Vân đón 2.635 lượt khách, Khu du lịch Ao Vua đón 1.800 lượt khách, Bảo tàng dân tộc học đón gần 4.500 lượt khách, phố đi bộ thị xã Sơn Tây với sự kiện chào năm mới cùng khai trương năm du lịch Sơn Tây 2024 đón khoảng hơn 4.000 lượt khách, 3 điểm du lịch (Dương Xá, Phù Đổng, Bát Tràng) của huyện Gia Lâm đón khoảng 10.000 lượt khách, các điểm du lịch trên địa bàn huyện Quốc Oai đón khoảng 4.200 lượt khách.",
+                    "logoLink": [
+                        "https://console-vnsocial.vnpt.vn/assets/icon-news/baophunuthudo.vn_logo.png"
+                    ],
+                    "senti": "neutral",
+                    "type": "",
+                    "isSpam": false,
+                    "createDate": "2024-01-02T08:45:00.000+07:00",
+                    "updateDate": "2024-01-02T08:51:57.969+07:00",
+                    "docId": "63B82B764895C97B63C25D0195A7D181",
+                    "numShares": 0,
+                    "numComments": 0,
+                    "numInteractions": 0
+                },
+                {
+                    "userId": "",
+                    "userName": "Hồng Hạnh",
+                    "sourceId": "tinnhanhchungkhoan.vn",
+                    "sourceName": "tinnhanhchungkhoan.vn",
+                    "postLink": "https://www.tinnhanhchungkhoan.vn/nhung-diem-den-du-lich-gan-ha-noi-dip-tet-duong-lich-2024-post336974.html",
+                    "domain": "tinnhanhchungkhoan.vn",
+                    "pictures": [
+                        "https://image.tinnhanhchungkhoan.vn/1200x630/Uploaded/2024/wpxlcdjwi/2024_01_02/402000-luot-du-khach-den-ha-noi-dip-nghi-tet-duong-lich-20241704104671-4816.jpg"
+                    ],
+                    "title": "Những điểm đến du lịch gần Hà Nội dịp Tết dương lịch 2024",
+                    "description": "Theo Sở Du lịch Hà Nội, 3 ngày nghỉ Tết Dương lịch (từ ngày 30/12/2023 đến ngày 1/1/2024), khách du lịch đến Hà Nội đạt 402.000 lượt khách, tăng 65% so với cùng kỳ năm trước.",
+                    "tags": "Khách sạn Lacasa Hotel,Grand Vista Hà Nội,Flower Garden,Khách sạn Capela,Novotel Thái Hà,JW Mariott,Sơn Tây 2024,Đêm Thăng Long,Tết Dương lịch 2024,Pullman",
+                    "content": "Du khách trải nghiệm tại làng tăm hương Quảng Phú Cầu, Ứng Hòa, Hà Nội\nTheo Sở Du lịch Hà Nội, 3 ngày nghỉ Tết Dương lịch (từ ngày 30/12/2023 đến ngày 1/1/2024), khách du lịch đến Hà Nội đạt 402.000 lượt khách, tăng 65% so với cùng kỳ năm trước.\nTheo Báo cáo kết quả hoạt động du lịch TP. Hà Nội dịp nghỉ Tết Dương lịch 2024 của Sở Du lịch Hà Nội, ngày 1/1, dịp nghỉ Tết Dương lịch năm nay thời gian nghỉ ngắn ngày nên nhiều người dân chọn phương án nghỉ ngơi, du lịch tại chỗ thay vì thực hiện hành trình di chuyển xa.\nTrong 3 ngày nghỉ Tết Dương lịch (từ ngày 30/12/2023 đến ngày 1/1/2024), ước tính khách du lịch đến Hà Nội đạt 402.000 lượt khách, tăng 65% so với cùng kỳ năm trước. Trong đó, khách du lịch quốc tế ước đạt 72.000 lượt khách, tăng 2,1 lần; khách du lịch nội địa ước đạt 330.000 lượt khách, tăng 59%. Tổng thu từ khách du lịch ước đạt gần 1.500 tỷ đồng, tăng 73% so với cùng kỳ năm 2023.\nVề hoạt động kinh doanh khách sạn, các trung tâm thương mại dịch vụ mua sắm và ăn uống đạt tiêu chuẩn phục vụ khách du lịch, ước tính 3 ngày nghỉ lễ, công suất sử dụng phòng bình quân khối khách sạn ước đạt khoảng 60% (trong đó khách nội địa ước đạt khoảng 35,3%; khách quốc tế đạt khoảng 24,7%); tăng 7,8% so với cùng kỳ năm 2023.\nMột số khách sạn, căn hộ hạng 4-5 sao, hay khu vực phố cổ và các homestay, resort ngoại thành có công suất sử dụng phòng cao như: Khách sạn Capela 90%; khách sạn Lacasa Hotel khoảng 90%; Grand Vista Hà Nội 76,4%; Lasieta 85%; Flower Garden 84%; Conifer 73%; Pullman 67,25%; Wyndham 57%; Sunway Hanoi 74%; JW Mariott 71,4%; Novotel Thái Hà 60%; Bảo Sơn 55%...\nTại các trung tâm thương mại, mua sắm, ăn uống, giải trí đạt chuẩn phục vụ khách du lịch lượt khách và sức mua tăng cao, ước tính doanh thu tăng khoảng 16% so với cùng kỳ năm 2023.\nTrong kỳ nghỉ lễ, Tết Dương lịch năm nay, nhiều khu, điểm tham quan du lịch trên địa bàn TP. Hà Nội đã ra mắt nhiều chương trình, sản phẩm du lịch mới cũng như tổ chức các hoạt động, sự kiện hấp dẫn nhằm kích cầu, thu hút khách du lịch đến tham quan và trải nghiệm.\nĐiển hình như Chương trình “Chào năm mới 2024” (chương trình Countdown) tại Quảng trường Đông kinh Nghĩa Thục và Quảng trường Cách mạng Tháng Tám; Chùm các hoạt động văn hóa, biểu diễn nghệ thuật, ẩm thực chào đón năm mới, hội chợ xúc tiến thương mại và trưng bày sản phẩm OCOP, sản phẩm nông nghiệp, triển lãm cây cảnh nghệ thuật tại các tuyến phố đi bộ, điểm tham quan;\nĐặc biệt, tối 31/12/2023, tại phố đi bộ thành cổ Sơn Tây, UBND thị xã Sơn Tây tổ chức chương trình chào năm mới 2024 và phát động “Năm Du lịch Sơn Tây - xứ Đoài 2024” với chùm hoạt động hội chợ xúc tiến thương mại gắn kết quảng bá du lịch, văn hóa; triển lãm trang phục tại không gian trà Vân, trình diễn ẩm thực tại Bếp Làng, trải nghiệm sơn mài tại không gian của nghệ nhân Nguyễn Tấn Phát ở Làng cổ Đường Lâm.\nCũng trong dịp này, Không gian phố đi bộ khu vực hồ Hoàn Kiếm, phố đi bộ Trần Nhân Tông và phụ cận được cho phép kéo dài đến hết ngày 1/1/2024, cùng với đó là các hoạt động biểu diễn nghệ thuật truyền thống để phục vụ người dân và du khách được duy trì diễn ra trong không gian này; Hoàng thành Thăng Long tổ chức hoạt động chào cờ trước cửa sân Đoan Môn, gợi nhớ lại lễ chào cờ lịch sử đầu tiên sau ngày Giải phóng Thủ đô của 69 năm về trước;\nDi tích quốc gia đặc biệt lịch sử - danh lam thắng cảnh hồ Hoàn Kiếm và đền Ngọc Sơn tổ chức hoạt động trưng bày 40 bức ảnh quý về đền Ngọc Sơn; Di tích Văn Miếu - Quốc Tử Giám tổ chức chương trình trải nghiệm đêm với chủ đề \"Tinh hoa đạo học\"; Chương trình đạp xe khám phá Hà Nội về đêm với chủ đề “Đêm Thăng Long - Hà Nội”.\nCông viên Thống Nhất tổ chức Lễ hội \"Miền hoa\" với nhiều loại hoa độc đáo khoe sắc; Làng Văn hóa - Du lịch các dân tộc Việt Nam diễn ra chuỗi hoạt động \"Chợ phiên - Chào năm mới 2024\";\nTour tham quan những làng hoa, cây cảnh nổi tiếng của Hà Nội: làng sinh vật cảnh Hồng Vân, điểm du lịch Phù Đổng, khu du lịch Nhật Tân, hồ Tây… Các hoạt động cắm trại, leo núi, đi bộ địa hình tại các vùng ngoại thành thành phố cũng diễn ra sôi động…\nCó thể khẳng định, Hà Nội vẫn là điểm đến hấp dẫn người dân, du khách vào dịp Tết Dương lịch năm nay.\nTheo số liệu cung cấp của một số điểm du lịch di tích, bảo tàng, công viên, khu sinh thái, nghỉ dưỡng du lịch trên địa bàn, từ ngày 30/12/2023 - 31/12/2023: Khu du lịch hồ Hoàn Kiếm – phụ cận và khu vực phố cổ Hà Nội đón khoảng gần 150.000 lượt khách,\nVườn thú Hà Nội đón 24.653 lượt khách, Di tích Nhà Tù Hỏa Lò đón 6.090 lượt khách, Di tích Văn Miếu – Quốc Tử Giám đón 15.500 lượt khách, Khu di tích Hoàng Thành Thăng Long đón 9.098 lượt khách. Vườn Quốc gia Ba Vì đón gần 4.800 lượt khách, Khu vui chơi giải trí Tuần Châu – Hà Nội đón 1.500 lượt khách, Điểm du lịch làng nghề sinh vật cảnh Hồng Vân đón 2.635 lượt khách,\nKhu du lịch Ao Vua đón 1.800 lượt khách, Bảo tàng dân tộc học đón gần 4.500 lượt khách, phố đi bộ thị xã Sơn Tây với sự kiện chào năm mới cùng khai trương năm du lịch Sơn Tây 2024 đón khoảng hơn 4.000 lượt khách, 3 điểm du lịch: Dương Xá, Phù Đổng, Bát Tràng của huyện Gia Lâm đón khoảng 10.000 lượt khách, các điểm du lịch trên địa bàn huyện Quốc Oai đón khoảng 4.200 lượt khách…",
+                    "logoLink": [
+                        "https://console-vnsocial.vnpt.vn/assets/icon-news/tinnhanhchungkhoan.vn_logo.png"
+                    ],
+                    "senti": "neutral",
+                    "type": "",
+                    "isSpam": false,
+                    "createDate": "2024-01-02T08:22:00.000+07:00",
+                    "updateDate": "2024-01-02T08:33:10.160+07:00",
+                    "docId": "5EEEF17CDE48FA38BCFCB5D9937C901E",
+                    "numShares": 0,
+                    "numComments": 0,
+                    "numInteractions": 0
+                }
+            ]
+        }
+      '''
+    }
+  }
+}

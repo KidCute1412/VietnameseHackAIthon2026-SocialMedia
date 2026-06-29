@@ -1,0 +1,28 @@
+meta {
+  name: 1.1 Đăng nhập
+  type: http
+  seq: 1
+}
+
+post {
+  url: https://api-vnsocialplus.vnpt.vn/social-api/v1/login
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+      "username": "vnsocial",
+      "password": "******"
+  }
+}
+
+script:post-response {
+  var data = res.getBody();
+  pm.clearGlobalVariable("x_access_token");
+  pm.setGlobalVariable("x_access_token", data.object.token);
+}
+
+settings {
+  encodeUrl: true
+}
