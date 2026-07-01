@@ -1,6 +1,6 @@
 export default function AuthCard({ title, children, footer }) {
   return (
-    <article className="glass-panel w-full max-w-[420px] p-6 sm:p-8 relative z-10">
+    <article className="glass-panel w-full max-w-[390px] p-6 sm:p-8 relative z-10">
       <div className="mb-6 text-center">
         <p className="font-label-caps text-label-caps uppercase tracking-[0.18em] text-[#5c4a43]">
           Truy cập HypeRoom
