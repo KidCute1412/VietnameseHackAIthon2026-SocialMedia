@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { animate, stagger } from 'animejs'
 
 const mentions = [
@@ -33,6 +33,7 @@ const mentions = [
 
 export default function CriticalMentionsTable({ onSelectMention, selectedId }) {
   const containerRef = useRef(null)
+  const [filter, setFilter] = useState('all')
 
   useEffect(() => {
     if (containerRef.current) {
@@ -45,7 +46,7 @@ export default function CriticalMentionsTable({ onSelectMention, selectedId }) {
         ease: 'outBack'
       })
     }
-  }, [])
+  }, [filter])
 
   const getStatusClasses = (status) => {
     if (status === 'negative') {
@@ -54,20 +55,53 @@ export default function CriticalMentionsTable({ onSelectMention, selectedId }) {
     return 'stamp-processing px-2.5 py-0.5 text-[10px] font-extrabold tracking-wider uppercase rounded-sm'
   }
 
+  const filteredMentions = mentions.filter(m => filter === 'all' || m.status === filter)
+
   return (
     <div className="flex flex-col gap-6 mb-12">
-      {/* Title Badge Pinned to Corkboard */}
-      <div className="relative self-start rotate-[-1.5deg] mb-2">
-        <div className="paper-tape tape-top-left" style={{ width: '60px', top: '-12px' }} />
-        <div className="bg-[#ebd9bc] border border-[#8c7a65] p-3 px-6 rounded shadow-[2px_3px_5px_rgba(0,0,0,0.1)] font-headline-md text-sm text-[#3d2f2b] uppercase tracking-widest font-extrabold flex items-center gap-2">
-          <span className="material-symbols-outlined text-[18px]">terminal</span>
-          BÀI VIẾT DƯ LUẬN CẦN LƯU Ý
+      {/* Title and Filter Bar Wrapper */}
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-[#5c4a43]/15 pb-4">
+        {/* Title Badge Pinned to Corkboard */}
+        <div className="relative self-start rotate-[-1.5deg]">
+          <div className="paper-tape tape-top-left" style={{ width: '60px', top: '-12px' }} />
+          <div className="bg-[#ebd9bc] border border-[#8c7a65] p-3 px-6 rounded shadow-[2px_3px_5px_rgba(0,0,0,0.1)] font-headline-md text-sm text-[#3d2f2b] uppercase tracking-widest font-extrabold flex items-center gap-2">
+            <span className="material-symbols-outlined text-[18px]">terminal</span>
+            BÀI VIẾT DƯ LUẬN CẦN LƯU Ý
+          </div>
+        </div>
+
+        {/* Vintage Filter Bar */}
+        <div className="flex gap-2 font-data-mono text-[10px] self-start lg:self-center">
+          <button
+            onClick={() => setFilter('all')}
+            className={`px-3 py-1.5 rounded border border-[#5c4a43]/20 transition-all cursor-pointer ${
+              filter === 'all' ? 'bg-[#3d2f2b] !text-[#f4efe2] font-bold shadow-sm' : 'bg-[#faf8f2] text-[#5c4a43]/70 hover:text-[#1e1613]'
+            }`}
+          >
+            TẤT CẢ ({mentions.length})
+          </button>
+          <button
+            onClick={() => setFilter('negative')}
+            className={`px-3 py-1.5 rounded border border-[#5c4a43]/20 transition-all cursor-pointer ${
+              filter === 'negative' ? 'bg-[#3d2f2b] !text-[#f4efe2] font-bold shadow-sm' : 'bg-[#faf8f2] text-[#5c4a43]/70 hover:text-[#1e1613]'
+            }`}
+          >
+            TIÊU CỰC ({mentions.filter(m => m.status === 'negative').length})
+          </button>
+          <button
+            onClick={() => setFilter('controversial')}
+            className={`px-3 py-1.5 rounded border border-[#5c4a43]/20 transition-all cursor-pointer ${
+              filter === 'controversial' ? 'bg-[#3d2f2b] !text-[#f4efe2] font-bold shadow-sm' : 'bg-[#faf8f2] text-[#5c4a43]/70 hover:text-[#1e1613]'
+            }`}
+          >
+            TRANH CÃI ({mentions.filter(m => m.status === 'controversial').length})
+          </button>
         </div>
       </div>
-
-      {/* Stack of Scrapbook Paper Slips */}
-      <div ref={containerRef} className="grid grid-cols-1 gap-6">
-        {mentions.map((mention, index) => {
+ 
+      {/* Grid of Scrapbook Paper Slips */}
+      <div ref={containerRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {filteredMentions.map((mention, index) => {
           const isSelected = selectedId === mention.id
           const rotateDeg = (index % 3 - 1) * 1.5
           return (
@@ -95,19 +129,14 @@ export default function CriticalMentionsTable({ onSelectMention, selectedId }) {
                   </div>
                 </div>
 
-                <p className="text-body-sm text-[#1e1613] italic leading-relaxed border-l-2 border-[#5c4a43]/20 pl-3 py-2 bg-[#5c4a43]/5 rounded-r">
+                <p 
+                  className="text-body-sm text-[#1e1613] italic leading-relaxed border-l-2 border-[#5c4a43]/20 pl-3 py-2 bg-[#5c4a43]/5 rounded-r line-clamp-3"
+                  title={mention.content}
+                >
                   {mention.content}
                 </p>
 
-                <div className="flex justify-between items-center mt-4 pt-3 border-t border-dashed border-[#5c4a43]/15">
-                  <span className="text-[10px] text-[#5c4a43]/50 font-data-mono">
-                    {isSelected ? '● Đang chọn kiểm chứng' : '○ Nhấn để xem kiểm chứng'}
-                  </span>
-                  <span className="text-xs text-[#3f6771] font-bold flex items-center gap-1 hover:underline">
-                    <span className="material-symbols-outlined text-[14px]">fact_check</span>
-                    Kiểm chứng ngay &rarr;
-                  </span>
-                </div>
+
               </div>
             </div>
           )

@@ -38,9 +38,8 @@ export default function ResetPasswordPage() {
     <AuthLayout>
       <AuthCard
         title="Đặt lại mật khẩu"
-        subtitle="Tạo mật khẩu mới cho tài khoản của bạn. Prototype sẽ đưa bạn về trang đăng nhập sau khi hoàn tất."
         footer={
-          <Link className="font-bold text-[#1d4ed8]" to="/auth/login">
+          <Link className="font-bold text-[#9E2A1F] hover:text-[#b53225] transition underline underline-offset-4 decoration-1" to="/auth/login">
             Quay lại đăng nhập
           </Link>
         }

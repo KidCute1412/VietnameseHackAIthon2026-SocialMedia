@@ -124,7 +124,7 @@ export default function DropZone({ onVerifySuccess, compact = false }) {
           id="btn-verify"
           disabled={!selectedFile || loading}
           onClick={handleVerify}
-          className={`px-10 py-3.5 rounded-lg font-label-caps text-[13px] tracking-wider flex items-center justify-center gap-3 w-80 ${
+          className={`px-10 py-3.5 rounded-lg font-label-caps text-[13px] tracking-wider flex items-center justify-center gap-3 w-full max-w-xs ${
             selectedFile && !loading ? 'neon-btn cursor-pointer' : 'neon-btn-disabled'
           }`}
         >

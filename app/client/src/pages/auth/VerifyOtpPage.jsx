@@ -36,13 +36,8 @@ export default function VerifyOtpPage() {
     <AuthLayout>
       <AuthCard
         title="Xác minh OTP"
-        subtitle={
-          resetEmail
-            ? `Nhập mã 6 số đã gửi tới ${resetEmail}.`
-            : 'Nhập mã 6 số đã gửi tới email khôi phục.'
-        }
         footer={
-          <Link className="font-bold text-[#1d4ed8]" to="/auth/forgot-password">
+          <Link className="font-bold text-[#9E2A1F] hover:text-[#b53225] transition underline underline-offset-4 decoration-1" to="/auth/forgot-password">
             Quay lại nhập email
           </Link>
         }
@@ -68,7 +63,7 @@ export default function VerifyOtpPage() {
 
           <button
             type="button"
-            className="w-full rounded border border-dashed border-[#3d2f2b] px-4 py-3 text-sm font-bold uppercase tracking-[0.12em] text-[#3d2f2b] transition hover:bg-[#eadfce]"
+            className="w-full rounded border border-dashed border-[#9E2A1F] px-4 py-3 text-sm font-bold uppercase tracking-[0.12em] text-[#9E2A1F] transition hover:bg-[#9E2A1F]/5 hover:border-[#b53225] hover:text-[#b53225] cursor-pointer"
             onClick={handleResendOtp}
           >
             Gửi lại mã OTP

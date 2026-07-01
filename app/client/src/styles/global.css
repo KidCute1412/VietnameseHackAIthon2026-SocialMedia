@@ -159,7 +159,7 @@ body,
   bottom: -20px !important;
   z-index: -1 !important;
   background-color: #d7cdba !important;
-  background-image: url('/newspaper_collage_bg.png') !important;
+  background-image: url('/vintage_editorial_bg.png') !important;
   background-size: cover !important;
   background-repeat: no-repeat !important;
   background-attachment: fixed !important;
@@ -400,9 +400,9 @@ nav a .material-symbols-outlined {
 
 /* ── Buttons (Letterpress Ink Stamps) ─────────────────────── */
 .neon-btn {
-  background: #3d2f2b !important;
+  background: #8c7a65 !important;
   color: #f4efe2 !important;
-  border: 1px solid #3d2f2b !important;
+  border: 1px solid #8c7a65 !important;
   box-shadow: 3px 3px 0px #1e1613 !important;
   font-family: 'Courier Prime', 'Courier New', monospace !important;
   font-weight: bold !important;
@@ -412,7 +412,8 @@ nav a .material-symbols-outlined {
 }
 
 .neon-btn:hover {
-  background: #1e1613 !important;
+  background: #5c4a43 !important;
+  border-color: #5c4a43 !important;
   box-shadow: 1px 1px 0px #1e1613 !important;
   transform: translate(2px, 2px) !important;
 }

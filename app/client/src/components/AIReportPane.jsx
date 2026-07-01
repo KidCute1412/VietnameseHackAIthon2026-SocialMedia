@@ -591,7 +591,7 @@ export default function AIReportPane({ data, onClose, className = "" }) {
   }
 
   return (
-    <section className={`p-8 bg-surface-container-lowest flex flex-col ${className || 'w-1/2 h-full'}`} style={{ maxHeight: 'calc(100vh - 110px)', overflow: 'hidden' }}>
+    <section className={`p-4 md:p-8 bg-surface-container-lowest flex flex-col ${className || 'w-1/2 h-full'}`} style={{ maxHeight: '100%', overflow: 'hidden' }}>
       {/* Header */}
       <div className="flex justify-between items-center mb-8 border-b border-[#5c4a43]/15 pb-3">
         <h2 className="font-headline-md text-[20px] text-[#1e1613] flex items-center gap-2 font-bold">
@@ -610,9 +610,9 @@ export default function AIReportPane({ data, onClose, className = "" }) {
         </div>
       </div>
 
-      <div className={`flex-1 flex items-stretch w-full overflow-hidden transition-all duration-300 ${showChatbot ? 'gap-6' : 'gap-0'}`}>
+      <div className={`flex-1 flex flex-col lg:flex-row items-stretch w-full overflow-hidden transition-all duration-300 ${showChatbot ? 'gap-6' : 'gap-0'}`}>
         {/* Left Pane: Fact-Checking Content */}
-        <div className={`flex flex-col overflow-y-auto pr-2 custom-scrollbar transition-all duration-300 ${showChatbot ? 'w-[calc(100%-424px)]' : 'w-full'}`}>
+        <div className={`flex flex-col overflow-y-auto pr-2 custom-scrollbar transition-all duration-300 ${showChatbot ? 'w-full lg:w-[calc(100%-424px)]' : 'w-full'}`}>
           {/* Gauges Section */}
           <div className="grid grid-cols-2 gap-6 mb-4 font-sans">
             <div 
@@ -788,12 +788,12 @@ export default function AIReportPane({ data, onClose, className = "" }) {
         </div>
 
         {/* Chatbot Wrapper */}
-        <div className="w-[400px] shrink-0 h-full">
+        <div className="w-full lg:w-[400px] shrink-0 h-[380px] lg:h-full mt-6 lg:mt-0">
           {/* Chatbot Content Pane (always visible) */}
-          <div className="relative overflow-hidden h-full w-[400px]">
+          <div className="relative overflow-hidden h-full w-full">
             {/* Inner Card Container */}
             <div 
-              className="w-[400px] h-full flex flex-col border border-[#5c4a43]/15 rounded-lg bg-[#faf8f2]/95 shadow-md overflow-hidden chat-container"
+              className="w-full h-full flex flex-col border border-[#5c4a43]/15 rounded-lg bg-[#faf8f2]/95 shadow-md overflow-hidden chat-container"
               style={{
                 backgroundBlendMode: 'multiply',
                 backgroundImage: `url('https://www.transparenttextures.com/patterns/aged-paper.png')`

@@ -9,7 +9,7 @@ export default function SmartReaderPane({ data }) {
   }
 
   return (
-    <section className="w-1/2 h-full relative border-r border-[#3d2f2b]/15 p-8 overflow-hidden bg-surface-container-lowest">
+    <section className="w-full lg:w-1/2 h-auto lg:h-full relative border-b lg:border-b-0 lg:border-r border-[#3d2f2b]/15 p-4 md:p-8 overflow-hidden bg-surface-container-lowest">
       {/* Section Header */}
       <div className="flex justify-between items-start mb-6">
         <div>
