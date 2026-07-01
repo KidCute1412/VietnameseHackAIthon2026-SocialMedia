@@ -12,6 +12,7 @@ class Settings(BaseSettings):
     VNSOCIAL_PASSWORD: str = ""
     VNSOCIAL_TOKEN: str = ""
     VNSOCIAL_PROJECTS_URL: str = "https://api-vnsocialplus.vnpt.vn/social-api/v1/projects"
+    VNSOCIAL_HOT_POSTS_URL: str = "https://api-vnsocialplus.vnpt.vn/social-api/v1/projects/hot-posts"
     VNSOCIAL_TIMEOUT_SECONDS: float = 10.0
 
     # Tavily Search API key
