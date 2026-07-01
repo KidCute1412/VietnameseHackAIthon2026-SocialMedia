@@ -1,26 +1,45 @@
 # HypeRoom App
 
-Huong dan chay project local cho phan `app`, gom frontend React/Vite va backend FastAPI.
+Hướng dẫn chạy project local cho phần `app`, gồm frontend React/Vite và backend FastAPI.
 
-## Cau truc
+## Cấu trúc
 
-- `client/`: frontend React + Vite, chay mac dinh tai `http://localhost:5173`.
-- `server/`: backend FastAPI, nen chay tai `http://localhost:3000` de khop voi proxy trong `client/vite.config.js`.
+- `client/`: frontend React + Vite, chạy mặc định tại `http://localhost:5173`.
+- `server/`: backend FastAPI, nên chạy tại `http://localhost:3000` để khớp với proxy trong `client/vite.config.js`.
 
-## Yeu cau
+## Yêu cầu
 
-- Node.js va npm
-- Python 3.10+ va pip
+- Node.js và npm
+- Python 3.10+ và pip
+- Docker và Docker Compose
 
-## Chay backend
-
-Tao hoac cap nhat `app/server/.env`:
+## Chạy nhanh từ thư mục gốc repo
 
 ```bash
+./start.sh
+```
+
+Trên Linux, `./start.bat` cũng sẽ tự động chuyển sang `start.sh`.
+
+## Chạy database local
+
+Mở terminal thứ nhất từ thư mục gốc repo:
+
+```bash
+docker compose -f app/docker-compose.yaml up -d postgres
+```
+
+## Chạy backend
+
+Tạo hoặc cập nhật `app/server/.env`:
+
+```bash
+DATABASE_URL=postgresql+psycopg://postgres:postgres@localhost:5432/mydb
+
 VNSOCIAL_USERNAME=your_username
 VNSOCIAL_PASSWORD=your_password
 
-# Optional: neu da co token thi server se dung token nay va khong goi login API.
+# Optional: nếu đã có token thì server sẽ dùng token này và không gọi login API.
 VNSOCIAL_TOKEN=
 VNSOCIAL_LOGIN_URL=https://api-vnsocialplus.vnpt.vn/social-api/v1/login
 VNSOCIAL_PROJECTS_URL=https://api-vnsocialplus.vnpt.vn/social-api/v1/projects
@@ -28,7 +47,7 @@ VNSOCIAL_HOT_POSTS_URL=https://api-vnsocialplus.vnpt.vn/social-api/v1/projects/h
 VNSOCIAL_TIMEOUT_SECONDS=10
 ```
 
-Mo terminal thu nhat:
+Mở terminal tiếp theo:
 
 ```bash
 cd app/server
@@ -38,28 +57,22 @@ pip install -r requirements.txt
 uvicorn main:app --reload --host 0.0.0.0 --port 3000
 ```
 
-Kiem tra backend:
+Kiểm tra backend:
 
 ```bash
-curl http://localhost:3000/
+curl http://localhost:3000/openapi.json
 ```
 
-Neu thanh cong, server se tra ve JSON:
-
-```json
-{"message":"Hello World"}
-```
-
-Lay danh sach VNPT vnSocial projects:
+Lấy danh sách VNPT vnSocial projects:
 
 ```bash
-curl http://localhost:3000/api/vnsocial/projects
+curl http://localhost:3000/api/v1/vnsocial/projects
 ```
 
-Lay bai viet noi bat tu VNPT vnSocial:
+Lấy bài viết nổi bật từ VNPT vnSocial:
 
 ```bash
-curl -X POST http://localhost:3000/api/vnsocial/hot-posts \
+curl -X POST http://localhost:3000/api/v1/vnsocial/hot-posts \
   -H "Content-Type: application/json" \
   -d '{
     "project_id": "65012f5e621e0ce1de8876f2",
@@ -69,13 +82,13 @@ curl -X POST http://localhost:3000/api/vnsocial/hot-posts \
   }'
 ```
 
-Backend se gui body JSON nay den endpoint VNPT `projects/hot-posts` kem
-`x-access-token` lay tu `VNSOCIAL_TOKEN` hoac tu login API, roi tra ve nguyen
-JSON response cua VNPT.
+Backend sẽ gửi body JSON này đến endpoint VNPT `projects/hot-posts` kèm
+`x-access-token` lấy từ `VNSOCIAL_TOKEN` hoặc từ login API, rồi trả về nguyên
+JSON response của VNPT.
 
-## Chay frontend
+## Chạy frontend
 
-Mo terminal thu hai:
+Mở terminal thứ hai:
 
 ```bash
 cd app/client
@@ -83,13 +96,13 @@ npm install
 npm run dev
 ```
 
-Mo trinh duyet tai:
+Mở trình duyệt tại:
 
 ```text
 http://localhost:5173
 ```
 
-Frontend dang proxy cac request `/api/*` sang `http://localhost:3000` theo cau hinh Vite, vi vay nen khoi dong backend truoc khi test cac luong co goi API.
+Frontend đang proxy các request `/api/*` sang `http://localhost:3000` theo cấu hình Vite, vì vậy nên khởi động backend trước khi test các luồng có gọi API.
 
 ## Build production
 
@@ -98,14 +111,14 @@ cd app/client
 npm run build
 ```
 
-Xem ban build local:
+Xem bản build local:
 
 ```bash
 npm run preview
 ```
 
-## Loi thuong gap
+## Lỗi thường gặp
 
-- Neu `vite: not found`, chay lai `npm install` trong `app/client`.
-- Neu frontend goi API bi loi, kiem tra backend co dang chay o port `3000` khong.
-- Neu port `3000` hoac `5173` da bi chiem, tat process dang dung port do hoac doi port tuong ung trong lenh chay va `client/vite.config.js`.
+- Nếu `vite: not found`, chạy lại `npm install` trong `app/client`.
+- Nếu frontend gọi API bị lỗi, kiểm tra backend có đang chạy ở port `3000` không.
+- Nếu port `3000`, `5173` hoặc `5432` đã bị chiếm, tắt process đang dùng port đó hoặc đổi port tương ứng trong lệnh chạy và `client/vite.config.js`.

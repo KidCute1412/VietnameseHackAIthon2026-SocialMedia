@@ -4,7 +4,7 @@ from pydantic_settings import BaseSettings
 class Settings(BaseSettings):
     PROJECT_NAME: str = "HypeRoom"
     API_V1_STR: str = "/api/v1"
-    DATABASE_URL: str = "sqlite:///./hyproom.db"
+    DATABASE_URL: str = "postgresql+psycopg://postgres:postgres@localhost:5432/mydb"
     
     # vnSocial API configuration
     VNSOCIAL_LOGIN_URL: str = "https://api-vnsocialplus.vnpt.vn/social-api/v1/login"
