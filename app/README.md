@@ -24,6 +24,7 @@ VNSOCIAL_PASSWORD=your_password
 VNSOCIAL_TOKEN=
 VNSOCIAL_LOGIN_URL=https://api-vnsocialplus.vnpt.vn/social-api/v1/login
 VNSOCIAL_PROJECTS_URL=https://api-vnsocialplus.vnpt.vn/social-api/v1/projects
+VNSOCIAL_HOT_POSTS_URL=https://api-vnsocialplus.vnpt.vn/social-api/v1/projects/hot-posts
 VNSOCIAL_TIMEOUT_SECONDS=10
 ```
 
@@ -54,6 +55,23 @@ Lay danh sach VNPT vnSocial projects:
 ```bash
 curl http://localhost:3000/api/vnsocial/projects
 ```
+
+Lay bai viet noi bat tu VNPT vnSocial:
+
+```bash
+curl -X POST http://localhost:3000/api/vnsocial/hot-posts \
+  -H "Content-Type: application/json" \
+  -d '{
+    "project_id": "65012f5e621e0ce1de8876f2",
+    "source": "baochi",
+    "start_time": 1756314000000,
+    "end_time": 1756918799999
+  }'
+```
+
+Backend se gui body JSON nay den endpoint VNPT `projects/hot-posts` kem
+`x-access-token` lay tu `VNSOCIAL_TOKEN` hoac tu login API, roi tra ve nguyen
+JSON response cua VNPT.
 
 ## Chay frontend
 

@@ -8,7 +8,11 @@ from vnsocial.vnsocial_auth import TIMEOUT_ENV, VNSocialAuthError, get_vnsocial_
 
 
 PROJECTS_URL_ENV = "VNSOCIAL_PROJECTS_URL"
+HOT_POSTS_URL_ENV = "VNSOCIAL_HOT_POSTS_URL"
 DEFAULT_PROJECTS_URL = "https://api-vnsocialplus.vnpt.vn/social-api/v1/projects"
+DEFAULT_HOT_POSTS_URL = (
+    "https://api-vnsocialplus.vnpt.vn/social-api/v1/projects/hot-posts"
+)
 
 
 class VNSocialAPIError(RuntimeError):
@@ -16,34 +20,65 @@ class VNSocialAPIError(RuntimeError):
 
 
 def get_vnsocial_projects() -> dict[str, Any]:
-    token = get_vnsocial_token()
-    request = Request(
+    return _request_vnsocial_json(
         os.getenv(PROJECTS_URL_ENV, DEFAULT_PROJECTS_URL),
+        "GET",
+        None,
+        "projects",
+    )
+
+
+def get_vnsocial_hot_posts(payload: dict[str, Any]) -> dict[str, Any]:
+    return _request_vnsocial_json(
+        os.getenv(HOT_POSTS_URL_ENV, DEFAULT_HOT_POSTS_URL),
+        "POST",
+        payload,
+        "hot posts",
+    )
+
+
+def _request_vnsocial_json(
+    url: str,
+    method: str,
+    payload: dict[str, Any] | None,
+    resource_name: str,
+) -> dict[str, Any]:
+    token = get_vnsocial_token()
+    data = json.dumps(payload).encode("utf-8") if payload is not None else None
+    request = Request(
+        url,
+        data=data,
         headers={
             "Content-Type": "application/json",
             "Accept": "application/json",
             "x-access-token": token,
         },
-        method="GET",
+        method=method,
     )
 
     try:
         with urlopen(request, timeout=_timeout_seconds()) as response:
             raw_body = response.read().decode("utf-8")
     except HTTPError as exc:
-        raise VNSocialAPIError(f"VNPT projects request failed with status {exc.code}") from exc
+        raise VNSocialAPIError(
+            f"VNPT {resource_name} request failed with status {exc.code}"
+        ) from exc
     except URLError as exc:
-        raise VNSocialAPIError(f"VNPT projects request failed: {exc.reason}") from exc
+        raise VNSocialAPIError(
+            f"VNPT {resource_name} request failed: {exc.reason}"
+        ) from exc
     except TimeoutError as exc:
-        raise VNSocialAPIError("VNPT projects request timed out") from exc
+        raise VNSocialAPIError(f"VNPT {resource_name} request timed out") from exc
 
     try:
         parsed_body = json.loads(raw_body)
     except json.JSONDecodeError as exc:
-        raise VNSocialAPIError("VNPT projects response is not valid JSON") from exc
+        raise VNSocialAPIError(
+            f"VNPT {resource_name} response is not valid JSON"
+        ) from exc
 
     if not isinstance(parsed_body, dict):
-        raise VNSocialAPIError("VNPT projects response must be a JSON object")
+        raise VNSocialAPIError(f"VNPT {resource_name} response must be a JSON object")
 
     return parsed_body
 
