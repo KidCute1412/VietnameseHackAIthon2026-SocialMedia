@@ -202,12 +202,12 @@ export default function DashboardPage() {
           setUploadStep(3)
           setTimeout(() => {
             // Send request to server
+            const formData = new FormData()
+            formData.append('file', selectedFile)
+
             apiRequest('/api/v1/verifications', {
               method: 'POST',
-              body: {
-                raw_content: `Uploaded file: ${selectedFile.name}`,
-                source_url: null,
-              },
+              body: formData,
             })
               .then((data) => {
                 setSelectedFile(null)

@@ -53,12 +53,12 @@ export default function DropZone({ onVerifySuccess, compact = false }) {
     if (!selectedFile || loading) return
 
     setLoading(true)
+    const formData = new FormData()
+    formData.append('file', selectedFile)
+
     apiRequest('/api/v1/verifications', {
       method: 'POST',
-      body: {
-        raw_content: `Uploaded file: ${selectedFile.name}`,
-        source_url: null,
-      },
+      body: formData,
     })
       .then((data) => {
         setLoading(false)

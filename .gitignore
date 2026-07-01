@@ -173,3 +173,8 @@ app/server/uploads/*
 *.db-journal
 *.sqlite
 *.sqlite3
+
+# Allow committing client-side lib folder
+!app/client/src/lib/
+!app/client/src/lib/**
+
