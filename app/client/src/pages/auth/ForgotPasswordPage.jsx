@@ -33,11 +33,10 @@ export default function ForgotPasswordPage() {
     <AuthLayout>
       <AuthCard
         title="Quên mật khẩu"
-        subtitle="Nhập email tài khoản để nhận mã OTP khôi phục mật khẩu."
         footer={
           <>
             Đã nhớ mật khẩu?{' '}
-            <Link className="font-bold text-[#1d4ed8]" to="/auth/login">
+            <Link className="font-bold text-[#3d2f2b] underline hover:text-[#5c4a43]" to="/auth/login">
               Đăng nhập
             </Link>
           </>

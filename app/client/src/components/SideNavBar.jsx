@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom'
 const navItems = [
   { path: '/', icon: 'dashboard', label: 'Nguồn của bạn', id: 'nav-dashboard' },
   { path: '/vnsocial', icon: 'analytics', label: 'Thông tin Trending', id: 'nav-vnsocial' },
+  { path: '/auth/logout', icon: 'logout', label: 'Đăng xuất', id: 'nav-logout' },
 ]
 
 export default function SideNavBar() {
@@ -10,6 +11,26 @@ export default function SideNavBar() {
 
   return (
     <nav className="fixed bottom-0 left-0 w-full h-[60px] z-40 flex flex-row py-0 px-2 bg-surface-container-lowest/95 backdrop-blur-xl border-t border-white/5 shadow-2xl transition-all duration-300 group pt-0 overflow-hidden items-center md:fixed md:left-0 md:top-0 md:bottom-auto md:h-full md:w-[80px] md:hover:w-[240px] md:flex-col md:py-panel-padding md:px-0 md:bg-surface-container-lowest/80 md:border-t-0 md:border-r md:pt-[96px] md:items-stretch">
+      {/* Custom Styles for Logout Button to override global.css important rules */}
+      <style>{`
+        #nav-logout, #nav-logout * {
+          color: #b84e4e !important;
+        }
+        #nav-logout:hover, #nav-logout:hover * {
+          color: #963b3b !important;
+          background: rgba(184, 78, 78, 0.08) !important;
+          border: 1.5px solid #b84e4e !important;
+          box-shadow: 2px 2px 0px #b84e4e !important;
+          transform: translate(-1px, -1px);
+        }
+        #nav-logout.active-logout, #nav-logout.active-logout * {
+          background: rgba(184, 78, 78, 0.12) !important;
+          color: #b84e4e !important;
+          border: 1.5px solid #b84e4e !important;
+          box-shadow: 2px 2px 0px #b84e4e !important;
+        }
+      `}</style>
+
       {/* User Info */}
       <div className="hidden md:flex px-6 mb-8 items-center gap-4 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
         <div className="w-10 h-10 rounded-full bg-gradient-to-br from-glow-highlight/20 to-glow-purple/20 flex items-center justify-center border border-white/10 shrink-0">
@@ -26,15 +47,21 @@ export default function SideNavBar() {
       <div id="sidebar-nav" className="flex-1 flex flex-row md:flex-col gap-1 md:gap-2 px-2 w-full md:w-auto justify-around md:justify-start items-center md:items-stretch">
         {navItems.map((item) => {
           const isActive = location.pathname === item.path
+          const isLogout = item.id === 'nav-logout'
           return (
             <Link
               key={item.id}
               id={item.id}
               to={item.path}
-              className={`flex flex-col md:flex-row items-center gap-1 md:gap-4 px-3 py-1.5 md:px-4 md:py-3 rounded-lg md:group-hover:translate-x-1 transition-all ${isActive
-                  ? 'bg-white/10 text-glow-highlight border border-glow-highlight/20 shadow-[0_0_15px_rgba(0,240,255,0.1)]'
+              className={`flex flex-col md:flex-row items-center gap-1 md:gap-4 px-3 py-1.5 md:px-4 md:py-3 rounded-lg md:group-hover:translate-x-1 transition-all ${
+                isActive
+                  ? isLogout
+                    ? 'active-logout'
+                    : 'bg-white/10 text-glow-highlight border border-glow-highlight/20 shadow-[0_0_15px_rgba(0,240,255,0.1)]'
+                  : isLogout
+                  ? ''
                   : 'text-white/40 hover:bg-white/5 hover:text-white'
-                }`}
+              }`}
             >
               <span
                 className="material-symbols-outlined shrink-0 text-[20px] md:text-[24px]"

@@ -148,6 +148,141 @@ app.get('/api/verifications/:id', (req, res) => {
   }
 });
 
+// Verify and save a social media mention to history
+app.post('/api/verify-mention', (req, res) => {
+  const { username, content, avatar, followers } = req.body;
+  if (!username) {
+    return res.status(400).json({ error: 'Username is required' });
+  }
+
+  const existing = verifications.find(v => v.fileName === `Bài viết từ ${username}`);
+  if (existing) {
+    return res.json({ id: existing.id });
+  }
+
+  const id = String(Date.now());
+
+  let trustScore = 75;
+  let publicImpact = 50;
+  let status = 'warning';
+  let sources = [];
+  let storyAngles = [];
+
+  if (username === '@crypto_phantom') {
+    trustScore = 95;
+    publicImpact = 80;
+    status = 'verified';
+    sources = [
+      {
+        id: 1,
+        icon: 'terminal',
+        name: 'HypeRoom Security Node',
+        description: 'Hệ thống kiểm toán mật mã không phát hiện bất kỳ sự cố rò rỉ entropy nào trên mạng lưới Alpha.',
+        match: 'Độ trùng khớp: 95%',
+        hash: 'crypto_node_24'
+      },
+      {
+        id: 2,
+        icon: 'account_balance',
+        name: 'Hiệp hội An toàn thông tin Việt Nam',
+        description: 'Báo cáo kiểm soát an ninh định kỳ tuần này xác nhận thuật toán mã hóa HypeRoom hoạt động bình thường.',
+        match: 'Độ trùng khớp: 88%',
+        hash: 'aisanet_report_306'
+      }
+    ];
+    storyAngles = [
+      {
+        id: 1,
+        title: 'Fact-Check Bulletin',
+        content: 'Hi Lok! Phản bác tin đồn rò rỉ entropy từ tài khoản @crypto_phantom. Báo cáo giám định xác nhận kiến trúc lõi bảo mật hoạt động an toàn tuyệt đối.',
+        defaultOpen: true
+      },
+      {
+        id: 2,
+        title: 'Neutral Report Angle',
+        content: 'Hi Lok! Đưa tin trung lập về sự vận hành an toàn của mạng lưới HypeRoom Alpha sau tin đồn kỹ thuật thất thiệt.',
+        defaultOpen: false
+      }
+    ];
+  } else if (username === '@narrative_weaver') {
+    trustScore = 90;
+    publicImpact = 65;
+    status = 'warning';
+    sources = [
+      {
+        id: 1,
+        icon: 'newspaper',
+        name: 'Tài liệu Kỹ thuật HypeRoom chính thức',
+        description: 'Quy chuẩn phân phối tài nguyên tự động và công bằng dựa trên cổ phần đóng góp của mọi nút mạng.',
+        match: 'Độ trùng khớp: 92%',
+        hash: 'whitepaper_section_12'
+      },
+      {
+        id: 2,
+        icon: 'newspaper',
+        name: 'Báo Công Nghệ Số',
+        description: 'Phân tích thuật toán phân bổ HypeRoom V3.4 xác nhận cơ chế ưu tiên băng thông hoạt động bình thường.',
+        match: 'Độ trùng khớp: 85%',
+        hash: 'technews_load_balance'
+      }
+    ];
+    storyAngles = [
+      {
+        id: 1,
+        title: 'Fact-Check Bulletin',
+        content: 'Hi Lok! Làm rõ hiểu lầm của @narrative_weaver về phân bổ băng thông. Số liệu thực tế chứng minh thuật toán phân bổ hoàn toàn công bằng theo Whitepaper.',
+        defaultOpen: true
+      }
+    ];
+  } else if (username === '@void_operator') {
+    trustScore = 98;
+    publicImpact = 45;
+    status = 'verified';
+    sources = [
+      {
+        id: 1,
+        icon: 'account_balance',
+        name: 'Trạm Giám sát Mạng Quốc gia',
+        description: 'Ghi nhận sự cố suy hao đường truyền cáp quang biển cục bộ gây ảnh hưởng đến kết nối Vùng 4.',
+        match: 'Độ trùng khớp: 98%',
+        hash: 'vnnic_undersea_log'
+      },
+      {
+        id: 2,
+        icon: 'terminal',
+        name: 'Cổng trạng thái HypeRoom',
+        description: 'Xác nhận cụm máy chủ Vùng 4 hoạt động bình thường nhưng bị nghẽn mạng do tuyến đường truyền thay thế.',
+        match: 'Độ trùng khớp: 90%',
+        hash: 'hyproom_status_v4'
+      }
+    ];
+    storyAngles = [
+      {
+        id: 1,
+        title: 'Fact-Check Bulletin',
+        content: 'Hi Lok! Xác nhận lỗi kết nối tại Vùng 4 do đứt cáp quang biển cục bộ, hệ thống HypeRoom vẫn vận hành an toàn.',
+        defaultOpen: true
+      }
+    ];
+  }
+
+  const newVerification = {
+    id,
+    fileName: `Bài viết từ ${username}`,
+    timestamp: 'Vừa xong',
+    status: status,
+    confidence: trustScore,
+    trustScore,
+    publicImpact,
+    ocrText: `BÀI ĐĂNG MXH TỪ ${username} (${followers}):\n\n"${content}"\n\n[Hệ thống tự động lưu vào Lịch sử Kiểm tra]`,
+    evidenceSources: sources,
+    storyAngles
+  };
+
+  verifications.unshift(newVerification);
+  res.json({ id });
+});
+
 // Upload and verify endpoint simulating the AI skills from gemini.md
 app.post('/api/verify', upload.single('file'), (req, res) => {
   const file = req.file;

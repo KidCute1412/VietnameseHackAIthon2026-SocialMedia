@@ -8,12 +8,14 @@ import LoginPage from './pages/auth/LoginPage'
 import RegisterPage from './pages/auth/RegisterPage'
 import ResetPasswordPage from './pages/auth/ResetPasswordPage'
 import VerifyOtpPage from './pages/auth/VerifyOtpPage'
+import LogoutPage from './pages/auth/LogoutPage'
 
 function App() {
   return (
     <Routes>
       <Route path="/auth" element={<Navigate replace to="/auth/login" />} />
       <Route path="/auth/login" element={<LoginPage />} />
+      <Route path="/auth/logout" element={<LogoutPage />} />
       <Route path="/auth/register" element={<RegisterPage />} />
       <Route path="/auth/forgot-password" element={<ForgotPasswordPage />} />
       <Route path="/auth/verify-otp" element={<VerifyOtpPage />} />
