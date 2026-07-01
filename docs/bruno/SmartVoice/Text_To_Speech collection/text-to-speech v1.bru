@@ -1,0 +1,32 @@
+meta {
+  name: text-to-speech v1
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{base_url}}/tts-service/v1/standard
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+  Authorization: {{access_token}}
+  Token-id: {{token_id}}
+  Token-key: {{token_key}}
+}
+
+body:json {
+  {
+    "text" : "",
+    "text_split" : false,
+    "model" : "news",
+    "speed": "1",
+    "region" : "female_north"
+  }
+}
+
+settings {
+  encodeUrl: true
+}

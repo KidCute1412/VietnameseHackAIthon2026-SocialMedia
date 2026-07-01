@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "SocialMedia-Hackathon",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

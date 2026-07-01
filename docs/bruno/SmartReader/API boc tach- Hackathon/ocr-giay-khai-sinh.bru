@@ -1,0 +1,44 @@
+meta {
+  name: ocr/giay-khai-sinh
+  type: http
+  seq: 2
+}
+
+post {
+  url: https://api.idg.vnpt.vn/rpa-service/aidigdoc/v1/ocr/giay-khai-sinh
+  body: json
+  auth: inherit
+}
+
+headers {
+  Authorization: 
+  Token-id: 
+  Token-key: 
+  mac-address: mac-address
+  Content-Type: application/json
+}
+
+body:json {
+  {
+      "file_hash": "idg20251201-e30bddce-2ab2-7bb2-e053-62199f0a0076/IDG01_d5c8540d-ceba-11f0-b76e-9b93768e8b75",
+      "file_type": "pdf",
+      "token": "8928skjhfa89298jahga1771vbvb",
+      "client_session": "00-14-22-01-23-45-1548211589291",
+      "details": true
+  }
+}
+
+script:post-response {
+  test("Status code is 200", function () {
+      expect(res.getStatus()).to.equal(200);
+  });
+}
+
+settings {
+  encodeUrl: true
+}
+
+docs {
+  OCR trên dev
+  - Tốc độ chậm hơn nhiều so với trên production.
+}

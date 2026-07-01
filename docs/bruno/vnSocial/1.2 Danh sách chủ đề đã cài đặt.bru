@@ -1,0 +1,143 @@
+meta {
+  name: 1.2 Danh sách chủ đề đã cài đặt
+  type: http
+  seq: 2
+}
+
+get {
+  url: https://api-vnsocialplus.vnpt.vn/social-api/v1/projects?type=TOPIC_POLICY
+  body: none
+  auth: inherit
+}
+
+params:query {
+  type: TOPIC_POLICY
+}
+
+headers {
+  x-access-token: {{x_access_token}}
+}
+
+settings {
+  encodeUrl: true
+}
+
+example {
+  name: 1.2.1 Chủ đề  theo từ khóa - TOPIC_POLICY
+  
+  request: {
+    url: https://api-vnsocialplus.vnpt.vn/social-api/v1/projects?type=TOPIC_POLICY
+    method: GET
+    mode: none
+    params:query: {
+      type: TOPIC_POLICY
+    }
+  
+    headers: {
+      x-access-token: {{x_access_access}}
+    }
+  }
+  
+  response: {
+    headers: {
+      Date: Tue, 02 Jan 2024 02:47:25 GMT
+      Content-Type: application/json; charset=utf-8
+      Content-Length: 264
+      Connection: keep-alive
+      X-Powered-By: Express
+      Access-Control-Allow-Headers: Origin,X-Requested-With,Content-Type,Accept,x-access-token
+      Access-Control-Allow-Methods: GET,POST,OPTIONS,PUT,DELETE
+      ETag: W/"108-r1krnO1iQpjuXEG7nx1P5dBv8rI"
+      Strict-Transport-Security: max-age=15724800; includeSubDomains
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+            "success": true,
+            "code": 200,
+            "object": {
+                "total": 1,
+                "data": [
+                    {
+                        "id": "659375db02d0a2846d952551",
+                        "name": "Du lịch Hà Nội",
+                        "type": "TOPIC_POLICY",
+                        "created_date": "2024-01-02T02:32:59.591Z",
+                        "created_by": "vnsocial",
+                        "updated_date": "2024-01-02T02:32:59.569Z",
+                        "status": true
+                    }
+                ]
+            }
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 1.2.2 Chủ đề theo nguồn - PERSONAL_POST
+  
+  request: {
+    url: https://api-vnsocialplus.vnpt.vn/social-api/v1/projects?type=PERSONAL_POST
+    method: GET
+    mode: none
+    params:query: {
+      type: PERSONAL_POST
+    }
+  
+    headers: {
+      x-access-token: {{x_access_access}}
+    }
+  }
+  
+  response: {
+    headers: {
+      Date: Tue, 02 Jan 2024 04:07:43 GMT
+      Content-Type: application/json; charset=utf-8
+      Content-Length: 272
+      Connection: keep-alive
+      X-Powered-By: Express
+      Access-Control-Allow-Headers: Origin,X-Requested-With,Content-Type,Accept,x-access-token
+      Access-Control-Allow-Methods: GET,POST,OPTIONS,PUT,DELETE
+      ETag: W/"110-YQQZ5agiDDUMSJyyDgVJ1S3bIT0"
+      Strict-Transport-Security: max-age=15724800; includeSubDomains
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+            "success": true,
+            "code": 200,
+            "object": {
+                "total": 1,
+                "data": [
+                    {
+                        "id": "65938b2c02d0a2555c9560ff",
+                        "name": "Báo chí tương tác cao",
+                        "type": "PERSONAL_POST",
+                        "created_date": "2024-01-02T04:03:56.223Z",
+                        "created_by": "vnsocial",
+                        "updated_date": "2024-01-02T04:03:56.143Z",
+                        "status": true
+                    }
+                ]
+            }
+        }
+      '''
+    }
+  }
+}

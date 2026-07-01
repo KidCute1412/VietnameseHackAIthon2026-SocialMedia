@@ -11,7 +11,7 @@ export default function LogoutPage() {
         footer={
           <>
             Bạn muốn quay lại?{' '}
-            <Link className="font-bold text-[#1d4ed8]" to="/auth/login">
+            <Link className="font-bold text-[#9E2A1F] hover:text-[#b53225] transition underline underline-offset-4 decoration-1" to="/auth/login">
               Đăng nhập lại
             </Link>
           </>

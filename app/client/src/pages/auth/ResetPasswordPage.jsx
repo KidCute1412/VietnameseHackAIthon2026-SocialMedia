@@ -39,7 +39,7 @@ export default function ResetPasswordPage() {
       <AuthCard
         title="Đặt lại mật khẩu"
         footer={
-          <Link className="font-bold text-[#3d2f2b] underline hover:text-[#5c4a43]" to="/auth/login">
+          <Link className="font-bold text-[#9E2A1F] hover:text-[#b53225] transition underline underline-offset-4 decoration-1" to="/auth/login">
             Quay lại đăng nhập
           </Link>
         }

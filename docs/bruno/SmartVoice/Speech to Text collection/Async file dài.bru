@@ -1,0 +1,26 @@
+meta {
+  name: Async file dài
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{base_url}}/stt-service/v1/grpc/async/standard
+  body: multipartForm
+  auth: inherit
+}
+
+headers {
+  token-id: {{token_id}}
+  token-key: {{token_key}}
+  Authorization: {{access_token}}
+}
+
+body:multipart-form {
+  audioFile: @file()
+  clientSession: clientSession11221311209
+}
+
+settings {
+  encodeUrl: true
+}

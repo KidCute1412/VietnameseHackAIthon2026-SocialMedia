@@ -1,0 +1,21 @@
+meta {
+  name: Send SmartUX Metric
+  type: http
+  seq: 9
+}
+
+post {
+  url: {{baseUrl}}/api/metrics/smartux
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "event_type": "copy_editorial_outline",
+    "verification_id": "00000000-0000-0000-0000-000000000000",
+    "metadata": {
+      "custom_metric": "value"
+    }
+  }
+}

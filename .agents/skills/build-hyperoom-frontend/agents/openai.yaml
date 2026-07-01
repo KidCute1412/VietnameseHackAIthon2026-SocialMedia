@@ -1,0 +1,4 @@
+interface:
+  display_name: "Build HypeRoom Frontend"
+  short_description: "Build scalable HypeRoom React product flows"
+  default_prompt: "Use $build-hyperoom-frontend to connect this HypeRoom user flow to stable API contracts."

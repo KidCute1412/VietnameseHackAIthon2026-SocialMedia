@@ -1,0 +1,19 @@
+meta {
+  name: Export Verification Report
+  type: http
+  seq: 10
+}
+
+get {
+  url: {{baseUrl}}/api/verifications/:verification_id/export?format=markdown
+  body: none
+  auth: inherit
+}
+
+params:query {
+  format: markdown
+}
+
+params:path {
+  verification_id: 
+}

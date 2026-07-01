@@ -1,0 +1,26 @@
+meta {
+  name: gRPC-Recognize
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{base_url}}/stt-service/v1/grpc/standard
+  body: multipartForm
+  auth: none
+}
+
+headers {
+  Token-id: {{token_id}}
+  Token-key: {{token_key}}
+  Authorization: {{access_token}}
+}
+
+body:multipart-form {
+  audioFile: @file()
+  clientSession: 
+}
+
+settings {
+  encodeUrl: true
+}

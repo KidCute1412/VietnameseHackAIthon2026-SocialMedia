@@ -1,0 +1,45 @@
+meta {
+  name: OCR nâng cao ocr/scan table
+  type: http
+  seq: 3
+}
+
+post {
+  url: https://api.idg.vnpt.vn/rpa-service/aidigdoc/v1/ocr/scan-table
+  body: json
+  auth: inherit
+}
+
+headers {
+  Authorization: 
+  Token-id: 
+  Token-key: 
+  mac-address: mac-address
+  Content-Type: application/json
+}
+
+body:json {
+  {
+      "file_hash": "idg20240716-0d9d0c18-1226-3a5b-e063-62199f0af83a/IDG01_64c29daa-435d-11ef-9f3b-d9cdac588ded",
+      "file_type": "pdf",
+      "token": "8928skjhfa89298jahga1771vbvb",
+      "client_session": "00-14-22-01-23-45-1548211589291",
+      "details": true
+  }
+}
+
+script:post-response {
+  test("Status code is 200", function () {
+      expect(res.getStatus()).to.equal(200);
+  });
+}
+
+settings {
+  encodeUrl: true
+}
+
+docs {
+  OCR trên dev
+  
+  - Tốc độ chậm hơn nhiều so với trên production.
+}

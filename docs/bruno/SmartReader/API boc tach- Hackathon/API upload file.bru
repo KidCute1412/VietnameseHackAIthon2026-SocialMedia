@@ -1,0 +1,111 @@
+meta {
+  name: API upload file
+  type: http
+  seq: 1
+}
+
+post {
+  url: https://api.idg.vnpt.vn/file-service/v1/addFile
+  body: multipartForm
+  auth: bearer
+}
+
+headers {
+  Token-id: 
+  Token-key: 
+  Content-Type: application/json
+  mac-address: EGOV-DIGDOC-WEB-API
+}
+
+auth:bearer {
+  token: 
+}
+
+body:multipart-form {
+  file: @file()
+  title: Hashing document
+  description: Hashing document
+}
+
+script:post-response {
+  test("Status code is 200", function () {
+      expect(res.getStatus()).to.equal(200);
+  });
+  var jsonData = res.getBody();
+  bru.setGlobalEnvVar("hash_1", jsonData.object.hash);
+  bru.setGlobalEnvVar("type", jsonData.object.fileType);
+  //pm.setNextRequest("ocr/van-ban-hanh-chinh")
+}
+
+settings {
+  encodeUrl: true
+}
+
+docs {
+  Dùng để upload ảnh lên Server media và trả về chuỗi hash duy nhất của ảnh.
+  Chuỗi hash này là đầu vào cho các API OCR, type, compare
+}
+
+example {
+  name: Hashing Copy
+  
+  request: {
+    url: https://{{host}}/file-service/v1/addFile
+    method: POST
+    mode: multipartForm
+    headers: {
+      Content-Type: application/json
+      Token-id: {{token_id}}
+      Token-key: {{token_key}}
+      mac-address: EGOV-DIGDOC-WEB-API
+      Authorization: {{Access_token}}
+    }
+  
+    body:multipart-form: {
+      file: @file(/C:/Users/Nen/Desktop/File test cvvb 2107/139.pdf)
+      title: Hashing document
+      description: Hashing document
+    }
+  }
+  
+  response: {
+    headers: {
+      Date: Fri, 21 Jul 2023 07:51:46 GMT
+      Content-Type: application/json;charset=UTF-8
+      Content-Length: 336
+      Connection: keep-alive
+      X-Content-Type-Options: nosniff
+      X-Content-Type-Options: nosniff
+      X-XSS-Protection: 1; mode=block
+      Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+      Pragma: no-cache
+      Expires: 0
+      X-Frame-Options: DENY
+      Strict-Transport-Security: max-age=15724800; includeSubDomains
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+            "message": "IDG-00000000",
+            "object": {
+                "fileName": "123",
+                "tokenId": "e2bc85f1-8ab9-e318-e053-4604a80a739a",
+                "description": "Hashing document",
+                "storageType": "IDG01",
+                "title": "Hashing document",
+                "uploadedDate": "7/21/23 2:51 PM",
+                "hash": "idg20230721-e2bc8662-b0de-e4aa-e053-4604a80a9f89/IDG01_70c05122-279b-11ee-9a07-59a5a5ee2ad6",
+                "fileType": "pdf"
+            }
+        }
+      '''
+    }
+  }
+}

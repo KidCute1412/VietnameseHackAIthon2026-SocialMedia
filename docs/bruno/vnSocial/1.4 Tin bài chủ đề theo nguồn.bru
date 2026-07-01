@@ -1,0 +1,364 @@
+meta {
+  name: 1.4 Tin bài chủ đề theo nguồn
+  type: http
+  seq: 4
+}
+
+post {
+  url: https://api-vnsocialplus.vnpt.vn/social-api/v1/source-follow/posts
+  body: json
+  auth: inherit
+}
+
+headers {
+  x-access-token: {{x_access_token}}
+}
+
+body:json {
+  {
+      "source_id": "65938b2c02d0a2555c9560ff",
+      "start_time": 1703610000000,
+      "end_time": 1704214799000,
+      "from": 0,
+      "size": 10
+  }
+}
+
+settings {
+  encodeUrl: true
+}
+
+example {
+  name: 1.4 Tin bài chủ đề theo nguồn
+  
+  request: {
+    url: https://api-vnsocialplus.vnpt.vn/social-api/v1/source-follow/posts
+    method: POST
+    mode: json
+    headers: {
+      x-access-token: {{x_access_token}}
+    }
+  
+    body:json: {
+      {
+          "source_id": "65938b2c02d0a2555c9560ff",
+          "start_time": 1703610000000,
+          "end_time": 1704214799000,
+          "from": 0,
+          "size": 10
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Date: Tue, 02 Jan 2024 07:37:09 GMT
+      Content-Type: application/json; charset=utf-8
+      Content-Length: 49273
+      Connection: keep-alive
+      X-Powered-By: Express
+      Access-Control-Allow-Headers: Origin,X-Requested-With,Content-Type,Accept,x-access-token
+      Access-Control-Allow-Methods: GET,POST,OPTIONS,PUT,DELETE
+      ETag: W/"c079-5zAEGJdbXPj5rwY7XF7bHmZ5tLQ"
+      Strict-Transport-Security: max-age=15724800; includeSubDomains
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+            "success": true,
+            "code": 200,
+            "object": [
+                {
+                    "userId": "",
+                    "userName": "Lê Nguyễn",
+                    "sourceId": "vnexpress.net",
+                    "sourceName": "vnexpress.net",
+                    "postLink": "https://vnexpress.net/ngung-tho-khi-ngu-keo-dai-hai-suc-khoe-the-nao-4696054.html",
+                    "domain": "vnexpress.net",
+                    "pictures": [
+                        "https://i1-suckhoe.vnecdn.net/2024/01/02/1-jpg-1704178037-7068-1704178065.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=jwa_WeAk-YfHPieMDRAB4g"
+                    ],
+                    "title": "Ngưng thở khi ngủ kéo dài hại sức khỏe thế nào - VnExpress",
+                    "description": "Tình trạng ngưng thở kéo dài có liên quan đến các vấn đề sức khỏe bao gồm nguy cơ tăng huyết áp, đau tim. - VnExpress",
+                    "tags": "ngưng thở khi ngủ, hô hấp, sức khỏe, ngủ, ngưng thở",
+                    "isSpam": false,
+                    "content": "Everyday Health, WebMD)\nĐộc giả đặt câu hỏi bệnh hô hấp tại đây để bác sĩ giải đáp",
+                    "logoLink": [
+                        "https://console-vnsocial.vnpt.vn/assets/icon-news/vnexpress.net_logo.png"
+                    ],
+                    "senti": "negative",
+                    "type": "",
+                    "createDate": "2024-01-02T14:30:00.000+07:00",
+                    "updateDate": "2024-01-02T14:33:15.978+07:00",
+                    "docId": "4F4CB8510BCD39BAF451ED7675AAAD5C",
+                    "numShares": 0,
+                    "numComments": 0,
+                    "numInteractions": 0
+                },
+                {
+                    "userId": "",
+                    "userName": "",
+                    "sourceId": "vnexpress.net",
+                    "sourceName": "vnexpress.net",
+                    "postLink": "https://vnexpress.net/ky-nang-su-dung-hop-so-tren-duong-deo-4694890.html",
+                    "domain": "vnexpress.net",
+                    "pictures": [
+                        "https://s1.vnecdn.net/vnexpress/restruct/c/v2531/ldpr/1005117/images/graphics/fbshare_ca.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=0LOjRGEiCBIRvqySHaThYg"
+                    ],
+                    "title": "Lái xe an toàn - Kiến thức lái xe bạn CẦN BIẾT",
+                    "description": "Tìm hiểu ngay những kiến thức lái xe an toàn hữu dụng nhất, mang tới sự yên tâm khi cầm lái cho tất cả các bác tài.",
+                    "tags": "",
+                    "isSpam": false,
+                    "content": "Báo điện tử VnExpress\nBáo tiếng Việt nhiều người xem nhất\nThuộc Bộ Khoa học và Công nghệ\nSố giấy phép: 548/GP-BTTTT ngày 24/08/2021\nTổng biên tập: Phạm Hiếu\nĐịa chỉ: Tầng 10, Tòa A FPT Tower, số 10 Phạm Văn Bạch, Dịch Vọng, Cầu Giấy, Hà Nội\nĐiện thoại: 024 7300 8899 - máy lẻ 4500",
+                    "logoLink": [
+                        "https://console-vnsocial.vnpt.vn/assets/icon-news/vnexpress.net_logo.png"
+                    ],
+                    "senti": "neutral",
+                    "type": "",
+                    "createDate": "2024-01-02T14:30:00.000+07:00",
+                    "updateDate": "2024-01-02T14:33:15.979+07:00",
+                    "docId": "3146B4F69981BCAEF6EE0ECA4EEDCD96",
+                    "numShares": 0,
+                    "numComments": 0,
+                    "numInteractions": 0
+                },
+                {
+                    "userId": "",
+                    "userName": "Mộc Trà",
+                    "sourceId": "vnexpress.net",
+                    "sourceName": "vnexpress.net",
+                    "postLink": "https://vnexpress.net/trung-dam-tom-cang-khi-keo-luoi-4695685.html",
+                    "domain": "vnexpress.net",
+                    "pictures": [
+                        "https://i2-vnexpress.vnecdn.net/2024/01/01/4-1704081325-3347-1704081349.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=Xkc497uzQ45EretiTVrZww",
+                        "https://iv1.vnecdn.net/vnexpress/images/web/2024/01/01/trung-dam-tom-cang-khi-keo-luoi-1704081210.jpg?w=0&h=0&q=100&dpr=1&fit=crop&s=DBxTblfpR9wZvz1UW582KQ"
+                    ],
+                    "title": "Trúng đậm tôm càng khi kéo lưới",
+                    "description": "Mẻ lưới mang lại cho người đàn ông rất nhiều tôm càng to và các loại cá. - VnExpress",
+                    "tags": "Trúng đậm, tôm càng, kéo lưới",
+                    "isSpam": false,
+                    "content": "Tôm càng này mà nướng rồi chấm với muối ớt chanh thì khỏi phải bàn về độ ngon luôn nhé.\nTrúng đậm tôm càng khi kéo lưới\nTrúng đậm tôm càng. Video: Facebook\nst)",
+                    "logoLink": [
+                        "https://console-vnsocial.vnpt.vn/assets/icon-news/vnexpress.net_logo.png"
+                    ],
+                    "senti": "neutral",
+                    "type": "",
+                    "createDate": "2024-01-02T14:27:00.000+07:00",
+                    "updateDate": "2024-01-02T14:33:15.978+07:00",
+                    "docId": "5C4C8C38ABE7C0EB769627A452D23F24",
+                    "numShares": 0,
+                    "numComments": 0,
+                    "numInteractions": 0
+                },
+                {
+                    "userId": "",
+                    "userName": "Lê Tân",
+                    "sourceId": "vnexpress.net",
+                    "sourceName": "vnexpress.net",
+                    "postLink": "https://vnexpress.net/cau-gan-2-000-ty-dong-ket-noi-hai-phong-voi-quang-ninh-thanh-hinh-4695901.html",
+                    "domain": "vnexpress.net",
+                    "pictures": [
+                        "https://i2-vnexpress.vnecdn.net/2024/01/02/caubenrung-3-jpg-1704166034.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=Mtl2JC2TpQyB9qCX5c-DeA",
+                        "https://i1-vnexpress.vnecdn.net/2024/01/02/cauBenRung-3-JPG-1704166067.jpg?w=0&h=0&q=100&dpr=2&fit=crop&s=C1Auw7vcEiH3nwRYZkVmlQ",
+                        "https://i1-vnexpress.vnecdn.net/2024/01/02/z5031314407446-d554969f4ef2ea56082a8b0a4b0273e7-1704163619.jpg?w=0&h=0&q=100&dpr=2&fit=crop&s=Vx6enkOpdNeAtKLnkN2K8g",
+                        "https://i1-vnexpress.vnecdn.net/2024/01/02/cauBenRung-4-JPG-1704166577.jpg?w=0&h=0&q=100&dpr=2&fit=crop&s=m-_MqYMjo5UsLgPvhcowgQ",
+                        "https://i1-vnexpress.vnecdn.net/2024/01/02/z5031430559753-62c5b5798cb3b0e5b17336f6ef92decc-1704163627.jpg?w=0&h=0&q=100&dpr=2&fit=crop&s=dWCOowZulIs96MhNAWsbvQ"
+                    ],
+                    "title": "Cầu gần 2.000 tỷ đồng kết nối Hải Phòng với Quảng Ninh thành hình",
+                    "description": "Hải Phòng- Cầu Bến Rừng vượt sông Đá Bạch, kết nối Hải Phòng và Quảng Ninh đã hoàn thành hơn 92% khối lượng thi công. - VnExpress",
+                    "tags": "Hải Phòng,Quảng Ninh",
+                    "isSpam": false,
+                    "content": "Theo kế hoạch, cầu Bến Rừng sẽ hợp long ngày 3/2 để đẩy nhanh tiến độ hoàn thành dự án.\nCầu hoàn thành sẽ giúp người dân huyện Thủy Nguyên và thị xã Quảng Yên qua lại nhanh chóng, không phải chờ phà Rừng mất 30-60 phút, hoặc phải đi 40 km sang quốc lộ 18 rồi vòng ra quốc lộ 10. Công trình tạo động lực mới phát triển liên kết vùng, thúc đẩy kinh tế, văn hóa, xã hội giữa hai địa phương và thu hút nguồn nhân lực cho các khu công nghiệp.\nGần 400 công nhân chia làm 3 ca làm việc trên công trường dự án. Trong đó, ba trụ giữa sông luôn có 80 người làm việc. Hiện nhà thầu đã hoàn thành 380/380 cọc khoan nhồi, 35/39 mố - trụ, việc thi công các trụ , dầm cầu và cáp dây văng đang được tăng tốc.\nMáy móc, phương tiện thi công được huy động tối đa. Đơn vị thi công cũng dựng trạm trộn bêtông ở sát các trụ cầu chính trên sông để tiết kiệm thời gian.\nPhối cảnh cầu Bến Rừng. Hiện nay TP Hải Phòng và tỉnh Quảng Ninh đang kết nối bởi cầu Bạch Đằng và cầu Đá Bạc. Ngoài cầu Bến Rừng, cầu Lại Xuân cũng đang trong quá trình xây dựng. Ảnh: Ban Quản lý dự án đầu tư xây dựng các công trình giao thông Hải Phòng\nVị trí cầu Bến Rừng.",
+                    "logoLink": [
+                        "https://console-vnsocial.vnpt.vn/assets/icon-news/vnexpress.net_logo.png"
+                    ],
+                    "senti": "positive",
+                    "type": "",
+                    "createDate": "2024-01-02T14:25:00.000+07:00",
+                    "updateDate": "2024-01-02T14:33:15.978+07:00",
+                    "docId": "30877E7271A8C7C80376C8D513143782",
+                    "numShares": 0,
+                    "numComments": 0,
+                    "numInteractions": 0
+                },
+                {
+                    "userId": "",
+                    "userName": "Vũ Anh",
+                    "sourceId": "vnexpress.net",
+                    "sourceName": "vnexpress.net",
+                    "postLink": "https://vnexpress.net/20-oanh-tac-co-nga-cat-canh-ukraine-phat-bao-dong-ten-lua-4695920.html",
+                    "domain": "vnexpress.net",
+                    "pictures": [
+                        "https://i2-vnexpress.vnecdn.net/2024/01/02/Tu95MS1-1704170408-4309-1704170468.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=h3FP3K59TVX9XH3SXWJQjA",
+                        "https://i1-vnexpress.vnecdn.net/2024/01/02/Tu-95MS-1-7140-1704170467.jpg?w=680&h=0&q=100&dpr=1&fit=crop&s=oxgkPO1OiKS65RIihof3aQ",
+                        "https://i1-vnexpress.vnecdn.net/2024/01/02/cuc-dien-Nga-Ukraine-7293-1704170468.jpg?w=680&h=0&q=100&dpr=1&fit=crop&s=kU-TG2mx1_rmR-Hc8SIPbg"
+                    ],
+                    "title": "20 oanh tạc cơ Nga cất cánh, Ukraine phát báo động tên lửa",
+                    "description": "Không quân Ukraine báo động toàn quốc, sau khi phát hiện 20 oanh tạc cơ chiến lược Tu-95MS và Tu-22M3 Nga xuất kích để phóng tên lửa. - VnExpress",
+                    "tags": "Chiến sự Nga - Ukraine,Ukraine,Nga,Chiến sự Nga Ukraine",
+                    "isSpam": false,
+                    "content": "\"Báo động! Tổng cộng 16 oanh tạc cơ chiến lược Tu-95MS của đối phương đang hoạt động trên không, có thể phóng tên lửa hành trình. Hãy tìm nơi trú ẩn, đừng phớt lờ báo động phòng không\", Bộ tư lệnh không quân Ukraine cho biết hôm nay trong báo động trên toàn quốc.\nQuân đội Ukraine cho biết 16 chiếc Tu-95MS này xuất phát từ căn cứ Olenya ở phía bắc và Engels ở phía nam, trong khi 4 oanh tạc cơ Tu-22M3 xuất kích từ sân bay Shaikovka gần biên giới Belarus.\nTên lửa sau đó xuất hiện trên bầu trời tỉnh Sumy ở miền bắc và hướng đến khu vực Myrhorod ở tỉnh Poltava, nơi đặt căn cứ không quân trọng yếu của Ukraine, cũng như về phía thủ đô Kiev, theo phòng không nước này.\nSau báo động phòng không, hơn 10 tiếng nổ lớn đã vang lên ở Kiev, khiến nhiều tòa nhà ở khu vực trung tâm rung chuyển.\nOanh tạc cơ Tu-95MS Nga phóng tên lửa hành trình hồi năm 2017. Ảnh: BQP Nga\nBộ tư lệnh không quân Ukraine cũng tuyên bố Nga đã triển khai 35 máy bay không người lái (UAV) tự sát kiểu Shahed-136/131 nhằm vào nước này từ hai hướng rạng sáng nay, khẳng định đã đánh chặn toàn bộ số phi cơ trên.\nThị trưởng Kiev Vitali Klitschko nói rằng những tiếng nổ lớn trên bầu trời thành phố là do hệ thống phòng không đánh chặn mục tiêu, thêm rằng các mảnh vỡ từ UAV đã gây cháy tại quận nội thành Desniansky. Chưa rõ thương vong và thiệt hại cụ thể trong đòn tấn công bằng UAV tự sát.\nBộ Quốc phòng Nga chưa bình luận về thông tin.\nTổng thống Vladimir Putin hôm 1/1 cáo buộc Kiev \"muốn uy hiếp và gây tình trạng bất ổn\" bằng những cuộc tấn công vào dân thường, khẳng định Moskva đủ khả năng tung những đòn trả đũa tương tự cuộc tấn công nhằm vào thành phố Belgorod gần biên giới giáp Ukraine trước đó hai ngày.\nTuy nhiên, ông Putin nhấn mạnh Nga sẽ chỉ nhằm vào các cơ sở quân sự của đối phương. \"Chúng ta sẽ dùng vũ khí chính xác cao để tập kích những trung tâm ra quyết định, điểm tập kết binh sĩ, lính đánh thuê và những mục tiêu quân sự nhạy cảm\", ông nói.\nCục diện chiến sự Nga - Ukraine. Đồ họa: WP\nNga gần đây tăng cường tấn công hạ tầng Ukraine bằng tên lửa và UAV. Phát ngôn viên không quân Ukraine Yuri Ignat hôm 19/12/2023 nói rằng nói Moskva sở hữu lượng lớn vũ khí để tấn công hạ tầng của Kiev, cũng như có đủ UAV tự sát để duy trì các đòn tập kích hàng ngày.\nAFP, Reuters)",
+                    "logoLink": [
+                        "https://console-vnsocial.vnpt.vn/assets/icon-news/vnexpress.net_logo.png"
+                    ],
+                    "senti": "negative",
+                    "type": "",
+                    "createDate": "2024-01-02T14:08:00.000+07:00",
+                    "updateDate": "2024-01-02T14:12:38.736+07:00",
+                    "docId": "F20DC59C96D8CC30F602B179D4E1B9BE",
+                    "numShares": 0,
+                    "numComments": 0,
+                    "numInteractions": 0
+                },
+                {
+                    "userId": "vnexpress.net",
+                    "userName": "vnexpress.net",
+                    "sourceId": "vnexpress.net",
+                    "sourceName": "vnexpress.net",
+                    "postLink": "https://vnexpress.net/pham-tuan-hai-toi-tinh-ngo-sau-sai-lam-tuoi-tre-4693522.html",
+                    "domain": "vnexpress.net",
+                    "pictures": [
+                        "https://i1-thethao.vnecdn.net/2024/01/02/hanoiwuhanthreetownsvong695737-4862-4726-1704179043.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=evmfBgaNgKV2RKeXe5aurw"
+                    ],
+                    "title": "Phạm Tuấn Hải: ''Tôi tỉnh ngộ sau sai lầm tuổi trẻ'' - VnExpress Thể thao",
+                    "description": "Suýt bị đuổi khỏi đội trẻ vì trốn học và nghịch ngợm, tiền đạo Phạm Tuấn Hải vươn mình trở thành trụ cột ở CLB, ĐTQG và ứng cử viên Quả Bóng Vàng 2023.",
+                    "tags": "",
+                    "isSpam": false,
+                    "content": "Trở lại Thể thao Phạm Tuấn Hải: 'Tôi tỉnh ngộ sau sai lầm tuổi trẻ' Suýt bị đuổi khỏi đội trẻ vì trốn học và nghịch ngợm, tiền đạo Phạm Tuấn Hải vươn mình trở thành trụ cột ở CLB, ĐTQG và ứng cử viên Quả Bóng Vàng 2023. Tuấn Hải (trái) chung vui cùng đồng đội ở trận giao hữu thắng Palestine hôm 9/11/2023 trên sân Thiên Trường, Nam Định. Ảnh: Hiếu Lương - Nhắc đến Hà Nam, mọi người nghĩ ngay đến bóng đá nữ, chứ bóng đá nam thậm chí không có đội trẻ. Vậy, con đường nào đưa Tuấn Hải đến với bóng đá đỉnh cao? - Thuở nhỏ, tôi thích đá bóng và thường chơi với các anh lớn hơn. Lúc đấy, tôi không biết các trung tâm đào tạo là gì. Mọi thứ đến khá tình cờ. Năm 2008, trong một lần đi ăn đêm ở Hà Nội, chú tôi quen chủ quán trước làm tuyến trẻ cho đội nữ Hà Tây (nay là Hà Nội), rồi được giới thiệu tới Trung tâm Huấn luyện và Thi đấu Thể dục thể thao Hà Nội (nay thuộc quận Gia Lâm). Chú gọi về hỏi muốn tập bóng đá không, tôi nhanh nhảu đồng ý nhưng bố mẹ thì phản đối. Gia đình muốn tôi theo nghiệp học. Khi ấy, tôi đang là học sinh giỏi bốn năm liền. Nhà cũng không có ai theo thể thao. Sau đó, tôi xin lên Hà Nội, giả vờ đi chơi nhưng thực chất là cùng chú sang \"lò\" Gia Lâm cho người ta xem chân cẳng. Lúc đó không phải đợt tuyển sinh, nhưng mấy hôm sau họ thông báo nhận. Khi bố mẹ lên đón về thì mọi sự đã rồi. Vốn ít nói, lúc ấy bố mẹ càng không biết thế nào nên chấp thuận. - Hành trình với bóng đá của Tuấn Hải bắt đầu thế nào? - Tôi tập ở trung tâm trong tuần, còn cuối tuần về quê. Tuần nào mẹ cũng đưa đón. Lúc đấy không có xe đi thẳng nên hai mẹ con bắt xe từ Phủ Lý lên bến xe Giáp Bát, rồi thêm một chuyến xe ôm sang Gia Lâm. Ban đầu, lứa 1998 có mình tôi. Do lứa 1997 của anh Nguyễn Quang Hải đang đi đá giải U11 nên tôi phải tập với lứa 1995 có anh Phạm Đức Huy. Tôi bé tí nên các anh cũng quý nhưng không được vào tập ngay. Hôm đầu, thầy bảo tâng bóng mà tôi làm không được hai quả vì hồi xưa đá theo bản năng nên không quan tâm tâng bóng. Tập dần cũng quen nhanh, và làm ngon lành bài tâng 12 điểm chạm. - Quá trình trưởng thành ở \"lò\" Gia Lâm để lại những ấn tượng gì cho Tuấn Hải? - Đói và khổ. Cả đội khoảng 25 đứa ở trong phòng rộng chừng 100 mét vuông. Mùa hè thì nóng vì không có điều hòa, mùa đông thì lạnh vì không kín gió. Ăn uống cũng không có gì nhiều, đến cơm có khi không đủ nên hay đói. Mấy đứa đang tuổi ăn, tuổi lớn phải ra ngoài mua thêm đồ ăn. Việc ghi sổ nợ là chuyện thường. Nhưng suy nghĩ của trẻ con không thấy như thế là khổ, chỉ đam mê đá bóng chứ không nghĩ nhiều như lúc lớn lên. Tôi nghĩ ở khổ như thế cũng rèn luyện được nhiều điều. Ấn tượng khác là chọn lọc kinh khủng. Chúng tôi tập cùng nhau đến 16 tuổi thì trải qua đợt chọn cầu thủ tốt nhất của lò Gia Lâm và Trung tâm T&T để tạo thành một đội. Những người không được chọn học xong lớp 12 có bằng tốt nghiệp Trung học phổ thông thì nghỉ. Lứa 1998 của tôi bây giờ chỉ có ba người đá chuyên nghiệp, còn lại làm nghề khác. - Bây giờ nhìn lại, theo Tuấn Hải, đâu là bước ngoặt giúp sự nghiệp của anh thăng tiến như hiện nay? - Hồi nhỏ, bản tính của tôi là nghịch ngợm. Có đợt, cứ khoảng 22h, tôi đợi đội đi ngủ là trốn đi chơi điện tử đến 4h. Nếu không chơi đêm, sáng tôi lại trốn học đi chơi, cứ vậy kéo dài gần một năm. Một đợt khác là ở đội U13. Tôi nghịch quá nên bị thầy cắt chức đội trưởng rồi cấm tập một năm. Hồi ấy, hình phạt như thế tàn nhẫn lắm vì cứ chạy bên ngoài nhìn mọi người tập khó chịu vô cùng. Mấy tháng liền như vậy, đồng đội cũng xin thầy cho tôi tập trở lại. Còn lần khác tôi bị đuổi vì trốn đi chơi nhiều lại hay bắt nạt, rồi đánh đồng đội và các em nhỏ hơn. Tôi như đại ca của lứa 1998 trở về sau ở lò Gia Lâm. Các thầy thấy vậy thì họp lại rồi quyết định đuổi... Sau đó, mẹ lên Hà Nội bắt về. Học bạ cũng được rút xong xuôi. Các thầy xa lánh, đồng đội cũng xa lánh. Tôi cô độc vì không ai nhận, trong đầu khi ấy chỉ muốn ở lại đá bóng thôi. Cuối cùng, thầy Nguyễn Trọng Hồng là Trưởng bộ môn bóng đá của Trung tâm đứng ra bảo lãnh, lấy danh dự xin cho tôi ở lại. Sau lần ấy, tôi sợ rồi thành ngoan, không vô kỷ luật nữa. Nhưng đó chưa phải tất cả. Ngã rẽ thứ hai mới thực sự làm thay đổi toàn bộ suy nghĩ về sự nghiệp của tôi. Đó là năm 2018, khi tôi cùng đồng đội liên hoan mừng HC vàng Đại hội TDTT toàn quốc cùng Hà Nội. Trên đường về, dù không uống để hôm sau cùng đồng đội vào Huế đá giải U21 Quốc gia, tôi vẫn gặp tai nạn xe máy. Vào Huế, tôi được đưa đi chụp phim. Bác sĩ bảo nếu không mổ sẽ không đá được bóng nữa. Nghe đến đây tôi sợ, rùng mình vì chưa bao giờ bị chấn thương nặng như thế. May mắn là khi kiểm tra ở bệnh viện Việt Đức, bác sỹ nói chỉ cần bó bột. Trong lúc ấy, tôi vẫn tập để không bị teo cơ. Tôi được tháo bột sau 28 ngày. Tuấn Hải (áo tím) đi bóng trong trận Hà Nội FC hoà Đà Nẵng 1-1 ở V-League 2023. Ảnh: Lâm Thoả - Chấn thương lần ấy giúp Tuấn Hải nhìn nhận lại bản thân thế nào? - Tôi thấy may vì không phải mổ, may vì nó giúp mình tỉnh ngộ. Khi chấn thương, quan trọng nhất là tinh thần. Bạn càng thoải mái, suy nghĩ tích cực thì hồi phục càng nhanh. Ngược lại, cứ buồn chán thì càng lâu. Tôi cũng tự hỏi là mình đã nghiêm túc với nghề nghiệp chưa. Không có ai chỉ cho tập hồi phục nên tôi bắt đầu tự tìm hiểu về tập luyện và dinh dưỡng. Giờ mọi thứ thành thói quen rồi. Tôi có tạng người dễ béo nên những lúc chấn thương không ăn uống theo chế độ thì phải tăng đến 80 kg. Giờ tôi không ăn nhậu nữa, chỉ uống khi có dịp đặc biệt như tổng kết giải đấu. Các loại nước ngọt cũng bỏ dù một thời nghiện. Từ khi thay đổi cũng được 5 năm, giờ tôi thấy khỏe hơn nhiều và vào thi đấu thanh thoát hơn. - Cám dỗ luôn xuất hiện quanh giới cầu thủ, Tuấn Hải làm thế nào duy trì kỷ luật suốt 5 năm qua? - Quan trọng bản thân có muốn hay không, có đủ bản lĩnh vượt qua hay không chứ cám dỗ ở đâu cũng có. Giờ tôi chỉ chưa kiểm soát được hoàn toàn giấc ngủ vì vẫn có lúc thức khuya. Tôi cũng không để ý mọi người nghĩ gì về mình mà quan trọng là bản thân tự tập luyện, thấy yếu chỗ nào bổ sung chỗ đấy. Tôi cũng tâm niệm mỗi chuyện xảy đến sẽ có thêm một bài học. Tôi suy nghĩ theo hướng sẵn sàng đối mặt và tìm cách giải quyết mọi vấn đề, thay vì đắm chìm trong nỗi buồn. Tôi thường đi tập thêm cho quên hết. Quan điểm của tôi hôm nay kết thúc và hôm sau là ngày mới nên không bao giờ được ngủ quên trên chiến thắng, hay đắm chìm trong thất bại. - Thay đổi về nhận thức giúp Hải đã có những thành công nhất định trong ba năm qua. Thế còn quá trình thay đổi kỹ năng thi đấu? - Vị trí ban đầu của tôi là tiền vệ trung tâm, đá thiên về thể lực còn kỹ thuật chưa tốt. Xưa mình đá bản năng thế nào cũng được nhưng lớn lên phải đáp ứng, thích nghi theo chiến thuật. Cuối năm 2015, tôi đá cho Hà Nội B ở giải hạng Ba. HLV Vũ Hồng Việt đẩy tôi lên đá hộ công. Sau đó, HLV Văn Sỹ Hùng nhìn thấy tố chất và bảo mẫu cầu thủ như tôi nên đá gần vòng cấm hơn. Hết giải, tôi ghi sáu bàn, nhiều nhất đội. Tôi vốn luôn muốn đá gần vòng cấm nhưng vị trí khác xa quá, làm tiền đạo thì được chủ động hơn. - Vậy còn quá trình tích lũy kinh nghiệm ở các hạng đấu thấp cấp CLB? - Tôi đá đủ các cấp độ, cho Hà Nội B tại hạng Ba, hạng Nhì, rồi lên hạng Nhất thì \"chuyển khẩu\" thành CLB Hà Tĩnh và chỉ mất một mùa để lên V-League. Lứa ấy có nền tảng rất tốt, đặc biệt là thể lực rất khỏe nên giờ tỏa đi các đội khác cũng vẫn được chơi. Tôi với HLV Phạm Minh Đức gắn bó lâu nên hiểu tính. Hồi trước, tôi cục cằn, dễ cáu nếu bản thân hay đồng đội làm không tốt. Bây giờ, tôi chín chắn hơn rồi cũng nhờ bị chú chửi nhiều. Tập thể ấy chơi với nhau từ trẻ và vượt qua mọi cấp độ. Tôi tiếc vì không được chơi cùng nhau lâu hơn vì chúng tôi đạt đến độ hiểu nhau và đá không cần nói cũng biết chạy đến. Vì vậy, năm 2021, thật ra tôi chưa xác định về Hà Nội FC. - Tại sao Tuấn Hải có suy nghĩ như vậy? - Tôi có cơ hội đá cho Hà Nội FC từ năm 2018. Sau khi Hà Nội B lên hạng Nhất, một số cầu thủ được lên đội một tập và HLV Chu Đình Nghiêm muốn giữ tôi lại. Tôi xin được ở lại Hà Nội B đá hạng Nhất vì trên đội một khi ấy toàn ngôi sao, cạnh tranh kiểu gì. Tôi muốn ở Hà Tĩnh đến năm 25 tuổi vì cho rằng khi ấy mới đủ chín chắn để thi đấu cho Hà Nội FC. Tôi vẫn nghĩ họ có nhiều cầu thủ giỏi quá nên tôi lo sẽ có ít cơ hội thi đấu, làm cản trở sự phát triển. Thế nhưng, Hà Tĩnh cũng không đầu tư nhiều và bỏ tiền giữ lại nên tôi chuyển đến Hà Nội từ mùa 2022. Phạm Tuấn Hải là cầu thủ Việt Nam ghi nhiều bàn nhất tính từ năm 2022 với 28 bàn trên mọi đấu trường. - Thực tế, mọi thứ diễn ra rất hanh thông với Phạm Tuấn Hải khi chỉ mất một năm để giành đủ mọi danh hiệu cấp CLB? - Lối chơi của Hà Nội FC giống như những gì tôi được học từ lứa trẻ. Tôi về đội đá quen luôn, may mắn có hết danh hiệu là V-League, Cup quốc gia, Siêu cup quốc gia. Giấc mơ sát cánh cũng những đàn anh mình ngưỡng mộ cũng thành hiện thực. Lứa trẻ Hà Nội mỗi năm đều được lên tập với đội một một lần, để đội tuyển chọn cầu thủ. Hồi ấy, chúng tôi nhìn các anh lớn cảm thấy sợ. Bữa ăn bày mâm sáu người thì 10 cầu thủ trẻ ngồi chung một mâm, không dám ngồi cùng các anh. Còn ai dám ngồi thì chỉ cắm đầu ăn không ngẩng lên. Cầu thủ trẻ ra sân tập cùng các anh lớn rất thích, cảm giác được phát triển nhiều hơn. - Cấp độ đội tuyển thì khác khi Tuấn Hải lỡ hẹn với giai đoạn thành công bậc nhất của bóng đá Việt Nam. Anh nghĩ sao về quãng thời gian đó? - Năm 2016, tôi vô địch U19 quốc gia và giành Vua phá lưới, nhưng bị loại ở đội tuyển dự vòng chung kết U19 châu Á. HLV Hoàng Anh Tuấn không nói lý do nhưng tôi nghĩ mình chưa đủ tốt. Ngoài ra, cách chơi của tôi thô ráp nên nếu không làm việc lâu thì nhiều HLV sẽ không thích. Sau khi bị loại, tôi tiếp tục vô địch U21 quốc gia và giành Vua phá lưới. Một năm sau, tôi tiếp tục không có tên ở đội tuyển dự FIFA U20 World Cup 2017. Tôi chạnh lòng nhưng cũng suy nghĩ bản thân chưa tốt nên phải cố gắng. Tôi cũng mất nhiều thời gian mới được lên ĐTQG. Năm 2021, đội tuyển đá vòng loại hai World Cup 2022 ở UAE đúng đợt dịch Covid-19 nên những ai nằm trong kế hoạch thì được đi tiêm vaccine. Hà Tĩnh có mấy cầu thủ nhưng không có tôi. Tôi bị chú Đức mắng là \"ông xem ông đá đấm thế nào mà đứa khác được lên còn ông ở nhà\". Đến tháng 9/2021, tôi bất ngờ nhận được cuộc gọi từ Liên đoàn Bóng đá Việt Nam triệu tập lên tuyển cho vòng loại ba, rồi có trận ra mắt vào sân từ ghế dự bị khi làm khách thua Oman 1-3. Tiếc nuối nhất là AFF Cup 2020 đá tập trung ở Singapore. Tôi cùng đội đi tập huấn ở Vũng Tàu. Một tối sau khi ăn xong, tôi đang đi dạo với anh Lương Xuân Trường thì HLV Park Hang-seo gọi lên phòng nói chuyện riêng. Ông nói tôi cần cải thiện nhiều hơn nên về cố gắng tập luyện. Tôi hơi buồn vì bị loại. - Sau giải đó, Tuấn Hải đã có vị trí ổn định ở đội tuyển. Anh cảm thấy thế nào? - Ở trên sân, tôi là kiểu cực kỳ mạnh mẽ và máu lửa nhưng ở ngoài sân thì ít nói và lành. Vì vậy, mọi người cũng bất ngờ nếu lần đầu tiếp xúc. Tôi cảm nhận mình vẫn còn nhiều thiếu sót như thi đấu chưa ổn định từ đầu đến cuối trận. Ở bất kỳ nơi nào, tôi chưa bao giờ nghĩ mình chắc suất đá chính mà luôn thấy cố gắng thể hiện hết những gì mình có để HLV ghi nhận. HLV là người quyết định và tôi luôn nghe theo HLV dù đá ở bất kỳ vị trí nào. - Sự khác biệt của anh với các tiền đạo Việt Nam khác là khả năng pressing hàng thủ đối phương. Đấy dường như là lợi thế rất lớn? - Bóng đá ngày nay yêu cầu tất cả các vị trí phải phòng ngự theo một khối. Giờ không còn kiểu cầu thủ đứng chơi lúc tấn công hay phòng ngự và khi mất bóng thì tiền đạo phải phòng ngự đầu tiên. Tôi nghĩ ở chuyện này thái độ sẽ quyết định. Nhiều lúc bạn chỉ cần cố chạy một chút, đuổi theo tranh bóng một chút cũng giúp ích cho đồng đội. Như trận Hà Nội FC thua Wuhan Three Towns 1-2 ở sân khách, chúng tôi mất người từ sớm nên cả hiệp một chỉ chạy không bóng. Quan trọng là tinh thần không bỏ cuộc. - Bóng đá Việt Nam đề cao tính tập thể và cái chung, nhưng cái tôi mới tạo nên sự khác biệt. Quan điểm của Tuấn Hải thế nào? - Nó tùy tính cách mỗi người. Cái tôi của tôi là sẵn sàng xả thân, cháy hết mình trên sân. Tính tôi ngại xuất hiện trước báo giới, đám đông vì tôi không muốn mọi người để ý nhiều mà muốn âm thầm làm việc. - Sau giai đoạn rất thành công cùng HLV Park Hang-seo, Việt Nam chuyển giao sang thời HLV Philippe Troussier. Anh cảm nhận được sự nghi ngờ dành cho đội tuyển về lối chơi, cách sắp xếp nhân sự hiện tại chứ? - Giai đoạn này tất cả cầu thủ cần nhìn nhận lại bản thân. Tôi cho rằng HLV Troussier muốn thúc đẩy và phát triển cầu thủ nhiều hơn. Khi có sự cạnh tranh, mỗi cá nhân mới tiến đến một tầm cao khác, cả cầu thủ cũ lẫn mới. Chỉ có vậy bóng đá Việt Nam mới phát triển lên. - Sự đoàn kết ở đội tuyển thì sao? - Đoàn kết là sức mạnh lớn nhất của đội tuyển. Niềm tin của tôi là từ các anh lớn đến em trẻ đều rất đoàn kết, không có khoảng cách người này là ngôi sao, kia là lính mới. Cá nhân tôi rất thích được sống trong tập thể đoàn kết vì nó tạo ra nhiều sức mạnh để làm nên điều phi thường. - Mục tiêu gần và xa của Tuấn Hải là gì? - Trước mắt, tôi muốn nằm trong đội hình dự Asian Cup 2023. Xa hơn tôi muốn thi đấu đến năm 40 tuổi. Một trong những kế hoạch phát triển bản thân của tôi là ra nước ngoài thi đấu. Khi đến Hà Nội, tôi đã đề ra mục tiêu và nỗ lực suốt ba năm qua. Tôi chỉ cần có cơ hội được đi và muốn hướng đến Nhật Bản. Tôi ra nước ngoài không phải để trải nghiệm mà xác định phải chiến đấu để ra sân thi đấu càng lâu càng tốt. Tôi phải bứt phá sau này nhìn lại không còn gì tiếc nuối. Hiếu Lương Trở lại Thể thaoTrở lại Thể thao Chia sẻ Copy link thành công",
+                    "logoLink": [
+                        "https://console-vnsocial.vnpt.vn/assets/icon-news/vnexpress.net_logo.png"
+                    ],
+                    "senti": "negative",
+                    "type": "",
+                    "createDate": "2024-01-02T14:04:25.000+07:00",
+                    "updateDate": "2024-01-02T14:07:00.976+07:00",
+                    "docId": "9D09E3F9CDBE9C6D389E8A9E40F10F3C",
+                    "numShares": 0,
+                    "numComments": 0,
+                    "numInteractions": 0
+                },
+                {
+                    "userId": "vnexpress.net",
+                    "userName": "vnexpress.net",
+                    "sourceId": "vnexpress.net",
+                    "sourceName": "vnexpress.net",
+                    "postLink": "https://vnexpress.net/nhung-ly-do-de-lac-quan-vao-kinh-te-my-nam-2024-4696019.html",
+                    "domain": "vnexpress.net",
+                    "pictures": [
+                        "https://i1-kinhdoanh.vnecdn.net/2024/01/02/2021-07-11t214916z-1618590379-3551-7598-1704171320.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=EjakBCQebwbq7eDtTC3HRA"
+                    ],
+                    "title": "Những lý do để lạc quan vào kinh tế Mỹ năm 2024",
+                    "description": "Nền kinh tế lớn nhất thế giới có cơ sở vững chắc khi bước sang năm mới, nếu xét đến lạm phát, tỷ lệ thất nghiệp hay mức tăng lương.",
+                    "tags": "",
+                    "isSpam": false,
+                    "content": "Trở lại Kinh doanh Kinh doanh Quốc tế Thứ ba, 2/1/2024, 14:03 (GMT+7) Những lý do để lạc quan vào kinh tế Mỹ năm 2024 Nền kinh tế lớn nhất thế giới có cơ sở vững chắc khi bước sang năm mới, nếu xét đến lạm phát, tỷ lệ thất nghiệp hay mức tăng lương. Năm 2022, rất nhiều người lo ngại 2023 sẽ là năm Mỹ rơi vào suy thoái. Tuy nhiên, nền kinh tế này đã sôi động ngoài dự kiến. Mỹ đang hướng tới \"hạ cánh mềm\" mà nhiều người từng cho là điều bất khả thi. Trên CNN, Justin Wolfers - Giáo sư Đại học Michigan nhận định nền kinh tế không chỉ tránh được suy thoái, mà còn vượt qua tác động của xung đột Nga - Ukraine, cú sốc giá dầu, bất đồng của các chính trị gia và hàng loạt vấn đề khác. Quỹ Tiền tệ Quốc tế (IMF) hồi tháng 10/2023 dự báo Mỹ tăng trưởng 1,5% năm 2024. Tổ chức Hợp tác và Phát triển Kinh tế (OECD) cũng ước tính tương tự. Tốc độ này cao gấp đôi Anh và bỏ xa khu vực đồng euro. Kinh tế Mỹ vẫn phải đối mặt với nhiều rủi ro và thách thức, từ xung đột tại Trung Đông, cuộc bầu cử Tổng thống năm nay, đến vấn đề giá nhà đắt đỏ. Tuy nhiên, giới chuyên gia nhận định có nhiều lý do để lạc quan vào nền kinh tế này trong năm 2024. Lạm phát hạ nhiệt Lạm phát Mỹ từng lên cao nhất 40 năm vào tháng 6/2022. Khi đó, rất ít người cho rằng giá cả có thể hạ nhiệt nhanh như hiện tại. Chỉ số giá tiêu dùng (CPI) tháng 11/2023 chỉ tăng 3,1%, giảm mạnh so với 9,1% giữa năm 2022. Trong tháng 11, chỉ số giá chi tiêu cá nhân (PCE) - thước đo lạm phát ưa thích của Cục Dự trữ liên bang Mỹ (Fed) cũng lần đầu giảm kể từ giữa năm 2020. Cả giá thực phẩm và năng lượng tại đây đều đi xuống. Người dân mua sắm tại một khu chợ ở thành phố New York (Mỹ). Ảnh: Reuters Lạm phát hạ nhiệt sẽ giúp thu nhập khả dụng của các hộ gia đình tăng lên, củng cố tiêu dùng và tăng trưởng kinh tế. Số liệu này đang tiến sát mục tiêu 2% của Fed và được dự báo chạm mốc này cuối năm sau. Khi lạm phát giảm tốc, Fed cũng dừng nâng lãi suất để tránh nền kinh tế trật bánh và nhà đầu tư lo ngại. Trong cuộc họp chính sách mới nhất, quan chức Fed dự báo có ít nhất 3 lần giảm lãi suất năm tới. Dù vậy, theo công cụ theo dõi lãi suất CME FedWatch, thị trường hiện cho rằng xác suất Fed giảm lãi từ tháng 3/2024 là 89%. Tổng mức giảm năm sau có thể vào khoảng 158 điểm cơ bản (1,58%). Lãi suất tham chiếu giảm sẽ kéo nhiều lãi suất khác xuống theo, từ vay mua ôtô, mua nhà đến lãi thẻ tín dụng. Chứng khoán bùng nổ Lạm phát hạ nhiệt, nỗi lo suy thoái dịu bớt, cùng kỳ vọng giảm lãi đã kéo chứng khoán Mỹ tăng tốc trong 2 tháng cuối năm. Chỉ số S&P 500 tăng 9 tuần liên tiếp - dài nhất kể từ năm 2004. Nasdaq Composite tăng 43%. Không phải lúc nào thị trường chứng khoán cũng phản ánh đúng tính hình của nền kinh tế thực. Tuy nhiên, trong trường hợp này, Wall Street đã cho thấy sự lạc quan vào kinh tế Mỹ, đặc biệt là vấn đề lạm phát và khả năng hạ cánh mềm. Hai điểm này đều có lợi cho cả người dân lẫn nhà đầu tư. Thị trường việc làm vững chắc Bất chấp Fed nâng lãi mạnh tay, tỷ lệ thất nghiệp tại Mỹ hiện vẫn ở mức thấp nhất 50 năm, tại 3,7%. Đơn xin trợ cấp thất nghiệp lần đầu hiện thấp kỷ lục tại 218.000. Đây là dấu hiệu nhiều doanh nghiệp lưỡng lự cho người lao động nghỉ việc. Nếu xu hướng này tiếp tục, tiêu dùng sẽ được hỗ trợ. Tiêu dùng hiện là lực đẩy chính của kinh tế Mỹ. \"Miễn là tỷ lệ thất nghiệp còn ở mức thấp kỷ lục, nền kinh tế vẫn sẽ ổn\", Mark Zandi - kinh tế trưởng tại Moody’s Analytics nhận định. Thu nhập tăng Hậu Covid-19, giá cả tăng nhanh hơn thu nhập, khiến thu nhập thực của người Mỹ co lại. Tuy nhiên, xu hướng này gần đây đã thay đổi. Reuters trích số liệu chính thức cho thấy lương giờ tại Mỹ tháng 11 tăng 4% so với năm trước đó. Tốc độ này giảm nhẹ, nhưng vẫn trên mức 3% mà giới chức coi là phù hợp với mục tiêu lạm phát 2%. Giới quan sát kỳ vọng theo thời gian, khi lạm phát dần đi xuống, thu nhập thực của người dân sẽ càng được cải thiện. Trong bài phát biểu tại Cao đẳng Spelman đầu tháng trước, Chủ tịch Fed Jerome Powell nhận định khoản tiết kiệm từ trong đại dịch của người dân có thể sắp hết, nhưng lương tăng sẽ vẫn hỗ trợ tiêu dùng. \"Miễn là tỷ lệ thất nghiệp vẫn ở mức thấp, và lương giờ tăng nhanh hơn lạm phát, không có lý do gì hoạt động tiêu dùng lại không tăng\", Powell nhận định. Hà Thu (theo CNN, Reuters) Trở lại Kinh doanhTrở lại Kinh doanh Chia sẻ Copy link thành công ×",
+                    "logoLink": [
+                        "https://console-vnsocial.vnpt.vn/assets/icon-news/vnexpress.net_logo.png"
+                    ],
+                    "senti": "neutral",
+                    "type": "",
+                    "createDate": "2024-01-02T14:03:58.000+07:00",
+                    "updateDate": "2024-01-02T14:07:10.373+07:00",
+                    "docId": "4AA6E132DEE412C05DD70BD147233E00",
+                    "numShares": 0,
+                    "numComments": 0,
+                    "numInteractions": 0
+                },
+                {
+                    "userId": "",
+                    "userName": "Quế Chi",
+                    "sourceId": "vnexpress.net",
+                    "sourceName": "vnexpress.net",
+                    "postLink": "https://vnexpress.net/my-anh-ra-album-dau-tay-4695942.html",
+                    "domain": "vnexpress.net",
+                    "pictures": [
+                        "https://i1-giaitri.vnecdn.net/2024/01/02/000040380003final1-1704166530-6138-7954-1704166766.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=SbQGd8yFKnQU22Li7lp1XQ",
+                        "https://iv1.vnecdn.net/giaitri/images/web/2024/01/02/video-gioi-thieu-album-em-my-anh-1704166269.jpg?w=0&h=0&q=100&dpr=1&fit=crop&s=ROm7OE4cF4G6IEirm6jWhg",
+                        "https://i1-giaitri.vnecdn.net/2024/01/02/000040380003-final-1-170416659-8234-3735-1704166766.jpg?w=680&h=0&q=100&dpr=1&fit=crop&s=nig7Z9IAKjy6X_P5sZVVEA",
+                        "https://iv1.vnecdn.net/giaitri/images/web/2022/11/19/phong-van-my-anh-1668866474.jpg?w=0&h=0&q=100&dpr=1&fit=crop&s=_40-qlbP9sSa_Civvpaixw"
+                    ],
+                    "title": "Mỹ Anh ra album đầu tay",
+                    "description": "Album &quot;Em&quot; gồm chín bài hát do Mỹ Anh đồng sáng tác, sẽ ra mắt dịp sinh nhật lần thứ 22 của ca sĩ, ngày 11/1. - VnExpress",
+                    "tags": "Ca sĩ Mỹ Anh,Ca sĩ Mỹ Anh",
+                    "isSpam": false,
+                    "content": "Video giới thiệu album ''Em'' - Mỹ Anh\nTeaser giới thiệu album \"Em\" của Mỹ Anh. Video: YouTube Mỹ Anh\nCa sĩ ra mắt teaser giới thiệu album, tối 1/1. Video gồm các kỷ niệm thời thơ ấu, hình ảnh Mỹ Anh mừng tiệc sinh nhật bên người thân. \"Tôi muốn tri ân những khoảnh khắc lúc bé để bắt đầu chặng đường mới trong sự nghiệp âm nhạc\", cô nói.\nĐồng hành ca sĩ trong quá trình sáng tác và sản xuất là nhạc sĩ Dũng Nguyễn, bố của Mỹ Anh - Anh Quân, Anna Muehlichen và Eric Derwallis. Các ca khúc mang giai điệu R&B/Soul, đa dạng về chủ đề - từ tình yêu đôi lứa, nỗi niềm trăn trở về tương lai làm nghề, đến cảm xúc bâng khuâng của một thiếu nữ.\nMỹ Anh kỳ vọng dự án thể hiện tính cách và quá trình khám phá thế giới của bản thân từ nhỏ đến lúc trưởng thành. Tác phẩm còn xoay quanh việc nuôi dưỡng tâm hồn, sức sáng tạo của người nghệ sĩ. \"Album giúp tôi khẳng định sự nghiêm túc trong con đường nghệ thuật\", Mỹ Anh cho biết.\nTạo hình của Mỹ Anh trong video giới thiệu album \"Em\". Ảnh: Nhân vật cung cấp\nMỹ Anh, 22 tuổi, là con út của ca sĩ Mỹ Linh và nhạc sĩ Anh Quân. Cô thích hát từ bé, hoạt động độc lập năm 2020. Ca sĩ tự sáng tác, sản xuất MV, là á quân cuộc thi âm nhạc The Heroes. Tháng 11/2021, Mỹ Anh biểu diễn tại lễ hội âm nhạc Head in the clouds tại Los Angeles (Mỹ). Đầu năm 2022, Mỹ Anh nhận giải thưởng Gương mặt mới xuất sắc Làn Sóng Xanh.\nCô từng ra album nhạc thiếu nhi Bài hát cho Bi (2016) cùng loạt đĩa đơn: Got You, Lời cảm ơn, Nhìn những mùa thu đi, Mỗi khi anh nhìn em, Chẳng thể né tránh.\nPhỏng vấn Mỹ Anh\nMỹ Anh: \"Tôi không buồn khi bị chê hát nhạc Trịnh\". Video: Quế Chi - Dũng An",
+                    "logoLink": [
+                        "https://console-vnsocial.vnpt.vn/assets/icon-news/vnexpress.net_logo.png"
+                    ],
+                    "senti": "neutral",
+                    "type": "",
+                    "createDate": "2024-01-02T14:01:00.000+07:00",
+                    "updateDate": "2024-01-02T14:03:36.982+07:00",
+                    "docId": "A94929BC59D656A901C1AB5A347A3659",
+                    "numShares": 0,
+                    "numComments": 0,
+                    "numInteractions": 0
+                },
+                {
+                    "userId": "vnexpress.net",
+                    "userName": "vnexpress.net",
+                    "sourceId": "vnexpress.net",
+                    "sourceName": "vnexpress.net",
+                    "postLink": "https://vnexpress.net/kham-suc-khoe-dinh-ky-bat-ngo-phat-hien-u-truc-trang-4696021.html",
+                    "domain": "vnexpress.net",
+                    "pictures": [
+                        "https://i1-suckhoe.vnecdn.net/2024/01/02/truc-trang-1704170237-1733-1704170429.png?w=1200&h=0&q=100&dpr=1&fit=crop&s=ygffMPEfpbB5SGMbRu_S1g"
+                    ],
+                    "title": "Khám sức khỏe định kỳ bất ngờ phát hiện u trực tràng - VnExpress ",
+                    "description": "TP HCM- Chị Hiền, 36 tuổi, khám sức khỏe định kỳ, bác sĩ nội soi tiêu hóa phát hiện u dưới niêm mạc ở trực tràng.",
+                    "tags": "",
+                    "isSpam": false,
+                    "content": "Trở lại Sức khỏe Sức khỏe Các bệnh Tiêu hóa Ung thư Thứ ba, 2/1/2024, 14:00 (GMT+7) Khám sức khỏe định kỳ bất ngờ phát hiện u trực tràng TP HCMChị Hiền, 36 tuổi, khám sức khỏe định kỳ, bác sĩ nội soi tiêu hóa phát hiện u dưới niêm mạc ở trực tràng. Ngày 2/1, tiến sĩ, bác sĩ Phạm Hữu Tùng, Phó giám đốc Trung tâm Nội soi và Phẫu thuật Nội soi Tiêu hóa, cho biết khối u nhỏ 0,9x0,7x0,5 cm dưới niêm mạc trực tràng bệnh nhân, chỉ định cắt bỏ để phòng ngừa các biến chứng có thể xảy ra. Bác sĩ dùng kỹ thuật cắt tách dưới niêm mạc (Endoscopic Submucosal Dissection - ESD) trực tràng lấy trọn khối u trong khoảng 30 phút, khối u được gửi đi làm xét nghiệm để xác định u lành hay ác tính. Người bệnh được xuất viện ngay trong ngày, chăm sóc sức khỏe tại nhà theo hướng dẫn của bác sĩ. Kết quả sinh thiết khối u lành tính, thuộc loại u thần kinh nội tiết độ một. Bác sĩ Tùng cho biết loại u này bắt nguồn từ tế bào chuyên biệt của hệ thần kinh nội tiết trên cơ thể. Vì một yếu tố nào đó, các tế bào thần kinh nội tiết thay đổi và không còn phát triển bình thường, tạo thành khối u. Ở giai đoạn đầu, bệnh không có triệu chứng và thường phát hiện tình cờ qua nội soi kiểm tra sức khỏe. Bác sĩ Hữu Tùng (áo xanh dương) nội soi dạ dày cho một bệnh nhân hồi tháng 10. Ảnh minh họa: Bệnh viện cung cấp Bác sĩ Tùng đánh giá cắt tách toàn bộ tổn thương là phương pháp tối ưu, xâm lấn tối thiểu, giúp điều trị các bệnh về niêm mạc đường tiêu hóa, tổn thương tiền và ung thư sớm ở dạ dày, đại trực tràng. Phương pháp được thực hiện hoàn toàn qua nội soi, giúp hạn chế biến chứng như thủng, chảy máu. U dưới niêm mạc là tổn thương lồi vào trong lòng ống tiêu hóa (lớp lót trong ống tiêu hóa), có thể gặp ở bất cứ vị trí nào từ thực quản đến trực tràng. Loại u này chia làm nhiều loại như u biểu mô đệm, u cơ trơn, u mỡ, u tế bào hạt, u thần kinh nội tiết, u lympho. Phần lớn các khối u lành tính, chiếm 85%. \"U dưới niêm mạc đường tiêu hóa nếu được phát hiện sớm, điều trị đơn giản, tiết kiệm, đạt hiệu quả cao\", bác sĩ Tùng nói, thêm rằng tùy theo bản chất, kích thước, vị trí của khối u mà lựa chọn phương pháp điều trị thích hợp. Thông thường, u dưới niêm mạc có kích thước dưới 2 cm có thể được cắt trong nội soi bằng phương pháp cắt tách dưới niêm mạc. U kích thước lớn, gây ra biến chứng, nguy cơ cao ung thư phải can thiệp bằng các phương pháp xâm lấn như nội soi cắt toàn bề dày thành ống tiêu hóa, cắt bỏ u qua nội soi đường hầm, kết hợp nội soi và phẫu thuật nội soi cắt bỏ khối u, phẫu thuật nội soi hoặc phẫu thuật mở ổ bụng... Trường hợp khối u ở lớp dưới niêm mạc không phát hiện kịp thời dễ dẫn đến các biến chứng như tắc đường tiêu hóa do kích thước khối u lớn, cản trở lưu thông thức ăn trong dạ dày và tiêu hóa thức ăn. U dưới niêm còn có thể gây xuất huyết. Trường hợp xấu nhất là u dưới niêm ác tính có nguy cơ ung thư dạ dày. Bệnh phát hiện ở giai đoạn muộn ảnh hưởng nghiêm trọng đến sức khỏe, khó điều trị, không đạt hiệu quả cao. Bác sĩ khuyến cáo mọi người sống lành mạnh, chủ động nội soi dạ dày - đại tràng định kỳ để tầm soát bệnh đường tiêu hóa, ngăn ngừa ung thư và các biến chứng nguy hiểm. Người trong nhóm nguy cơ cao như yếu tố di truyền, người thân mắc ung thư, béo phì, nhiễm vi khuẩn HP, từng phẫu thuật dạ dày, người sau 45 tuổi... cần tham khảo thời gian nội soi của bác sĩ chuyên khoa Tiêu hóa để tầm soát bệnh. Quyên Phan Độc giả đặt câu hỏi về bệnh tiêu hóa tại đây để bác sĩ giải đáp Trở lại Sức khỏeTrở lại Sức khỏe Chia sẻ Copy link thành công ×",
+                    "logoLink": [
+                        "https://console-vnsocial.vnpt.vn/assets/icon-news/vnexpress.net_logo.png"
+                    ],
+                    "senti": "negative",
+                    "type": "",
+                    "createDate": "2024-01-02T14:00:00.000+07:00",
+                    "updateDate": "2024-01-02T14:07:10.643+07:00",
+                    "docId": "EA25068D37E80CFC51442DBD297967AC",
+                    "numShares": 0,
+                    "numComments": 0,
+                    "numInteractions": 0
+                },
+                {
+                    "userId": "",
+                    "userName": "Huy Đức",
+                    "sourceId": "vnexpress.net",
+                    "sourceName": "vnexpress.net",
+                    "postLink": "https://vnexpress.net/ai-se-giup-ai-cung-co-the-tro-thanh-lap-trinh-vien-4695811.html",
+                    "domain": "vnexpress.net",
+                    "pictures": [
+                        "https://i1-sohoa.vnecdn.net/2024/01/02/5c3a8f6ea3106c65fff4f3d7-jpeg-8010-3874-1704128519.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=4erU-522s8OD4VKeyiZKrg",
+                        "https://i1-sohoa.vnecdn.net/2024/01/02/5c3a8f6ea3106c65fff4f3d7-jpeg-9683-7557-1704128519.jpg?w=680&h=0&q=100&dpr=1&fit=crop&s=QKt-Ea2-YLt-BK7Rdzzz2w"
+                    ],
+                    "title": "AI sẽ giúp ai cũng có thể trở thành lập trình viên",
+                    "description": "Giám đốc AI của IBM cho rằng trí tuệ nhân tạo sẽ giúp người không có kỹ năng máy tính cũng có thể tự phát triển sản phẩm phần mềm. - VnExpress",
+                    "tags": "AI tạo sinh",
+                    "isSpam": false,
+                    "content": "Theo Matthew Candy, Giám đốc AI của IBM, nếu muốn tìm kiếm việc làm trong lĩnh vực công nghệ, bằng cấp khoa học máy tính có thể không còn cần thiết. Lý do là trong tương lai, mọi người chỉ cần mô tả ý tưởng về sản phẩm, AI sẽ nhanh chóng lập trình, tạo và thử nghiệm sản phẩm đó.\n\"Với sự phát triển của AI tạo sinh, trong tương lai, kỹ năng mềm quan trọng hơn kiến thức chuyên môn\", ông nói với Fortune. \"Kỹ năng đặt câu hỏi, sự sáng tạo và đổi mới sẽ cựu kỳ cần thiết\".\nMột sinh viên dùng thử ứng dụng học bằng AI tại Bắc Kinh. Ảnh: China Daily\nNgoài ra, ông nhận định điều này không giới hạn chỉ trong lĩnh vực công nghệ vì những tiến bộ của AI tạo sinh sẽ ảnh hưởng đến người làm trong nhiều lĩnh vực. Ví dụ, khả năng sáng tác ảnh bằng AI có thể giúp bất cứ ai cũng có thể đảm nhận vai trò của một nhà thiết kế đồ họa hay sáng tạo nghệ thuật.\nNhận xét của Matthew Candy tương đồng với những gì Aneesh Raman, Phó chủ tịch LinkedIn, từng nói trong cuộc phỏng vấn với Microsoft tháng 11/2023. Ông cho rằng thời hạn sử dụng của các bằng cấp đang bị giảm đi đáng kể. Với sự trỗi dậy của AI, nhiều người sẽ phải tập trung vào kỹ năng mềm thay vì các kỹ năng chuyên môn.\nTuần trước, Logan Kilpatrick, kỹ sư OpenAI, cũng viết trên X rằng con người sẽ cần trau dồi kỹ năng nói, đọc, viết để giao tiếp hiệu quả và chứng minh họ không phải robot trong kỷ nguyên trí tuệ nhân tạo.\nTheo báo cáo của Goldman Sachs vào tháng 3/2023, hơn 300 triệu việc làm có thể bị cắt giảm bởi AI. Sau đó, CEO IBM Arvind Krishna cũng nói 30% số công việc văn phòng của hãng sẽ được thay thế bằng AI và tự động hóa trong vòng 5 năm tới. Tại sự kiện AI Safety Summit đầu tháng 11/2023, Elon Musk cũng cho rằng AI có tiềm năng trở thành \"lực lượng đột phá nhất trong lịch sử\" khi có thể làm mọi thứ. Con người lúc đó chỉ tìm một việc làm để thỏa mãn cá nhân. Ông ví von điều này giống như con người có được những điều ước không giới hạn, và viễn cảnh đó \"vừa tốt vừa xấu\".",
+                    "logoLink": [
+                        "https://console-vnsocial.vnpt.vn/assets/icon-news/vnexpress.net_logo.png"
+                    ],
+                    "senti": "neutral",
+                    "type": "",
+                    "createDate": "2024-01-02T14:00:00.000+07:00",
+                    "updateDate": "2024-01-02T14:03:11.032+07:00",
+                    "docId": "B5A1B66EDC6B16B7EC48A4A5E63BB7FF",
+                    "numShares": 0,
+                    "numComments": 0,
+                    "numInteractions": 0
+                }
+            ]
+        }
+      '''
+    }
+  }
+}

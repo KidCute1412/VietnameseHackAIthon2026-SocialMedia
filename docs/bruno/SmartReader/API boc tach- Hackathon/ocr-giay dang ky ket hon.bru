@@ -1,0 +1,106 @@
+meta {
+  name: ocr/giay dang ky ket hon
+  type: http
+  seq: 3
+}
+
+post {
+  url: https://api.idg.vnpt.vn/rpa-service/aidigdoc/v1/ocr/giay-dang-ky-ket-hon
+  body: json
+  auth: inherit
+}
+
+headers {
+  Authorization: 
+  Token-id: 
+  Token-key: 
+  mac-address: mac-address
+  Content-Type: application/json
+}
+
+body:json {
+  {
+      "file_hash": "idg20251201-e30bddce-2ab2-7bb2-e053-62199f0a0076/IDG01_58dacb98-cebd-11f0-b513-9f68725df08b",
+      "file_type": "pdf",
+      "token": "8928skjhfa89298jahga1771vbvb",
+      "client_session": "00-14-22-01-23-45-1548211589291",
+      "details": true
+  }
+}
+
+script:post-response {
+  test("Status code is 200", function () {
+      expect(res.getStatus()).to.equal(200);
+  });
+  function compareObjects(expected, actual) {
+      for (let key in expected) {
+          if (expected.hasOwnProperty(key)) {
+              test(`Check ${key}`, function () {
+                  expect(actual[key]).to.eql(expected[key]);
+              });
+          }
+      }
+  }
+  
+  const jsonData = res.getBody().object;
+  expectedData = {
+          "tinh_tp": "THÀNH PHỐ HỒ CHÍ MINH",
+          "so_van_ban": "223/UBND-XNTTHN",
+          "ngay_ban_hanh_van_ban": "ngày 06 tháng 06 năm 2024",
+          "ten_van_ban": "GIẤY XÁC NHẬN TÌNH TRẠNG HÔN NHÂN",
+          "ten_co_quan_thuc_hien": "ỦY BAN NHÂN DÂN PHƯỜNG 02",
+          "ten_can_bo_phe_duyet": "Chung Minh Lâm, là công chức tư pháp hộ tịch",
+          "ten_cong_dan": "TRẦN NGỌC CẨM TÚ",
+          "ngay_thang_nam_sinh": "21/04/1996",
+          "gioi_tinh": "Nữ",
+          "dan_toc": "Kinh",
+          "quoc_tich": "Việt Nam",
+          "so_giay_to_tuy_than": "089196000166",
+          "noi_cu_tru": "42 đường 329 Minh Phụng, phường 02, quận 11, thành Phố Hồ Chí Minh",
+          "tinh_trang_hon_nhan": "Hiện tại chưa đăng ký kết hôn với ai",
+          "muc_dich_su_dung_vb": "Bổ túc hồ sơ xin Visa định cư. Không có giá trị sử dụng để đăng ký kết hôn",
+          "nguoi_ky_xac_nhan": "Đổng Thị Mây",
+          "quan_huyen_so_nganh": "QUẬN 11",
+          "phuong_xa": "UBND PHƯỜNG 02",
+          "noi_cap_giay_to_tuy_than": "Cục CS QLHC về trật tự xã hội",
+          "ngay_cap_giay_to_tuy_than": "23/01/2022",
+          "warnings": [],
+          "warning_messages": [],
+          "num_of_pages": 1
+      
+  }
+  // pm.test('Check body', function () {
+  //      var responseBody = pm.response.json();
+  //      pm.expect(responseBody.object).to.have.property('TINH_TP');
+  //      pm.expect(responseBody.object).to.have.property('SO_VAN_BAN');
+  //      pm.expect(responseBody.object).to.have.property('NGAY_BAN_HANH_VAN_BAN');
+  //      pm.expect(responseBody.object).to.have.property('TEN_VAN_BAN');
+  //      pm.expect(responseBody.object).to.have.property('TEN_CO_QUAN_THUC_HIEN');
+  //      pm.expect(responseBody.object).to.have.property('TEN_CAN_BO_PHE_DUYET');
+  //      pm.expect(responseBody.object).to.have.property('TEN_CONG_DAN');
+  //      pm.expect(responseBody.object).to.have.property('NGAY_THANG_NAM_SINH');
+  //      pm.expect(responseBody.object).to.have.property('GIOI_TINH');
+  //      pm.expect(responseBody.object).to.have.property('DAN_TOC');
+  //      pm.expect(responseBody.object).to.have.property('QUOC_TICH');
+  //      pm.expect(responseBody.object).to.have.property('SO_GIAY_TO_TUY_THAN');
+  //      pm.expect(responseBody.object).to.have.property('NOI_CU_TRU');
+  //      pm.expect(responseBody.object).to.have.property('TINH_TRANG_HON_NHAN');
+  //      pm.expect(responseBody.object).to.have.property('MUC_DICH_SU_DUNG_VB');
+  //      pm.expect(responseBody.object).to.have.property('NGUOI_KY_XAC_NHAN');
+  //      pm.expect(responseBody.object).to.have.property('QUAN_HUYEN_SO_NGANH');
+  //      pm.expect(responseBody.object).to.have.property('PHUONG_XA');
+  //      pm.expect(responseBody.object).to.have.property('NOI_CAP_GIAY_TO_TUY_THAN');
+  //      pm.expect(responseBody.object).to.have.property('NGAY_CAP_GIAY_TO_TUY_THAN');
+  //      pm.expect(responseBody.object).to.have.property('num_of_pages');
+  // });    
+  compareObjects(expectedData, jsonData)
+}
+
+settings {
+  encodeUrl: true
+}
+
+docs {
+  OCR trên dev
+  - Tốc độ chậm hơn nhiều so với trên production.
+}

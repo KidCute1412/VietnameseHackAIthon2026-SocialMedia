@@ -101,7 +101,7 @@ export default function LoginPage() {
           <>
             Chưa có tài khoản?{' '}
             <Link 
-              className={`font-bold text-[#1f63d8] underline hover:text-[#184ebd] transition ${isLoading ? 'pointer-events-none opacity-60' : ''}`}
+              className={`font-bold text-[#9E2A1F] hover:text-[#b53225] transition underline underline-offset-4 decoration-1 ${isLoading ? 'pointer-events-none opacity-60' : ''}`}
               to="/auth/register"
               aria-disabled={isLoading}
               tabIndex={isLoading ? -1 : 0}
@@ -145,14 +145,14 @@ export default function LoginPage() {
               <input
                 checked={rememberMe}
                 disabled={isLoading}
-                className="size-4 accent-[#3d2f2b] cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-[#9E2A1F]/30"
+                className="size-4 accent-[#9E2A1F] cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-[#9E2A1F]/30"
                 type="checkbox"
                 onChange={(event) => setRememberMe(event.target.checked)}
               />
               Ghi nhớ đăng nhập
             </label>
             <Link 
-              className={`font-bold text-[#1f63d8] underline hover:text-[#184ebd] transition ${isLoading ? 'pointer-events-none opacity-60' : ''}`}
+              className={`font-bold text-[#9E2A1F] hover:text-[#b53225] transition underline underline-offset-4 decoration-1 ${isLoading ? 'pointer-events-none opacity-60' : ''}`}
               to="/auth/forgot-password"
               aria-disabled={isLoading}
               tabIndex={isLoading ? -1 : 0}

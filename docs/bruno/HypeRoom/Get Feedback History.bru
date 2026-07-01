@@ -1,0 +1,15 @@
+meta {
+  name: Get Feedback History
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{baseUrl}}/api/verifications/:verification_id/feedback
+  body: none
+  auth: inherit
+}
+
+params:path {
+  verification_id: 
+}

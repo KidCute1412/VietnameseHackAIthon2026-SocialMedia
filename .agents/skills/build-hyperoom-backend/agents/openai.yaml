@@ -1,0 +1,4 @@
+interface:
+  display_name: "Build HypeRoom Backend"
+  short_description: "Build maintainable HypeRoom backend slices"
+  default_prompt: "Use $build-hyperoom-backend to implement this HypeRoom backend feature against the system architecture."

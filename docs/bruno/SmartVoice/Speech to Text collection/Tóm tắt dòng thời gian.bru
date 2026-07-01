@@ -1,0 +1,47 @@
+meta {
+  name: Tóm tắt dòng thời gian
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{base_url}}/eval-emotion-service/v1/conversation/summary
+  body: json
+  auth: inherit
+}
+
+headers {
+  token-id: {{token_id}}
+  token-key: {{token_key}}
+  Content-Type: application/json
+  Authorization: {{access_token}}
+}
+
+body:json {
+  {
+      "text": "Xin chào, tôi là Trợ lý AI xử lý giọng nói"
+  }
+}
+
+settings {
+  encodeUrl: true
+}
+
+docs {
+  Generated from cURL: curl --location 'https://explorer.idg.vnpt.vn/eval-emotion-service/v1/conversation/summary' \
+  
+  --header 'token-id: ${token\_id}' \
+  
+  --header 'token-key: ${token\_key}' \
+  
+  --header 'Content-Type: application/json' \
+  
+  --header 'Authorization: Bearer ${access\_token}' \
+  
+  --data '{
+  
+      "text": "có lúc nào cũng sóng gió lý do là chị chọn vô cho mình năm mươi tỷ mà nếu mình lỗ thêm ba mươi tỷ thì chẳng sao..."
+  
+  }'
+  
+}

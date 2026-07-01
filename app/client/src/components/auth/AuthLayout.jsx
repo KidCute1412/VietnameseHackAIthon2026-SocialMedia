@@ -34,80 +34,104 @@ export default function AuthLayout({ children }) {
 
   return (
     <div className="relative isolate min-h-screen text-[#241b17] bg-[#efe4cf] flex flex-col justify-between overflow-x-hidden">
-      {/* Dynamic stylesheets for ripped paper styling */}
+      {/* Dynamic stylesheets for premium vintage styling */}
       <style>{`
-        /* Make the global newspaper collage background overlay soft grey to match mockup */
+        /* Make the global vintage editorial background overlay soft and atmospheric */
         .vintage-bg-overlay {
-          filter: sepia(0.08) contrast(1.05) brightness(0.95) !important;
-          opacity: 0.45 !important; /* Set to 0.45 to show the vintage background newspaper text clearly */
+          opacity: 0.9 !important;
           background-color: #efe4cf !important;
-          background-image: url('/newspaper_collage_bg.png') !important;
+          background-image: url('/vintage_editorial_bg.png') !important;
+          background-size: cover !important;
+          background-position: center !important;
         }
 
-        /* Ripped Paper Clip Path for the Auth Card (Ivory/White paper card) */
+        /* Premium vintage card style with double ruled border and soft shadow */
         .auth-card-container .glass-panel {
-          background-color: #fffaf0 !important;
+          background-color: #fffcf7 !important;
           background-image: url('https://www.transparenttextures.com/patterns/aged-paper.png') !important;
           background-blend-mode: multiply !important;
-          border: none !important;
-          box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(70, 45, 25, 0.2) !important;
+          border: 2px solid #3d2f2b !important;
+          border-radius: 12px !important;
+          box-shadow: 0 16px 36px rgba(36, 27, 23, 0.18), 0 2px 10px rgba(36, 27, 23, 0.12) !important;
           backdrop-filter: none !important;
           -webkit-backdrop-filter: none !important;
-          clip-path: polygon(
-            0% 1.5%, 4% 0%, 9% 2%, 14% 0.5%, 19% 2%, 24% 0%, 29% 1.5%, 34% 0.5%, 39% 2%, 44% 0%, 49% 1.5%, 
-            54% 0.5%, 59% 2%, 64% 0%, 69% 1.5%, 74% 0.5%, 79% 2%, 84% 0%, 89% 1.5%, 94% 0.5%, 100% 2%,
-            99% 7%, 100% 13%, 98.5% 19%, 100% 25%, 99% 31%, 100% 38%, 98.5% 44%, 100% 51%, 99% 57%, 100% 64%, 
-            98.5% 70%, 100% 77%, 99% 83%, 100% 90%, 99% 96%, 100% 98.5%,
-            96% 99.5%, 91% 98%, 86% 100%, 81% 98.5%, 76% 100%, 71% 98%, 66% 100%, 61% 98.5%, 56% 100%, 
-            51% 98%, 46% 100%, 41% 98.5%, 36% 100%, 31% 98%, 26% 100%, 21% 98.5%, 16% 100%, 11% 98%, 6% 100%, 0% 98.5%,
-            1% 93%, 0% 87%, 1.5% 81%, 0% 75%, 1% 69%, 0% 63%, 1.5% 57%, 0% 51%, 1% 45%, 0% 39%, 1.5% 33%, 
-            0% 27%, 1% 21%, 0% 15%, 1.5% 9%, 0% 3%
-          ) !important;
+          position: relative !important;
+          padding: 32px 28px !important;
+        }
+
+        /* Classical newspaper frame styling */
+        .auth-card-container .glass-panel::before {
+          content: '' !important;
+          position: absolute !important;
+          top: 8px !important;
+          left: 8px !important;
+          right: 8px !important;
+          bottom: 8px !important;
+          border: 1px solid rgba(61, 47, 43, 0.25) !important;
+          pointer-events: none !important;
+          border-radius: 8px !important;
         }
 
         /* Enhance legibility of small labels and headers on the Auth card */
         .auth-card-container label span {
-          color: #241b17 !important; /* Updated to #241b17 as per JSON */
-          font-size: 13px !important; /* 13px as per JSON */
+          color: #3d2f2b !important;
+          font-size: 12px !important;
           font-weight: 700 !important;
           letter-spacing: 0.08em !important;
         }
 
         .auth-card-container p.font-label-caps {
-          color: #241b17 !important;
-          font-size: 12px !important; /* 12px as per JSON title-small */
+          color: #5c4a43 !important;
+          font-size: 11px !important;
           font-weight: 700 !important;
-          letter-spacing: 2px !important; /* 2px spacing as per JSON */
+          letter-spacing: 2px !important;
         }
 
-        /* Red stamp style for the primary CTA button to make it pop */
+        /* Premium inputs */
+        .auth-card-container input[type="text"],
+        .auth-card-container input[type="email"],
+        .auth-card-container input[type="password"] {
+          background-color: #fbfaf4 !important;
+          border: 1px solid rgba(61, 47, 43, 0.35) !important;
+          border-radius: 6px !important;
+          padding-top: 10px !important;
+          padding-bottom: 10px !important;
+          transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        }
+
+        .auth-card-container input:focus {
+          border-color: #9E2A1F !important;
+          box-shadow: 0 0 0 3px rgba(158, 42, 31, 0.12) !important;
+          background-color: #ffffff !important;
+        }
+
+        /* Premium red button styling */
         .auth-card-container .neon-btn {
-          background: #9E2A1F !important; /* Crimson red */
-          color: #fffaf0 !important;
-          border: 1px solid #9E2A1F !important;
-          box-shadow: 3px 3px 0px #241b17 !important;
+          background: #9E2A1F !important;
+          color: #fffcf7 !important;
+          border: none !important;
+          border-radius: 6px !important;
+          font-weight: 700 !important;
+          box-shadow: 0 4px 12px rgba(158, 42, 31, 0.2) !important;
           transition: all 0.2s ease !important;
         }
 
         .auth-card-container .neon-btn:hover {
-          background: #832017 !important;
-          border-color: #832017 !important;
-          box-shadow: 1px 1px 0px #241b17 !important;
-          transform: translate(2px, 2px) !important;
+          background: #b53225 !important;
+          box-shadow: 0 6px 16px rgba(158, 42, 31, 0.3) !important;
+          transform: translateY(-1px) !important;
         }
 
         .auth-card-container .neon-btn:active {
-          background: #6c1810 !important;
-          border-color: #6c1810 !important;
-          box-shadow: 0px 0px 0px #241b17 !important;
-          transform: translate(3px, 3px) !important;
+          background: #832017 !important;
+          box-shadow: 0 2px 8px rgba(158, 42, 31, 0.2) !important;
+          transform: translateY(1px) !important;
         }
 
-        /* Accessibile disabled styling for primary stamp CTA button matching JSON values */
+        /* Disabled styling for button */
         .auth-card-container .neon-btn:disabled {
-          background: #d8cfc0 !important; /* #d8cfc0 as per JSON */
-          color: #8f8178 !important; /* #8f8178 as per JSON */
-          border: 1px solid #d8cfc0 !important;
+          background: #d8cfc0 !important;
+          color: #8f8178 !important;
           box-shadow: none !important;
           cursor: not-allowed !important;
           pointer-events: none !important;
@@ -116,7 +140,7 @@ export default function AuthLayout({ children }) {
         }
       `}</style>
 
-      {/* Newspaper desk background */}
+      {/* Vintage desk background */}
       <div aria-hidden="true" className="vintage-bg-overlay" />
 
       {/* Header bar synchronized with page theme */}

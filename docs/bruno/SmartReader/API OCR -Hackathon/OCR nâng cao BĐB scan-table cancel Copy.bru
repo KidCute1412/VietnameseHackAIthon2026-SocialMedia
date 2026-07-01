@@ -1,0 +1,35 @@
+meta {
+  name: OCR nâng cao BĐB scan-table cancel Copy
+  type: http
+  seq: 6
+}
+
+post {
+  url: https://api.idg.vnpt.vn/rpa-service/aidigdoc/v1/integration/ocr/scan-table/cancel
+  body: json
+  auth: inherit
+}
+
+headers {
+  Authorization: 
+  Token-id: 
+  Token-key: 
+  mac-address: mac-address
+  Content-Type: application/json
+}
+
+body:json {
+  {
+       "session_id": "4e1235e0-03ba-4921-b111-a44e9edd3045"
+  }
+}
+
+script:post-response {
+  test("Status code is 200", function () {
+      expect(res.getStatus()).to.equal(200);
+  });
+}
+
+settings {
+  encodeUrl: true
+}

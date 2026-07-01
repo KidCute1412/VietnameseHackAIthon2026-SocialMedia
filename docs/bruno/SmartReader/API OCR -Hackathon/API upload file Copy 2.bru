@@ -1,0 +1,44 @@
+meta {
+  name: API upload file Copy 2
+  type: http
+  seq: 1
+}
+
+post {
+  url: https://api.idg.vnpt.vn/file-service/v1/addFile
+  body: multipartForm
+  auth: none
+}
+
+headers {
+  Token-id: 
+  Token-key: 
+  Authorization: 
+  Content-Type: application/json
+  mac-address: EGOV-DIGDOC-WEB-API
+}
+
+body:multipart-form {
+  file: @file()
+  title: Hashing document
+  description: Hashing document
+}
+
+script:post-response {
+  test("Status code is 200", function () {
+      expect(res.getStatus()).to.equal(200);
+  });
+  var jsonData = res.getBody();
+  bru.setGlobalEnvVar("hash_1", jsonData.object.hash);
+  bru.setGlobalEnvVar("type", jsonData.object.fileType);
+  //pm.setNextRequest("ocr/van-ban-hanh-chinh")
+}
+
+settings {
+  encodeUrl: true
+}
+
+docs {
+  Dùng để upload ảnh lên Server media và trả về chuỗi hash duy nhất của ảnh.
+  Chuỗi hash này là đầu vào cho các API OCR, type, compare
+}
