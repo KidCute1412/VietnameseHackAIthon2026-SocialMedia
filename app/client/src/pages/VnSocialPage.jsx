@@ -3,28 +3,20 @@ import { useNavigate } from 'react-router-dom'
 import MetricCard from '../components/MetricCard'
 import CriticalMentionsTable from '../components/CriticalMentionsTable'
 import TrendingVerifyPane from '../components/TrendingVerifyPane'
+import { apiRequest } from '../lib/api'
 
 export default function VnSocialPage() {
   const [selectedMention, setSelectedMention] = useState(null)
   const navigate = useNavigate()
 
   const handleSelectMention = (item) => {
-    fetch('/api/verify-mention', {
+    apiRequest('/api/v1/verifications/from-trending', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
+      body: {
+        post_id: item.id || item.username,
+        source_url: item.source_url || null,
       },
-      body: JSON.stringify({
-        username: item.username,
-        content: item.content,
-        avatar: item.avatar,
-        followers: item.followers,
-      }),
     })
-      .then((res) => {
-        if (!res.ok) throw new Error('Failed to verify mention')
-        return res.json()
-      })
       .then((data) => {
         navigate(`/?id=${data.id}`)
       })

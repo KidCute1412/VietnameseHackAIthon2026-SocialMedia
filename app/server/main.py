@@ -1,10 +1,15 @@
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
+from fastapi.middleware.cors import CORSMiddleware
+from starlette.responses import JSONResponse
 
+from api.auth import router as auth_router
 from api.v1 import api_router
 from config import settings
 from database import init_db
+from services.auth_service import decode_access_token
+from services.otp_cleanup import start_otp_cleanup_scheduler
 from vnsocial.vnsocial_auth import (
     VNSocialAuthError,
     can_attempt_vnsocial_login,
@@ -15,18 +20,62 @@ from vnsocial.vnsocial_auth import (
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     init_db()
+    scheduler = start_otp_cleanup_scheduler()
 
-    if can_attempt_vnsocial_login():
-        try:
-            get_vnsocial_token()
-            print("VNPT vnSocial login successful")
-        except VNSocialAuthError as exc:
-            print(f"VNPT vnSocial login failed: {exc}")
+    try:
+        if can_attempt_vnsocial_login():
+            try:
+                get_vnsocial_token()
+                print("VNPT vnSocial login successful")
+            except VNSocialAuthError as exc:
+                print(f"VNPT vnSocial login failed: {exc}")
 
-    yield
+        yield
+    finally:
+        scheduler.shutdown(wait=False)
 
 
 app = FastAPI(title=settings.PROJECT_NAME, lifespan=lifespan)
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=settings.cors_allow_origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
+def _is_public_path(path: str) -> bool:
+    public_exact_paths = {"/docs", "/redoc", "/openapi.json"}
+    public_auth_prefixes = ("/auth/", f"{settings.API_V1_STR}/auth/")
+    return path in public_exact_paths or path.startswith(public_auth_prefixes)
+
+
+@app.middleware("http")
+async def require_jwt_cookie(request: Request, call_next):
+    if request.method == "OPTIONS" or _is_public_path(request.url.path):
+        return await call_next(request)
+
+    token_payload = decode_access_token(
+        request.cookies.get(settings.AUTH_COOKIE_NAME)
+    )
+    if not token_payload:
+        return JSONResponse(
+            status_code=401,
+            content={
+                "detail": {
+                    "code": "unauthorized",
+                    "message": "Authentication required",
+                }
+            },
+        )
+
+    request.state.user_id = token_payload.get("sub")
+    return await call_next(request)
+
+
 # Register API routes
+app.include_router(auth_router, prefix="/auth", tags=["auth"])
+app.include_router(auth_router, prefix=f"{settings.API_V1_STR}/auth", tags=["auth"])
 app.include_router(api_router, prefix=settings.API_V1_STR)

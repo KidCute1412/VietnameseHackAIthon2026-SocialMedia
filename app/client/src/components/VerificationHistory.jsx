@@ -1,6 +1,28 @@
 import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { animate, stagger } from 'animejs'
+import { apiRequest } from '../lib/api'
+
+function mapVerificationStatus(status) {
+  const normalizedStatus = String(status || '').toLowerCase()
+
+  if (normalizedStatus === 'completed' || normalizedStatus === 'verified') {
+    return 'verified'
+  }
+
+  if (normalizedStatus === 'failed' || normalizedStatus === 'needs_review') {
+    return 'warning'
+  }
+
+  return 'processing'
+}
+
+function formatVerificationTime(item) {
+  const value = item.updated_at || item.created_at
+  if (!value) return 'Vừa xong'
+
+  return new Date(value).toLocaleString('vi-VN')
+}
 
 export default function VerificationHistory({ onSelectItem, selectedId, refreshTrigger }) {
   const [historyItems, setHistoryItems] = useState([])
@@ -8,20 +30,16 @@ export default function VerificationHistory({ onSelectItem, selectedId, refreshT
   const navigate = useNavigate()
 
   useEffect(() => {
-    fetch('/api/verifications')
-      .then((res) => {
-        if (!res.ok) throw new Error('API error')
-        return res.json()
-      })
+    apiRequest('/api/v1/verifications')
       .then((data) => {
         const items = data.map((item) => ({
           id: item.id,
-          fileName: item.fileName,
-          time: item.timestamp,
-          status: item.status,
-          label: item.status === 'verified'
+          fileName: item.fileName || `Phiên xác minh #${item.id}`,
+          time: item.timestamp || formatVerificationTime(item),
+          status: mapVerificationStatus(item.status),
+          label: mapVerificationStatus(item.status) === 'verified'
             ? 'Đã xác minh'
-            : item.status === 'processing'
+            : mapVerificationStatus(item.status) === 'processing'
             ? 'Đang xử lý...'
             : 'Cảnh báo',
         }))
@@ -145,4 +163,3 @@ export default function VerificationHistory({ onSelectItem, selectedId, refreshT
     </div>
   )
 }
-

@@ -1,15 +1,17 @@
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import AuthButton from '../../components/auth/AuthButton'
 import AuthCard from '../../components/auth/AuthCard'
 import AuthInput from '../../components/auth/AuthInput'
 import AuthLayout from '../../components/auth/AuthLayout'
 import PasswordInput from '../../components/auth/PasswordInput'
+import { authApi } from '../../lib/api'
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 export default function LoginPage() {
   const navigate = useNavigate()
+  const location = useLocation()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [rememberMe, setRememberMe] = useState(false)
@@ -66,7 +68,7 @@ export default function LoginPage() {
     }
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
     if (isLoading) return
 
@@ -80,15 +82,17 @@ export default function LoginPage() {
     setIsLoading(true)
     setGeneralError('')
 
-    setTimeout(() => {
-      if (email.trim() === 'error@hyperoom.vn') {
-        setIsLoading(false)
-        setGeneralError('Email hoặc mật khẩu không chính xác.')
-      } else {
-        setIsLoading(false)
-        navigate('/')
-      }
-    }, 1000)
+    try {
+      await authApi.login({ email, password })
+      const redirectPath = location.state?.from
+        ? `${location.state.from.pathname}${location.state.from.search || ''}`
+        : '/'
+      navigate(redirectPath, { replace: true })
+    } catch (error) {
+      setGeneralError(error.message || 'Email hoặc mật khẩu không chính xác.')
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   const isButtonDisabled = !email.trim() || !password
@@ -170,7 +174,7 @@ export default function LoginPage() {
             </p>
           )}
 
-          <AuthButton disabled={isButtonDisabled} isLoading={isLoading}>Đăng nhập</AuthButton>
+          <AuthButton disabled={isButtonDisabled} isLoading={isLoading} loadingLabel="Đang đăng nhập...">Đăng nhập</AuthButton>
         </form>
       </AuthCard>
     </AuthLayout>

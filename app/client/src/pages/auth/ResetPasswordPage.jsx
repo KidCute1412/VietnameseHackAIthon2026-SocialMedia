@@ -4,15 +4,19 @@ import AuthButton from '../../components/auth/AuthButton'
 import AuthCard from '../../components/auth/AuthCard'
 import AuthLayout from '../../components/auth/AuthLayout'
 import PasswordInput from '../../components/auth/PasswordInput'
+import { authApi } from '../../lib/api'
 
 export default function ResetPasswordPage() {
   const navigate = useNavigate()
   const [newPassword, setNewPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [errors, setErrors] = useState({})
+  const [isLoading, setIsLoading] = useState(false)
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
+    if (isLoading) return
+
     const nextErrors = {}
 
     if (!newPassword) {
@@ -30,8 +34,29 @@ export default function ResetPasswordPage() {
     setErrors(nextErrors)
     if (Object.keys(nextErrors).length) return
 
-    sessionStorage.removeItem('resetEmail')
-    navigate('/auth/login')
+    const email = sessionStorage.getItem('resetEmail')
+    const otp = sessionStorage.getItem('resetOtp')
+
+    if (!email || !otp) {
+      setErrors({ newPassword: 'Phiên đặt lại mật khẩu không hợp lệ. Vui lòng xác minh OTP lại.' })
+      return
+    }
+
+    setIsLoading(true)
+    try {
+      await authApi.resetPassword({
+        email,
+        otp,
+        new_password: newPassword,
+      })
+      sessionStorage.removeItem('resetEmail')
+      sessionStorage.removeItem('resetOtp')
+      navigate('/auth/login')
+    } catch (apiError) {
+      setErrors({ newPassword: apiError.message || 'Không thể đặt lại mật khẩu.' })
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -52,6 +77,7 @@ export default function ResetPasswordPage() {
             label="Mật khẩu mới"
             placeholder="Tối thiểu 6 ký tự"
             value={newPassword}
+            disabled={isLoading}
             onChange={(event) => {
               setNewPassword(event.target.value)
               setErrors((current) => ({ ...current, newPassword: undefined }))
@@ -65,13 +91,14 @@ export default function ResetPasswordPage() {
             label="Xác nhận mật khẩu mới"
             placeholder="Nhập lại mật khẩu mới"
             value={confirmPassword}
+            disabled={isLoading}
             onChange={(event) => {
               setConfirmPassword(event.target.value)
               setErrors((current) => ({ ...current, confirmPassword: undefined }))
             }}
           />
 
-          <AuthButton>Đặt lại mật khẩu</AuthButton>
+          <AuthButton isLoading={isLoading} loadingLabel="Đang đặt lại...">Đặt lại mật khẩu</AuthButton>
         </form>
       </AuthCard>
     </AuthLayout>

@@ -1,4 +1,12 @@
 # Export schemas
+from schemas.auth import (
+    AuthCredentials,
+    AuthMessage,
+    AuthUser,
+    ForgotPasswordRequest,
+    ResetPasswordRequest,
+    VerifyOTPRequest,
+)
 from schemas.verification import (
     VerificationCreate,
     VerificationCreateFromTrending,

@@ -34,7 +34,29 @@ docker compose -f app/docker-compose.yaml up -d postgres
 Tạo hoặc cập nhật `app/server/.env`:
 
 ```bash
-DATABASE_URL=postgresql+psycopg://postgres:postgres@localhost:5432/mydb
+DATABASE_URL=postgresql+psycopg2://postgres:postgres@localhost:5432/mydb
+CORS_ALLOW_ORIGINS=http://localhost:5173,http://localhost:3000,http://localhost:8000
+
+JWT_SECRET_KEY=replace_with_a_long_random_secret
+JWT_ALGORITHM=HS256
+JWT_EXPIRE_MINUTES=1440
+AUTH_COOKIE_NAME=hyperoom_jwt
+AUTH_COOKIE_SECURE=false
+AUTH_COOKIE_SAMESITE=lax
+OTP_EXPIRE_MINUTES=15
+OTP_CLEANUP_INTERVAL_MINUTES=1
+
+# SMTP email settings
+SMTP_ENABLED=false
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USERNAME=your_email@example.com
+SMTP_PASSWORD=your_app_password
+SMTP_FROM_EMAIL=no-reply@hyperoom.vn
+SMTP_FROM_NAME=HypeRoom
+SMTP_USE_TLS=true
+SMTP_USE_SSL=false
+SMTP_TIMEOUT_SECONDS=10
 
 VNSOCIAL_USERNAME=your_username
 VNSOCIAL_PASSWORD=your_password
@@ -63,16 +85,39 @@ Kiểm tra backend:
 curl http://localhost:3000/openapi.json
 ```
 
+Đăng ký và đăng nhập bằng JWT HTTP-only cookie:
+
+```bash
+curl -i -X POST http://localhost:3000/auth/register \
+  -H "Content-Type: application/json" \
+  -d '{"email":"editor@hyperoom.vn","password":"secret123"}'
+
+curl -i -c /tmp/hyperoom.cookies -X POST http://localhost:3000/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"email":"editor@hyperoom.vn","password":"secret123"}'
+
+curl -b /tmp/hyperoom.cookies http://localhost:3000/api/v1/verifications
+```
+
+Các auth API cũng có alias dưới `/api/v1/auth/*`, ví dụ
+`http://localhost:3000/api/v1/auth/register`, để dùng được khi frontend đặt
+API base URL là `http://localhost:3000/api/v1`.
+
+Quên mật khẩu dùng OTP hết hạn sau 15 phút. OTP được lưu ở bảng `otp_codes`.
+Nếu `SMTP_ENABLED=true`, backend gửi OTP qua SMTP theo cấu hình email phía trên.
+Nếu chưa bật SMTP, backend log OTP ra console để tiện chạy prototype local.
+APScheduler xóa OTP hết hạn mỗi 1 phút theo `OTP_CLEANUP_INTERVAL_MINUTES`.
+
 Lấy danh sách VNPT vnSocial projects:
 
 ```bash
-curl http://localhost:3000/api/v1/vnsocial/projects
+curl -b /tmp/hyperoom.cookies http://localhost:3000/api/v1/vnsocial/projects
 ```
 
 Lấy bài viết nổi bật từ VNPT vnSocial:
 
 ```bash
-curl -X POST http://localhost:3000/api/v1/vnsocial/hot-posts \
+curl -b /tmp/hyperoom.cookies -X POST http://localhost:3000/api/v1/vnsocial/hot-posts \
   -H "Content-Type: application/json" \
   -d '{
     "project_id": "65012f5e621e0ce1de8876f2",
@@ -102,7 +147,7 @@ Mở trình duyệt tại:
 http://localhost:5173
 ```
 
-Frontend đang proxy các request `/api/*` sang `http://localhost:3000` theo cấu hình Vite, vì vậy nên khởi động backend trước khi test các luồng có gọi API.
+Frontend đang proxy các request `/api/*` và `/auth/*` sang `http://localhost:3000` theo cấu hình Vite, vì vậy nên khởi động backend trước khi test các luồng có gọi API. Nếu muốn gọi trực tiếp backend thay vì proxy, đặt `VITE_API_BASE_URL=http://localhost:3000` và giữ `credentials: "include"` trong request.
 
 ## Build production
 

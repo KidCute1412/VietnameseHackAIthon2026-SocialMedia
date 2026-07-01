@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import TiltContainer from './TiltContainer'
+import { apiRequest } from '../lib/api'
 
 export default function DropZone({ onVerifySuccess, compact = false }) {
   const [selectedFile, setSelectedFile] = useState(null)
@@ -52,17 +53,13 @@ export default function DropZone({ onVerifySuccess, compact = false }) {
     if (!selectedFile || loading) return
 
     setLoading(true)
-    const formData = new FormData()
-    formData.append('file', selectedFile)
-
-    fetch('/api/verify', {
+    apiRequest('/api/v1/verifications', {
       method: 'POST',
-      body: formData,
+      body: {
+        raw_content: `Uploaded file: ${selectedFile.name}`,
+        source_url: null,
+      },
     })
-      .then((res) => {
-        if (!res.ok) throw new Error('Upload failed')
-        return res.json()
-      })
       .then((data) => {
         setLoading(false)
         if (onVerifySuccess) {
@@ -143,4 +140,3 @@ export default function DropZone({ onVerifySuccess, compact = false }) {
     </div>
   )
 }
-

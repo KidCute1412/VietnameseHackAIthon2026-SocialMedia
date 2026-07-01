@@ -1,8 +1,18 @@
+import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import AuthCard from '../../components/auth/AuthCard'
 import AuthLayout from '../../components/auth/AuthLayout'
+import { authApi } from '../../lib/api'
 
 export default function LogoutPage() {
+  useEffect(() => {
+    authApi.logout().catch((error) => {
+      console.warn('Logout API failed:', error)
+    })
+    sessionStorage.removeItem('resetEmail')
+    sessionStorage.removeItem('resetOtp')
+  }, [])
+
   return (
     <AuthLayout>
       <AuthCard

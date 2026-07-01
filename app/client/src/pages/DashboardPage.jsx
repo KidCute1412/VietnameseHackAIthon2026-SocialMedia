@@ -5,6 +5,7 @@ import DropZone from '../components/DropZone'
 import VerificationHistory from '../components/VerificationHistory'
 import AIReportPane from '../components/AIReportPane'
 import TiltContainer from '../components/TiltContainer'
+import { apiRequest } from '../lib/api'
 
 const fallbackData = {
   '1': {
@@ -138,11 +139,7 @@ export default function DashboardPage() {
       return
     }
     setLoadingData(true)
-    fetch(`/api/verifications/${selectedId}`)
-      .then((res) => {
-        if (!res.ok) throw new Error('Failed to fetch details')
-        return res.json()
-      })
+    apiRequest(`/api/v1/verifications/${selectedId}`)
       .then((item) => {
         setVerificationData(item)
         setLoadingData(false)
@@ -198,9 +195,6 @@ export default function DashboardPage() {
       // Perform mock verification with progressive steps
       setLoadingData(true)
       setUploadStep(1)
-      
-      const formData = new FormData()
-      formData.append('file', selectedFile)
 
       setTimeout(() => {
         setUploadStep(2)
@@ -208,14 +202,13 @@ export default function DashboardPage() {
           setUploadStep(3)
           setTimeout(() => {
             // Send request to server
-            fetch('/api/verify', {
+            apiRequest('/api/v1/verifications', {
               method: 'POST',
-              body: formData,
+              body: {
+                raw_content: `Uploaded file: ${selectedFile.name}`,
+                source_url: null,
+              },
             })
-              .then((res) => {
-                if (!res.ok) throw new Error('Upload failed')
-                return res.json()
-              })
               .then((data) => {
                 setSelectedFile(null)
                 setInputText('')

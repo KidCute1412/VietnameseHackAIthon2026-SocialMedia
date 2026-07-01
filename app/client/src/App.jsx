@@ -1,5 +1,6 @@
 import { Navigate, Routes, Route } from 'react-router-dom'
 import Layout from './components/Layout'
+import RequireAuth from './components/auth/RequireAuth'
 import DashboardPage from './pages/DashboardPage'
 import VerificationPage from './pages/VerificationPage'
 import VnSocialPage from './pages/VnSocialPage'
@@ -21,10 +22,12 @@ function App() {
       <Route path="/auth/verify-otp" element={<VerifyOtpPage />} />
       <Route path="/auth/reset-password" element={<ResetPasswordPage />} />
 
-      <Route element={<Layout />}>
-        <Route path="/" element={<DashboardPage />} />
-        <Route path="/verification" element={<VerificationPage />} />
-        <Route path="/vnsocial" element={<VnSocialPage />} />
+      <Route element={<RequireAuth />}>
+        <Route element={<Layout />}>
+          <Route path="/" element={<DashboardPage />} />
+          <Route path="/verification" element={<VerificationPage />} />
+          <Route path="/vnsocial" element={<VnSocialPage />} />
+        </Route>
       </Route>
     </Routes>
   )

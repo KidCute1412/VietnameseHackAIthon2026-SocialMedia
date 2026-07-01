@@ -2,6 +2,7 @@ import { useLocation } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import SmartReaderPane from '../components/SmartReaderPane'
 import AIReportPane from '../components/AIReportPane'
+import { apiRequest } from '../lib/api'
 
 export default function VerificationPage() {
   const location = useLocation()
@@ -13,11 +14,7 @@ export default function VerificationPage() {
 
   useEffect(() => {
     setLoading(true)
-    fetch(`/api/verifications/${id}`)
-      .then((res) => {
-        if (!res.ok) throw new Error('Failed to fetch details')
-        return res.json()
-      })
+    apiRequest(`/api/v1/verifications/${id}`)
       .then((item) => {
         setData(item)
         setLoading(false)
@@ -57,4 +54,3 @@ export default function VerificationPage() {
     </main>
   )
 }
-

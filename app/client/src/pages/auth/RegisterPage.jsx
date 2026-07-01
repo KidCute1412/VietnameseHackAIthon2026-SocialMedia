@@ -5,6 +5,7 @@ import AuthCard from '../../components/auth/AuthCard'
 import AuthInput from '../../components/auth/AuthInput'
 import AuthLayout from '../../components/auth/AuthLayout'
 import PasswordInput from '../../components/auth/PasswordInput'
+import { authApi } from '../../lib/api'
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
@@ -17,14 +18,19 @@ export default function RegisterPage() {
     confirmPassword: '',
   })
   const [errors, setErrors] = useState({})
+  const [generalError, setGeneralError] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
 
   const updateField = (field, value) => {
     setForm((current) => ({ ...current, [field]: value }))
     setErrors((current) => ({ ...current, [field]: undefined }))
+    setGeneralError('')
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
+    if (isLoading) return
+
     const nextErrors = {}
 
     if (!form.fullName.trim()) nextErrors.fullName = 'Vui lòng nhập họ tên.'
@@ -50,7 +56,20 @@ export default function RegisterPage() {
     setErrors(nextErrors)
     if (Object.keys(nextErrors).length) return
 
-    navigate('/auth/login')
+    setIsLoading(true)
+    setGeneralError('')
+
+    try {
+      await authApi.register({
+        email: form.email,
+        password: form.password,
+      })
+      navigate('/auth/login')
+    } catch (error) {
+      setGeneralError(error.message || 'Không thể tạo tài khoản.')
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -69,6 +88,7 @@ export default function RegisterPage() {
         <form className="space-y-5" onSubmit={handleSubmit}>
           <AuthInput
             autoComplete="name"
+            disabled={isLoading}
             error={errors.fullName}
             id="register-full-name"
             label="Họ và tên"
@@ -78,6 +98,7 @@ export default function RegisterPage() {
           />
           <AuthInput
             autoComplete="email"
+            disabled={isLoading}
             error={errors.email}
             id="register-email"
             label="Email"
@@ -88,6 +109,7 @@ export default function RegisterPage() {
           />
           <PasswordInput
             autoComplete="new-password"
+            disabled={isLoading}
             error={errors.password}
             id="register-password"
             label="Mật khẩu"
@@ -97,6 +119,7 @@ export default function RegisterPage() {
           />
           <PasswordInput
             autoComplete="new-password"
+            disabled={isLoading}
             error={errors.confirmPassword}
             id="register-confirm-password"
             label="Xác nhận mật khẩu"
@@ -105,7 +128,13 @@ export default function RegisterPage() {
             onChange={(event) => updateField('confirmPassword', event.target.value)}
           />
 
-          <AuthButton>Đăng ký</AuthButton>
+          {generalError && (
+            <p className="text-sm font-semibold text-[#bb2d3b] text-center bg-[#fff5f5]/90 border border-[#bb2d3b]/20 py-2.5 px-3 rounded-lg">
+              {generalError}
+            </p>
+          )}
+
+          <AuthButton isLoading={isLoading} loadingLabel="Đang đăng ký...">Đăng ký</AuthButton>
         </form>
       </AuthCard>
     </AuthLayout>
