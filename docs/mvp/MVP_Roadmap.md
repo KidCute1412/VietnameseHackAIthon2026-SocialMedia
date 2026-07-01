@@ -13,6 +13,7 @@
 - Tích hợp embedding `keepitreal/vietnamese-sbert` 768 chiều.
 - Tạo local retrieval trên `pgvector`.
 - Viết rule fallback Tavily khi similarity `< 0.75`.
+- Ghi rõ trong tài liệu kỹ thuật: `pgvector` là hiện thực MVP của lớp `VectorDB` trong kiến trúc logic.
 
 ### Day 3 - Trust, Risk, Evidence Ranking
 
@@ -32,6 +33,7 @@
 - Nối dashboard với API thật.
 - Hiển thị claims, evidences, scores, outline.
 - Tích hợp chat SmartBot qua WebSocket.
+- Gắn tích hợp **VNPT SmartUX** ở mức tối thiểu để thu thập interaction signals đúng phạm vi VNPT API.
 - Rà soát luồng thao tác chính trên desktop/mobile ưu tiên và các điểm accessibility cơ bản.
 
 ### Day 6 - Test Suite, Stability, Security
@@ -55,8 +57,9 @@
 ### Architectural Constraints
 
 - MVP chỉ dùng `PostgreSQL + pgvector` trên Supabase; không dùng `Qdrant Cloud` làm vector store.
-- MVP chưa tích hợp `SmartUX SDK`.
+- MVP vẫn tích hợp `SmartUX SDK` ở mức tối thiểu; chưa triển khai đầy đủ lớp tối ưu UX nâng cao.
 - Sử dụng kiến trúc bất đồng bộ qua Redis và Queue cho các tác vụ tải nặng (OCR, STT).
+- `vnSocial`, `SmartReader`, `SmartVoice`, `SmartBot`, `SmartUX` đều phải xuất hiện trong khả năng tích hợp MVP, kể cả khi một số capability chỉ dùng ở mức demo/minimal path.
 
 ### Top Risks
 
@@ -72,6 +75,7 @@
 - Không mô tả mock là production-ready.
 - Mọi answer SmartBot phải có citation khi tham chiếu chứng cứ.
 - Ưu tiên luồng `text/file -> verification -> outline -> feedback` làm demo chính.
+- Luồng `trending -> chọn topic -> verification` là luồng social MVP chuẩn; cron auto-ingest là capability mở rộng của cùng kiến trúc.
 - Bản demo phải chứng minh được: chạy ổn định, thao tác rõ ràng, và có đường nâng cấp sau MVP.
 
 ## Round 2 Alignment

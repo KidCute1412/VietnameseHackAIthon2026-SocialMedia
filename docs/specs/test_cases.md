@@ -5,6 +5,7 @@
 - Unit test bằng `pytest`.
 - Integration test chạy với DB test `PostgreSQL + pgvector`.
 - VNPT và Tavily phải có mock adapter để test offline.
+- Bộ test phải phản ánh đúng MVP: `pgvector` là hiện thực local retrieval, nhưng toàn bộ adapter VNPT vẫn tồn tại trong contract test.
 
 ## Unit Tests
 
@@ -37,6 +38,7 @@
 - Parse được JSON claim extraction.
 - Nếu provider timeout, service trả mã lỗi chuẩn.
 - Feedback chat tạo `feedback_events.event_type=smartbot_feedback`.
+- Answer có citation phải truy ngược được `evidence_id` hợp lệ.
 
 ## Integration Tests
 
@@ -74,6 +76,14 @@
 2. Gọi `POST /api/verifications/{id}/feedback`.
 3. Assert state hiện hành đổi đúng.
 4. Assert `feedback_events` tăng 1 bản ghi.
+5. Assert có thể đọc lại cả state hiện hành lẫn lịch sử trước/sau chỉnh sửa.
+
+### Verification Provenance
+
+1. Tạo verification hoàn tất.
+2. Gọi `GET /api/verifications/{id}`.
+3. Assert response có `pipeline_version` hoặc `provenance`.
+4. Assert provider trace khớp với `verification_jobs`.
 
 ### SmartBot WebSocket
 

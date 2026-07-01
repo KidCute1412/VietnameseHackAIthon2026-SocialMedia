@@ -5,6 +5,7 @@
 - MVP dùng một DB duy nhất: `PostgreSQL 16 + pgvector`.
 - Embedding lưu trong `vector(768)`.
 - Không dùng `Qdrant`, `Milvus`, hoặc vector store riêng cho MVP.
+- Bảng evidence trong tài liệu này là hiện thực MVP của lớp `VectorDB` trong kiến trúc logic tại `docs/architectures/SystemArchitecture.md`.
 
 ## Extensions
 
@@ -36,6 +37,7 @@ create extension if not exists pgcrypto;
 | `file_name` | `text` | Original file name |
 | `mime_type` | `text` | Uploaded file type |
 | `external_ref` | `text` | VNPT task id or vnSocial id |
+| `metadata` | `jsonb not null default '{}'::jsonb` | Raw source metadata (e.g., vnSocial payload, upload info) |
 | `created_by` | `uuid references users(id)` | Actor |
 | `created_at` | `timestamptz not null default now()` | Created time |
 
@@ -49,6 +51,7 @@ create extension if not exists pgcrypto;
 | `pipeline_version` | `text not null` | Prompt/model bundle version |
 | `trust_score` | `int` | `0-100` |
 | `impact_score` | `int` | `0-100`, nullable for manual flow |
+| `sentiment_metrics` | `jsonb` | Public sentiment stats (e.g., % positive, negative, neutral) |
 | `risk_level` | `text` | `low`, `medium`, `high` |
 | `verdict` | `text` | `supported`, `contradicted`, `unverified`, `mixed` |
 | `risk_report_md` | `text` | Final markdown report |
@@ -84,7 +87,7 @@ create extension if not exists pgcrypto;
 | `content` | `text not null` | Clean extracted text |
 | `published_at` | `timestamptz` | Source publish time |
 | `source_type` | `text not null` | `official`, `press`, `social`, `government` |
-| `embedding` | `vector(768)` | Semantic embedding |
+| `embedding` | `vector(768)` | Semantic embedding (use vector(1024) if using BGE-M3) |
 | `metadata` | `jsonb not null default '{}'::jsonb` | Extra source fields |
 | `created_at` | `timestamptz not null default now()` | Created time |
 
@@ -109,7 +112,7 @@ create extension if not exists pgcrypto;
 | `job_type` | `text not null` | `ocr`, `stt`, `verify`, `trending_ingest` |
 | `status` | `text not null` | `queued`, `running`, `succeeded`, `failed` |
 | `attempt_count` | `int not null default 0` | Retry count |
-| `provider` | `text` | `vnpt_smartreader`, `vnpt_smartvoice`, `tavily`, `smartbot` |
+| `provider` | `text` | `vnpt_smartreader`, `vnpt_smartvoice`, `vnpt_vnsocial`, `tavily`, `smartbot` |
 | `payload` | `jsonb not null default '{}'::jsonb` | Input snapshot |
 | `result` | `jsonb not null default '{}'::jsonb` | Output snapshot |
 | `started_at` | `timestamptz` | Start time |
@@ -137,6 +140,7 @@ create extension if not exists pgcrypto;
 - `verifications` và `claims` giữ giá trị hiện hành để UI đọc nhanh.
 - `feedback_events` giữ toàn bộ lịch sử hiệu chỉnh để audit, replay và tinh chỉnh prompt sau MVP.
 - `smartbot_feedback` lưu cả phản hồi tích cực/tiêu cực theo từng message hoặc answer id.
+- Thông tin provenance cho UI/API được suy ra từ `pipeline_version`, `verification_jobs`, `claim_evidences` và metadata của evidence/provider.
 
 ## Indexes
 

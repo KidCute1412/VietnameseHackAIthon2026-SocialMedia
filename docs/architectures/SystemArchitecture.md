@@ -2,6 +2,8 @@
 
 Tài liệu này mô tả chi tiết kiến trúc hệ thống, luồng tuần tự dữ liệu và cơ chế tích hợp công nghệ cốt lõi của nền tảng **HypeRoom** — hệ thống kiểm chứng thông tin, đánh giá rủi ro xuất bản và hỗ trợ biên soạn nội dung số dựa trên Generative AI và hệ sinh thái VNPT API.
 
+> **Ghi chú diễn giải MVP:** Sơ đồ trong tài liệu này là kiến trúc logic mục tiêu và được giữ nguyên để bảo toàn định hướng hệ thống. Trong MVP, lớp `VectorDB` được hiện thực bằng **PostgreSQL + pgvector**; các lựa chọn như `ChromaDB/Qdrant` chỉ là phương án scale-out hoặc thay thế sau MVP. Toàn bộ các API VNPT đã liệt kê (`vnSocial`, `SmartReader`, `SmartVoice`, `SmartBot`, `SmartUX`) vẫn nằm trong phạm vi hệ thống; riêng `SmartUX` ở MVP được tích hợp ở mức tối thiểu để thu thập tín hiệu sử dụng, chưa phải lớp tối ưu hóa UX hoàn chỉnh.
+
 ---
 
 ## 1. Kiến trúc Tổng quan & Luồng Dữ liệu (Workflow)
@@ -178,7 +180,7 @@ Hệ thống HypeRoom vận hành song song hai luồng dữ liệu chính phụ
             FormatContext --> Return
         ```
     *   *Công nghệ*: 
-        *   **Local DB (ChromaDB/Qdrant)**: Sử dụng mô hình embedding nội địa hóa **keepitreal/vietnamese-sbert** hoặc **BGE-M3** để lưu trữ và so khớp văn bản pháp luật, thông tin chính thống.
+        *   **Local DB (MVP implementation: PostgreSQL + pgvector)**: Trong MVP, lớp `VectorDB` ở sơ đồ được hiện thực bằng **PostgreSQL + pgvector** với embedding **keepitreal/vietnamese-sbert** 768 chiều để lưu trữ và so khớp văn bản pháp luật, thông tin chính thống. `ChromaDB/Qdrant` là phương án mở rộng hoặc thay thế sau MVP khi cần scale riêng lớp vector retrieval.
         *   **Online Search (Tavily API)**: Tìm kiếm trực tuyến đa nguồn trên các domain tin cậy khi gặp tin tức mới (Cold Start).
             *   *Cơ chế lọc tên miền ưu tiên:* Sử dụng bộ lọc `include_domains` để chỉ định các tên miền báo chí chính thống Việt Nam (như `chinhphu.vn`, `nhandan.vn`, `tuoitre.vn`, `vtv.vn`, `vnexpress.net`,...). Việc lọc này loại bỏ hoàn toàn các trang mạng xã hội không chính thống và blog rác để bảo đảm tính pháp lý của nguồn tin chứng cứ.
         *   **Scraper Engine (Trafilatura)**: Bóc tách text sạch từ liên kết do Tavily cung cấp.
@@ -208,7 +210,7 @@ Hệ thống HypeRoom vận hành song song hai luồng dữ liệu chính phụ
     *   *Dữ liệu*: `Input: Verified Claims + Risk Report + Target Editorial Direction` $\rightarrow$ `Output: List of Story Angles` & Dàn ý cấu trúc bài viết (Article Outline).
 *   **Dashboard UI (Giao diện SmartUX)**:
     *   *Mô tả*: Không gian làm việc số của Biên tập viên để giám sát mạng xã hội thời gian thực, xem kết quả kiểm định tin đồn (Trust/Risk Score) và duyệt/chỉnh sửa các dàn ý bài viết.
-    *   *Công nghệ*: Tích hợp SDK **VNPT SmartUX** để thu thập, phân tích hành vi tương tác và tối ưu hóa luồng trải nghiệm người dùng.
+    *   *Công nghệ*: Tích hợp SDK **VNPT SmartUX**. Trong MVP, SmartUX được dùng ở mức tối thiểu để ghi nhận tín hiệu tương tác và giữ đúng phạm vi tích hợp VNPT; các cơ chế tối ưu hóa trải nghiệm nâng cao sẽ được hoàn thiện dần sau MVP.
     *   *Dữ liệu*: `Input: API Reports` $\rightarrow$ `Output: Interactive UI / Export PDF Reports / User Feedbacks`.
 *   **Trợ lý Tác nghiệp (SmartBot)**:
     *   *Mô tả*: Trợ lý ảo hỏi đáp (Q&A) hỗ trợ phóng viên tương tác trực tiếp bằng ngôn ngữ tự nhiên để truy vấn ngữ cảnh kiểm chứng, điều chỉnh và hoàn thiện đề cương.
@@ -223,7 +225,7 @@ Hệ thống HypeRoom vận hành song song hai luồng dữ liệu chính phụ
 
 1.  **Cơ sở dữ liệu quan hệ và Vector hỗn hợp (PostgreSQL + pgvector)**:
     *   *Vai trò*: Lưu trữ thông tin người dùng, lịch sử phiên làm việc (sessions), nhật ký kiểm định hệ thống (Audit Trails) phục vụ hậu kiểm, và dữ liệu cấu hình của hệ thống. Đồng thời lưu trữ các Vector Embedding của kho tri thức phục vụ tra cứu chéo (dữ liệu RSS báo chí chính thống, văn bản pháp luật, thông cáo báo chí của các cơ quan chính phủ).
-    *   *Cơ chế Human-in-the-Loop*: Khi biên tập viên phê duyệt hoặc điều chỉnh một Claim/Risk Level trên Dashboard, dữ liệu chỉnh sửa sẽ được ghi đè vào PostgreSQL để hiệu chỉnh độ chính xác của các báo cáo sau này và làm tập dữ liệu Fine-tune prompt.
+    *   *Cơ chế Human-in-the-Loop*: Khi biên tập viên phê duyệt hoặc điều chỉnh một Claim/Risk Level trên Dashboard, hệ thống cập nhật **effective state** hiện hành trong PostgreSQL để UI đọc nhanh, đồng thời lưu đầy đủ lịch sử trước/sau chỉnh sửa vào bảng audit (`feedback_events`) để phục vụ hậu kiểm, replay và tinh chỉnh prompt. Kết quả AI gốc không bị mất dấu.
     *   *Cơ chế cập nhật Vector*: Định kỳ hàng giờ, hệ thống sẽ cào dữ liệu mới từ các nguồn RSS/Cổng thông tin chính phủ, chuyển đổi qua model **vietnamese-sbert** để cập nhật index vector bằng extension `pgvector` ngay trong DB.
 2.  **Hàng đợi thông điệp (Redis Queue)**:
     *   *Vai trò*: Upstash Redis đóng vai trò là message broker cho hàng đợi bất đồng bộ (Celery/RQ) giúp điều phối và xử lý các tác vụ tải nặng (OCR từ SmartReader, STT từ SmartVoice).

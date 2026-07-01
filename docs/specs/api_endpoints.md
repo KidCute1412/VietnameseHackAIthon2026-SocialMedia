@@ -4,13 +4,16 @@
 
 - Backend: FastAPI.
 - Transport: REST cho CRUD/job state, WebSocket cho SmartBot realtime.
-- MVP bỏ `SmartUX SDK`; frontend gọi API trực tiếp.
+- MVP vẫn giữ tích hợp **VNPT SmartUX** ở mức tối thiểu để thu thập tín hiệu tương tác; frontend tiếp tục gọi API trực tiếp cho luồng nghiệp vụ chính.
 
 ## Conventions
 
 - Base path: `/api`.
 - Response JSON có `data` hoặc `error`.
 - Async pipeline trả `202 Accepted` với `verification_id`.
+- Canonical `verification.status`: `queued`, `processing`, `verified`, `warning`, `failed`.
+- Canonical `verdict`: `supported`, `contradicted`, `unverified`, `mixed`.
+- `warning` là trạng thái hoàn tất có suy giảm chất lượng hoặc fallback provider; không đồng nghĩa với `failed`.
 
 ## REST APIs
 
@@ -96,13 +99,28 @@ Response `200`:
     "source": {
       "source_id": "uuid",
       "kind": "text",
-      "raw_text": "Co tin don..."
+      "raw_text": "Co tin don...",
+      "metadata": {}
     },
     "summary": {
       "verdict": "contradicted",
       "trust_score": 85,
       "impact_score": 62,
+      "sentiment_metrics": {
+        "positive": 0.1,
+        "negative": 0.78,
+        "neutral": 0.12
+      },
       "risk_level": "low"
+    },
+    "provenance": {
+      "pipeline_version": "mvp-2026-06-30",
+      "providers": [
+        "vnpt_smartbot",
+        "vnpt_vnsocial",
+        "tavily"
+      ],
+      "note": "Provider/model metadata được tổng hợp từ verification_jobs và evidence trace."
     },
     "claims": [],
     "evidences": [],
@@ -156,9 +174,26 @@ Trả lịch sử hiệu chỉnh.
 
 Trả timeline job và trạng thái pipeline.
 
+Response `200`:
+
+```json
+{
+  "data": [
+    {
+      "job_id": "uuid",
+      "job_type": "verify",
+      "status": "succeeded",
+      "provider": "vnpt_smartbot",
+      "started_at": "2026-06-30T09:00:05Z",
+      "finished_at": "2026-06-30T09:00:12Z"
+    }
+  ]
+}
+```
+
 ### `GET /api/social/trending`
 
-Lấy danh sách topic nóng từ vnSocial hoặc mock adapter.
+Lấy danh sách topic nóng từ vnSocial hoặc mock adapter. Đây là luồng MVP cốt lõi cho dữ liệu trending do người dùng chọn thủ công; chế độ cron tự động vẫn thuộc phạm vi kiến trúc nhưng có thể bật như capability riêng khi demo hoặc triển khai.
 
 Response `200`:
 
@@ -179,6 +214,19 @@ Response `200`:
 ### `POST /api/social/trending/{external_ref}/verifications`
 
 Tạo verification từ một trending item đã chọn.
+
+Response `202`:
+
+```json
+{
+  "data": {
+    "verification_id": "uuid",
+    "status": "queued",
+    "source_id": "uuid",
+    "created_at": "2026-06-30T09:00:00Z"
+  }
+}
+```
 
 ### `GET /api/health`
 
