@@ -14,6 +14,11 @@
 - Canonical `verification.status`: `queued`, `processing`, `verified`, `warning`, `failed`.
 - Canonical `verdict`: `supported`, `contradicted`, `unverified`, `mixed`.
 - `warning` là trạng thái hoàn tất có suy giảm chất lượng hoặc fallback provider; không đồng nghĩa với `failed`.
+- **Phân quyền & Xác thực (UC10)**:
+  - Header bắt buộc: `Authorization: Bearer <JWT_TOKEN>`.
+  - Token chứa Claim về vai trò của người dùng: `reporter` (Biên tập viên) hoặc `reviewer` (Người duyệt bài).
+  - Các API hiệu chỉnh/phê duyệt chỉ chấp nhận quyền `reviewer`.
+
 
 ## REST APIs
 
@@ -161,6 +166,13 @@ Response `201`:
 }
 ```
 
+Failure:
+
+- `401` Unauthorized (thiếu hoặc sai token)
+- `403` Forbidden (nếu role là `reporter`, chỉ cho phép `reviewer`)
+- `404` Verification session not found
+
+
 Rules:
 
 - Cập nhật bản ghi hiện hành trong `verifications` hoặc `claims`.
@@ -239,6 +251,52 @@ Response `200`:
   }
 }
 ```
+
+### `POST /api/metrics/smartux`
+
+Đẩy sự kiện/chỉ số tương tác người dùng lên hệ thống (phục vụ UC9).
+
+Request:
+
+```json
+{
+  "event_type": "copy_editorial_outline",
+  "verification_id": "uuid",
+  "metadata": {
+    "custom_metric": "value"
+  }
+}
+```
+
+Response `201`:
+
+```json
+{
+  "data": {
+    "logged": true
+  }
+}
+```
+
+### `GET /api/verifications/{verification_id}/export`
+
+Xuất đề cương / báo cáo xác minh dưới dạng file Markdown (phục vụ UC11).
+
+Query params:
+
+- `format` (chỉ chấp nhận `markdown` cho MVP)
+
+Response `200` (trả về file với header `Content-Type: text/markdown` hoặc JSON chứa content):
+
+```json
+{
+  "data": {
+    "filename": "report_uuid.md",
+    "content": "# Bao cao..."
+  }
+}
+```
+
 
 ## WebSocket SmartBot Contract
 

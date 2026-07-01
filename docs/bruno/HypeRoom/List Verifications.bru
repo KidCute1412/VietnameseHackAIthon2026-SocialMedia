@@ -1,0 +1,11 @@
+meta {
+  name: List Verifications
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/api/verifications?status=verified&limit=10
+  body: none
+  auth: inherit
+}

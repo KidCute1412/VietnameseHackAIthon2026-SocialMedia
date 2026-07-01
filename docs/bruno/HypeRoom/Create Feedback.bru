@@ -1,0 +1,29 @@
+meta {
+  name: Create Feedback
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{baseUrl}}/api/verifications/:verification_id/feedback
+  body: json
+  auth: inherit
+}
+
+params:path {
+  verification_id: 
+}
+
+body:json {
+  {
+    "event_type": "risk_override",
+    "claim_id": null,
+    "before_state": {
+      "risk_level": "medium"
+    },
+    "after_state": {
+      "risk_level": "high"
+    },
+    "reason": "Cần thêm kiểm duyệt pháp lý"
+  }
+}
