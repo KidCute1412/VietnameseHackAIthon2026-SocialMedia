@@ -167,3 +167,10 @@ pnpm-debug.log*
 # Server uploads
 app/server/uploads/*
 !app/server/uploads/.gitkeep
+
+# SQLite databases
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+

@@ -8,6 +8,8 @@ from vnsocial.vnsocial_auth import (
     get_vnsocial_token,
 )
 from vnsocial.vnsocial_client import VNSocialAPIError, get_vnsocial_projects
+from api.v1 import api_router
+from config import settings
 
 
 @asynccontextmanager
@@ -22,7 +24,10 @@ async def lifespan(app: FastAPI):
     yield
 
 
-app = FastAPI(lifespan=lifespan)
+app = FastAPI(title=settings.PROJECT_NAME, lifespan=lifespan)
+
+# Register API routes
+app.include_router(api_router, prefix=settings.API_V1_STR)
 
 
 @app.get("/")
@@ -45,3 +50,4 @@ def list_vnsocial_projects():
             status_code=502,
             detail={"code": "vnsocial_projects_failed", "message": str(exc)},
         ) from exc
+
