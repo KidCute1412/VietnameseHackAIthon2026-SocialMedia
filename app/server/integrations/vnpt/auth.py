@@ -9,7 +9,7 @@ from urllib.request import Request, urlopen
 from dotenv import load_dotenv
 
 
-SERVER_ENV_FILE = Path(__file__).resolve().parents[1] / ".env"
+SERVER_ENV_FILE = Path(__file__).resolve().parents[2] / ".env"
 load_dotenv(SERVER_ENV_FILE)
 load_dotenv()
 

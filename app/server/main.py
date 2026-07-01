@@ -2,18 +2,20 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, HTTPException
 
-from vnsocial.vnsocial_auth import (
+from integrations.vnpt.auth import (
     VNSocialAuthError,
     can_attempt_vnsocial_login,
     get_vnsocial_token,
 )
-from vnsocial.vnsocial_client import VNSocialAPIError, get_vnsocial_projects
-from api.v1 import api_router
+from integrations.vnpt.vnsocial import VNSocialAPIError, get_vnsocial_projects
+from modules import api_router
 from config import settings
+from database import init_db
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    init_db()
     if can_attempt_vnsocial_login():
         try:
             get_vnsocial_token()

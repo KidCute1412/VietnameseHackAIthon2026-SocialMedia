@@ -1,7 +1,6 @@
 # Database connection and session configurations
 from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import declarative_base, sessionmaker
 from config import settings
 
 # For SQLite, check_same_thread needs to be False
@@ -18,3 +17,10 @@ def get_db():
         yield db
     finally:
         db.close()
+
+
+def init_db() -> None:
+    from modules.verification.models import Verification, Source, VerificationJob, VerificationEvent  # noqa: F401
+    from modules.feedback.models import Feedback  # noqa: F401
+
+    Base.metadata.create_all(bind=engine)

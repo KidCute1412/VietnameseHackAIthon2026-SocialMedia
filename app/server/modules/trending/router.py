@@ -1,7 +1,7 @@
 # API for vnSocial Trending Topics
 from fastapi import APIRouter, Depends
 from typing import Any
-from schemas.trending import TrendingResponse
+from modules.trending.schemas import TrendingResponse
 
 router = APIRouter()
 

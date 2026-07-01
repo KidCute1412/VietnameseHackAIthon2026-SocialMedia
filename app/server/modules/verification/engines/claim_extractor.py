@@ -1,6 +1,6 @@
 # Claim Extractor Service using SmartBot LLM
 from typing import Any, List
-from vnsocial.smartbot_client import SmartBotClient
+from integrations.vnpt.smartbot import SmartBotClient
 
 class ClaimExtractorService:
     def __init__(self, smartbot_client: SmartBotClient):

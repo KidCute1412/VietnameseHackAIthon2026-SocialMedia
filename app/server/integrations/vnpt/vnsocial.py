@@ -4,7 +4,7 @@ from typing import Any
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
-from vnsocial.vnsocial_auth import TIMEOUT_ENV, VNSocialAuthError, get_vnsocial_token
+from integrations.vnpt.auth import TIMEOUT_ENV, VNSocialAuthError, get_vnsocial_token
 
 
 PROJECTS_URL_ENV = "VNSOCIAL_PROJECTS_URL"

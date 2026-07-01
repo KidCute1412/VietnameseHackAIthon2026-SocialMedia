@@ -15,33 +15,30 @@ flowchart TD
     Client["Client / Frontend / Bruno UI"]
     
     subgraph Routing ["API Routing Layer (Fast API)"]
-        Router["FastAPI APIRouter<br><i>(app/server/api)</i>"]
+        Router["FastAPI APIRouter<br><i>(app/server/modules)</i>"]
     end
     
     subgraph TaskQueue ["Asynchronous Task Layer"]
         BgTasks["FastAPI BackgroundTasks<br><i>(or Celery / Redis Queue for Production)</i>"]
     end
 
-    subgraph Service ["Business Logic Layer (Core Engines)"]
-        VerifyService["Verification Orchestrator"]
-        ClaimExt["Claim Extractor Service"]
-        Retrieval["Evidence Retrieval Service"]
+    subgraph Modules ["Domain Modules (Business Logic & Core Engines)"]
+        VerifyOrch["Verification Orchestrator<br><i>(verification/orchestrator.py)</i>"]
+        ClaimExt["Claim Extractor Engine"]
+        Retrieval["Evidence Retrieval Engine"]
         TrustEng["Trust Engine"]
         ImpactEng["Impact Engine"]
         RiskEng["Risk Engine"]
         EditorialEng["Editorial Engine"]
     end
     
-    subgraph Integration ["External Integration Layer"]
-        VNSocial["vnSocial Client"]
-        SmartBot["SmartBot Client"]
-        SmartReader["SmartReader Client (OCR)"]
-        SmartVoice["SmartVoice Client (STT)"]
+    subgraph Integration ["Integrations & External Clients"]
+        VNPT["vnpt (VNPT Ecosystem Clients)"]
         Tavily["Tavily/Trafilatura Client"]
     end
     
     subgraph Storage ["Database & Persistence"]
-        DB["PostgreSQL / SQLite<br><i>(SQLAlchemy Models)</i>"]
+        DB["PostgreSQL / SQLite<br><i>(SQLAlchemy Models per Module)</i>"]
     end
     
     %% Flows
@@ -50,25 +47,25 @@ flowchart TD
     Router -->|"3. Delegate async task"| BgTasks
     Router -->|"4. Return 202 Accepted"| Client
     
-    BgTasks -->|"5. Run background orchestration"| VerifyService
-    VerifyService -->|"Update status=PROCESSING"| DB
+    BgTasks -->|"5. Run background orchestration"| VerifyOrch
+    VerifyOrch -->|"Update status=PROCESSING"| DB
     
-    VerifyService --> ClaimExt
-    VerifyService --> Retrieval
-    VerifyService --> TrustEng
-    VerifyService --> ImpactEng
-    VerifyService --> RiskEng
-    VerifyService --> EditorialEng
+    VerifyOrch --> ClaimExt
+    VerifyOrch --> Retrieval
+    VerifyOrch --> TrustEng
+    VerifyOrch --> ImpactEng
+    VerifyOrch --> RiskEng
+    VerifyOrch --> EditorialEng
     
-    VerifyService -->|Update status=COMPLETED/FAILED| DB
+    VerifyOrch -->|Update status=COMPLETED/FAILED| DB
     
     %% Integration integrations
-    ClaimExt -.-> SmartBot
+    ClaimExt -.-> VNPT
     Retrieval -.-> Tavily
-    TrustEng -.-> SmartBot
-    ImpactEng -.-> VNSocial
-    RiskEng -.-> SmartBot
-    EditorialEng -.-> SmartBot
+    TrustEng -.-> VNPT
+    ImpactEng -.-> VNPT
+    RiskEng -.-> VNPT
+    EditorialEng -.-> VNPT
 ```
 
 ### 1.2 Phân tách luồng xử lý (Hot & Cold Paths)
@@ -79,9 +76,9 @@ flowchart TD
 
 ---
 
-## 2. Cấu Trúc Thư Mục Chi Tiết
+## 2. Cấu Trúc Thư Mục Chi Tiết (Feature-Based Modular)
 
-Backend được tổ chức trong thư mục `app/server/` như sau:
+Backend được tổ chức theo từng mô-đun nghiệp vụ (Domain-Driven/Feature Folder) trong thư mục `app/server/` như sau:
 
 ```text
 app/server/
@@ -92,61 +89,78 @@ app/server/
 ├── config.py                # Đọc cấu hình từ biến môi trường (Pydantic Settings)
 ├── database.py              # Cấu hình kết nối DB (SQLAlchemy engine & Session local)
 │
-├── api/                     # Lớp API Routing (Quản lý Endpoints)
+├── integrations/            # Lớp tích hợp hệ thống bên thứ ba & Đối tác ngoài
 │   ├── __init__.py
-│   ├── deps.py              # Chứa các dependencies dùng chung (get_db, authentication, v.v.)
-│   └── v1/
+│   ├── vnpt/                # Tích hợp toàn bộ hệ sinh thái dịch vụ VNPT
+│   │   ├── __init__.py
+│   │   ├── auth.py          # Quản lý authentication / token VNPT vnSocial & Smart APIs
+│   │   ├── vnsocial.py      # Client kết nối trực tiếp với vnSocial API (trending, metrics)
+│   │   ├── smartbot.py      # Client tương tác API SmartBot (LLM Generation)
+│   │   ├── smartreader.py   # Client tích hợp SmartReader (OCR số hóa hình ảnh/PDF)
+│   │   └── smartvoice.py    # Client tích hợp SmartVoice (STT chuyển đổi giọng nói)
+│   │
+│   └── search/              # Tìm kiếm thông tin & cào dữ liệu internet
 │       ├── __init__.py
-│       ├── trending.py      # GET /api/v1/trending (Tích hợp vnSocial trending)
-│       ├── verifications.py # API quản lý kiểm chứng (Create, List, Detail, Events)
-│       ├── feedbacks.py     # API tiếp nhận phản hồi từ BTV (Human-in-the-Loop)
-│       └── metrics.py       # API tiếp nhận metric từ phía Client (SmartUX)
+│       └── tavily_client.py # Client tích hợp Tavily & Trafilatura
 │
-├── models/                  # Lớp Database Models (SQLAlchemy Declarative Models)
-│   ├── __init__.py
-│   ├── verification.py      # Lưu thông tin kiểm chứng (claims, evidences, risk reports)
-│   └── feedback.py          # Lưu sự kiện phản hồi và lịch sử chỉnh sửa (audit log)
-│
-├── schemas/                 # Lớp Pydantic Schemas (Validation dữ liệu vào/ra)
-│   ├── __init__.py
-│   ├── verification.py      # Schemas cho Verification (Create, Response, Detail)
-│   ├── feedback.py          # Schemas cho Feedback & Audit log
-│   └── trending.py          # Schemas định dạng bài đăng xu hướng từ vnSocial
-│
-├── services/                # Lớp Core Engines (Business Logic xử lý độc lập)
-│   ├── __init__.py
-│   ├── claim_extractor.py   # Trích xuất claims/thực thể từ văn bản thô (SmartBot)
-│   ├── evidence_retrieval.py# Tìm chứng cứ đa nguồn (Tavily Search + Trafilatura)
-│   ├── trust_engine.py      # Đối chiếu chứng cứ, tính toán Trust Score & Rationales
-│   ├── impact_engine.py     # Đo lường sức ảnh hưởng dư luận (vnSocial API)
-│   ├── risk_engine.py       # Phân tích rủi ro xuất bản (Luật báo chí & An ninh mạng)
-│   └── editorial_engine.py  # Tạo Story Angles và dàn bài viết gợi ý (Article Outline)
-│
-└── vnsocial/                # Module tích hợp hệ sinh thái API VNPT & Client ngoài
+└── modules/                 # Các mô-đun nghiệp vụ chính (Feature Modules)
     ├── __init__.py
-    ├── vnsocial_auth.py     # Quản lý authentication / token VNPT vnSocial
-    ├── vnsocial_client.py   # Client kết nối trực tiếp với vnSocial API
-    ├── smartbot_client.py   # Client tương tác API SmartBot (LLM Generation)
-    ├── smartreader_client.py# Client tích hợp SmartReader (OCR số hóa hình ảnh/PDF)
-    └── smartvoice_client.py # Client tích hợp SmartVoice (STT chuyển đổi giọng nói)
+    ├── deps.py              # Dependencies dùng chung cho các modules (get_db, auth)
+    │
+    ├── trending/            # Mô-đun quản lý tin tức / từ khóa xu hướng
+    │   ├── __init__.py
+    │   ├── router.py        # Endpoints: GET /api/v1/trending
+    │   └── schemas.py       # Pydantic validation cho trending
+    │
+    ├── verification/        # Mô-đun cốt lõi xử lý kiểm chứng dữ liệu
+    │   ├── __init__.py
+    │   ├── router.py        # Endpoints: POST /verifications, GET /verifications/{id}
+    │   ├── models.py        # SQLAlchemy model (Verification, Claim, Evidence, RiskReport)
+    │   ├── schemas.py       # Pydantic schemas (VerificationCreate, VerificationResponse)
+    │   ├── orchestrator.py  # Điều phối chính luồng xử lý bất đồng bộ (VerifyService)
+    │   └── engines/         # Các động cơ nghiệp vụ nhỏ cấu thành quy trình kiểm chứng
+    │       ├── __init__.py
+    │       ├── claim_extractor.py   # Trích xuất claims/thực thể từ văn bản thô
+    │       ├── evidence_retrieval.py# Tìm chứng cứ đa nguồn (Tavily & Search)
+    │       ├── trust_engine.py      # Tính toán điểm tin cậy (Trust Score)
+    │       ├── impact_engine.py     # Đo lường sức ảnh hưởng dư luận (vnSocial)
+    │       ├── risk_engine.py       # Phân tích rủi ro xuất bản (Luật báo chí)
+    │       └── editorial_engine.py  # Tạo Story Angles và dàn ý đề xuất
+    │
+    └── feedback/            # Mô-đun tương tác người dùng / Biên tập viên (Human-in-the-Loop)
+        ├── __init__.py
+        ├── router.py        # Endpoints: POST /feedbacks, GET /feedbacks/history
+        ├── models.py        # SQLAlchemy model (Feedback, AuditLog)
+        └── schemas.py       # Pydantic schemas cho Feedbacks
 ```
 
 ---
 
 ## 3. Ánh Xạ API Endpoints Từ Bruno
 
-Dưới đây là chi tiết ánh xạ các request định nghĩa trong bộ sưu tập Bruno (`docs/bruno/HypeRoom`) vào cấu trúc API endpoints của FastAPI:
+Dưới đây là chi tiết ánh xạ các request định nghĩa trong bộ sưu tập Bruno (`docs/bruno/HypeRoom`) vào cấu trúc API modules của FastAPI:
 
-| Tập tin Bruno | HTTP Method & Path | API Router Module | Mô tả nghiệp vụ |
+| Tập tin Bruno | HTTP Method & Path | API Module Router | Mô tả nghiệp vụ |
 | :--- | :--- | :--- | :--- |
-| `Get Social Trending.bru` | `GET /api/v1/trending` | `api/v1/trending.py` | Lấy danh sách các chủ đề/từ khóa nóng đang lan truyền từ VNPT vnSocial. |
-| `Create Verification.bru` | `POST /api/v1/verifications` | `api/v1/verifications.py` | Tạo yêu cầu kiểm chứng mới từ nội dung văn bản do người dùng nhập hoặc số hóa. |
-| `Create Verification From Trending.bru` | `POST /api/v1/verifications/from-trending` | `api/v1/verifications.py` | Tạo yêu cầu kiểm chứng tự động từ một bài đăng hot thuộc danh sách xu hướng vnSocial. |
-| `List Verifications.bru` | `GET /api/v1/verifications` | `api/v1/verifications.py` | Liệt kê danh sách các yêu cầu kiểm chứng đã thực hiện. |
-| `Get Verification Detail.bru` | `GET /api/v1/verifications/{id}` | `api/v1/verifications.py` | Xem chi tiết kết quả kiểm chứng (bao gồm danh sách claims, evidences, trust/risk scores). |
-| `Get Verification Events.bru` | `GET /api/v1/verifications/{id}/events` | `api/v1/verifications.py` | Lấy lịch sử thay đổi/sự kiện liên quan đến yêu cầu kiểm chứng đó. |
-| `Create Feedback.bru` | `POST /api/v1/feedbacks` | `api/v1/feedbacks.py` | Cho phép biên tập viên ghi nhận phản hồi, thay đổi điểm số, nội dung nhãn (Human-in-the-Loop). |
-| `Get Feedback History.bru` | `GET /api/v1/feedbacks/history` | `api/v1/feedbacks.py` | Truy vấn lịch sử phản hồi và vết audit log của hệ thống. |
+| `Get Social Trending.bru` | `GET /api/v1/trending` | `modules/trending/router.py` | Lấy danh sách các chủ đề/từ khóa nóng đang lan truyền từ VNPT vnSocial. |
+| `Create Verification.bru` | `POST /api/v1/verifications` | `modules/verification/router.py` | Tạo yêu cầu kiểm chứng mới từ nội dung văn bản do người dùng nhập hoặc số hóa. |
+| `Create Verification From Trending.bru` | `POST /api/v1/verifications/from-trending` | `modules/verification/router.py` | Tạo yêu cầu kiểm chứng tự động từ một bài đăng hot thuộc danh sách xu hướng vnSocial. |
+| `List Verifications.bru` | `GET /api/v1/verifications` | `modules/verification/router.py` | Liệt kê danh sách các yêu cầu kiểm chứng đã thực hiện. |
+| `Get Verification Detail.bru` | `GET /api/v1/verifications/{id}` | `modules/verification/router.py` | Xem chi tiết kết quả kiểm chứng (bao gồm danh sách claims, evidences, trust/risk scores). |
+| `Get Verification Events.bru` | `GET /api/v1/verifications/{id}/events` | `modules/verification/router.py` | Lấy lịch sử thay đổi/sự kiện liên quan đến yêu cầu kiểm chứng đó. |
+| `Create Feedback.bru` | `POST /api/v1/feedbacks` | `modules/feedback/router.py` | Cho phép biên tập viên ghi nhận phản hồi, thay đổi điểm số, nội dung nhãn (Human-in-the-Loop). |
+| `Get Feedback History.bru` | `GET /api/v1/feedbacks/history` | `modules/feedback/router.py` | Truy vấn lịch sử phản hồi và vết audit log của hệ thống. |
+| `Send SmartUX Metric.bru` | `POST /api/v1/metrics/smartux` | `modules/trending/router.py` | Gửi chỉ số tương tác UX từ frontend về lưu trữ/phân tích (tích hợp VNPT SmartUX). |
+
+---
+
+## 4. Nguyên Tắc Thiết Kế Chi Tiết & Quy Định Code
+
+Bám sát quy tắc của dự án tại `AGENTS.md`:
+* **Giữ code nhỏ gọn & đơn giản:** Mỗi file service/engine (như `trust_engine.py`, `risk_engine.py`) chỉ tập trung giải quyết đúng một nhiệm vụ nghiệp vụ duy nhất.
+* **Dependencies Injection rõ ràng:** Sử dụng cơ chế Dependency Injection của FastAPI (`Depends`) để inject DB Session (`get_db`) và các API Client, giúp dễ dàng viết Unit Test độc lập.
+* **Cách ly API VNPT:** Toàn bộ logic giao tiếp HTTP, xử lý Token/Auth, Retry khi mất kết nối với các dịch vụ của VNPT đều được bọc kín trong thư mục `integrations/vnpt/`. Lớp nghiệp vụ `modules/` tuyệt đối không gọi trực tiếp HTTP request tới VNPT.
+* **Xử lý bất đồng bộ (Async/Await):** Các endpoint gọi dịch vụ ngoài cần khai báo `async def` và sử dụng thư viện HTTP client bất đồng bộ (`httpx.AsyncClient`) để không chặn luồng chính của hệ thống.hống. |
 | `Send SmartUX Metric.bru` | `POST /api/v1/metrics/smartux` | `api/v1/metrics.py` | Gửi chỉ số tương tác UX từ frontend về lưu trữ/phân tích (tích hợp VNPT SmartUX). |
 
 ---

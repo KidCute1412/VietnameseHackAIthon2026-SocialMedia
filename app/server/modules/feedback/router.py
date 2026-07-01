@@ -2,8 +2,8 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from typing import List, Any
-from api.deps import get_db
-from schemas.feedback import FeedbackCreate, FeedbackResponse
+from modules.deps import get_db
+from modules.feedback.schemas import FeedbackCreate, FeedbackResponse
 
 router = APIRouter()
 
