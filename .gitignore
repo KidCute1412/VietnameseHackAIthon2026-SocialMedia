@@ -173,4 +173,3 @@ app/server/uploads/*
 *.db-journal
 *.sqlite
 *.sqlite3
-
