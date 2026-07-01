@@ -7,3 +7,11 @@ httpx
 redis
 rq
 pytest
+APScheduler==3.11.3
+bcrypt==5.0.0
+psycopg==3.3.4
+psycopg-binary==3.3.4
+psycopg2-binary==2.9.12
+PyJWT==2.13.0
+python-multipart==0.0.32
+tzlocal==5.4.4

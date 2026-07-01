@@ -3,28 +3,20 @@ import { useNavigate } from 'react-router-dom'
 import MetricCard from '../components/MetricCard'
 import CriticalMentionsTable from '../components/CriticalMentionsTable'
 import TrendingVerifyPane from '../components/TrendingVerifyPane'
+import { apiRequest } from '../lib/api'
 
 export default function VnSocialPage() {
   const [selectedMention, setSelectedMention] = useState(null)
   const navigate = useNavigate()
 
   const handleSelectMention = (item) => {
-    fetch('/api/verify-mention', {
+    apiRequest('/api/v1/verifications/from-trending', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
+      body: {
+        post_id: item.id || item.username,
+        source_url: item.source_url || null,
       },
-      body: JSON.stringify({
-        username: item.username,
-        content: item.content,
-        avatar: item.avatar,
-        followers: item.followers,
-      }),
     })
-      .then((res) => {
-        if (!res.ok) throw new Error('Failed to verify mention')
-        return res.json()
-      })
       .then((data) => {
         navigate(`/?id=${data.id}`)
       })
@@ -41,12 +33,12 @@ export default function VnSocialPage() {
   }
 
   return (
-    <main className="flex-1 ml-[80px] mt-[72px] p-gutter-desktop h-[calc(100vh-72px)] overflow-y-auto custom-scrollbar relative z-10 bg-transparent">
+    <main className="flex-1 ml-0 md:ml-[80px] mt-[72px] p-4 md:p-gutter-desktop pb-[80px] md:pb-4 h-[calc(100vh-72px)] overflow-y-auto custom-scrollbar relative z-10 bg-transparent">
       <div className="max-w-7xl mx-auto">
         <div className="mb-8 flex justify-between items-end">
           <div>
-            <h1 className="font-headline-lg text-headline-lg text-primary tracking-tight">Giám sát Mạng xã hội</h1>
-            <p className="text-on-surface-variant font-body-sm opacity-80">Theo dõi bài viết và thái độ của dư luận trên mạng xã hội</p>
+            <h1 className="font-headline-lg text-headline-lg text-primary tracking-tight">Thông tin Trending</h1>
+            <p className="text-on-surface-variant font-body-sm opacity-80">Theo dõi bài viết nổi bật và thái độ của dư luận trên mạng xã hội</p>
           </div>
         </div>
 

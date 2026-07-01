@@ -46,7 +46,21 @@ def client(tmp_path: Path):
 
     app.dependency_overrides[get_db] = override_get_db
     app.dependency_overrides[get_job_dispatcher] = lambda: dispatcher
+
+    # Create a real JWT token so that main.py require_jwt_cookie middleware can decode it successfully
+    db = testing_session()
+    from modules.auth.models import User
+    from modules.auth.services import create_access_token
+    test_user = db.query(User).filter(User.id == 1).first()
+    if not test_user:
+        test_user = User(id=1, email="test@example.com", password_hash="dummy")
+        db.add(test_user)
+        db.commit()
+    token = create_access_token(test_user)
+    db.close()
+
     with TestClient(app) as test_client:
+        test_client.cookies.set(settings.AUTH_COOKIE_NAME, token)
         yield test_client, testing_session, dispatcher
     app.dependency_overrides.clear()
 

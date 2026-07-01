@@ -1,52 +1,119 @@
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import AuthButton from '../../components/auth/AuthButton'
 import AuthCard from '../../components/auth/AuthCard'
 import AuthInput from '../../components/auth/AuthInput'
 import AuthLayout from '../../components/auth/AuthLayout'
 import PasswordInput from '../../components/auth/PasswordInput'
+import { authApi } from '../../lib/api'
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 export default function LoginPage() {
   const navigate = useNavigate()
+  const location = useLocation()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [rememberMe, setRememberMe] = useState(true)
+  const [rememberMe, setRememberMe] = useState(false)
   const [errors, setErrors] = useState({})
+  const [touched, setTouched] = useState({ email: false, password: false })
+  const [isLoading, setIsLoading] = useState(false)
+  const [generalError, setGeneralError] = useState('')
 
-  const handleSubmit = (event) => {
-    event.preventDefault()
-    const nextErrors = {}
-
-    if (!email.trim()) {
-      nextErrors.email = 'Vui lòng nhập email.'
-    } else if (!emailPattern.test(email)) {
-      nextErrors.email = 'Email chưa đúng định dạng.'
+  const validateField = (name, val) => {
+    const nextErrors = { ...errors }
+    if (name === 'email') {
+      if (!val.trim()) {
+        nextErrors.email = 'Vui lòng nhập email.'
+      } else if (!emailPattern.test(val)) {
+        nextErrors.email = 'Email không đúng định dạng.'
+      } else {
+        delete nextErrors.email
+      }
     }
-
-    if (!password) {
-      nextErrors.password = 'Vui lòng nhập mật khẩu.'
-    } else if (password.length < 6) {
-      nextErrors.password = 'Mật khẩu cần ít nhất 6 ký tự.'
+    if (name === 'password') {
+      if (!val) {
+        nextErrors.password = 'Vui lòng nhập mật khẩu.'
+      } else if (val.length < 6) {
+        nextErrors.password = 'Mật khẩu phải có ít nhất 6 ký tự.'
+      } else {
+        delete nextErrors.password
+      }
     }
-
     setErrors(nextErrors)
-    if (Object.keys(nextErrors).length) return
-
-    navigate('/')
+    return nextErrors
   }
+
+  const handleBlur = (field) => {
+    setTouched((curr) => ({ ...curr, [field]: true }))
+    const val = field === 'email' ? email : password
+    validateField(field, val)
+  }
+
+  const handleEmailChange = (event) => {
+    const val = event.target.value
+    setEmail(val)
+    setGeneralError('')
+    if (touched.email) {
+      validateField('email', val)
+    }
+  }
+
+  const handlePasswordChange = (event) => {
+    const val = event.target.value
+    setPassword(val)
+    setGeneralError('')
+    if (touched.password) {
+      validateField('password', val)
+    }
+  }
+
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+    if (isLoading) return
+
+    setTouched({ email: true, password: true })
+
+    const emailErrors = validateField('email', email)
+    const passwordErrors = validateField('password', password)
+
+    if (emailErrors.email || passwordErrors.password) return
+
+    setIsLoading(true)
+    setGeneralError('')
+
+    try {
+      await authApi.login({ email, password })
+      const redirectPath = location.state?.from
+        ? `${location.state.from.pathname}${location.state.from.search || ''}`
+        : '/'
+      navigate(redirectPath, { replace: true })
+    } catch (error) {
+      setGeneralError(error.message || 'Email hoặc mật khẩu không chính xác.')
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  const isButtonDisabled = !email.trim() || !password
 
   return (
     <AuthLayout>
       <AuthCard
         title="Đăng nhập"
-        subtitle="Tiếp tục vào phòng điều hành HypeRoom để xác thực tài liệu và luồng tin."
         footer={
           <>
             Chưa có tài khoản?{' '}
-            <Link className="font-bold text-[#1d4ed8]" to="/auth/register">
-              Tạo tài khoản
+            <Link 
+              className={`font-bold text-[#9E2A1F] hover:text-[#b53225] transition underline underline-offset-4 decoration-1 ${isLoading ? 'pointer-events-none opacity-60' : ''}`}
+              to="/auth/register"
+              aria-disabled={isLoading}
+              tabIndex={isLoading ? -1 : 0}
+              onClick={(e) => {
+                if (isLoading) e.preventDefault()
+              }}
+            >
+              Đăng ký ngay
             </Link>
           </>
         }
@@ -54,47 +121,60 @@ export default function LoginPage() {
         <form className="space-y-5" onSubmit={handleSubmit}>
           <AuthInput
             autoComplete="email"
-            error={errors.email}
+            error={touched.email ? errors.email : undefined}
             id="login-email"
             label="Email"
             placeholder="name@hyperoom.vn"
             type="email"
             value={email}
-            onChange={(event) => {
-              setEmail(event.target.value)
-              setErrors((current) => ({ ...current, email: undefined }))
-            }}
+            disabled={isLoading}
+            onChange={handleEmailChange}
+            onBlur={() => handleBlur('email')}
           />
 
           <PasswordInput
             autoComplete="current-password"
-            error={errors.password}
+            error={touched.password ? errors.password : undefined}
             id="login-password"
             label="Mật khẩu"
             placeholder="Tối thiểu 6 ký tự"
             value={password}
-            onChange={(event) => {
-              setPassword(event.target.value)
-              setErrors((current) => ({ ...current, password: undefined }))
-            }}
+            disabled={isLoading}
+            onChange={handlePasswordChange}
+            onBlur={() => handleBlur('password')}
           />
 
           <div className="flex flex-wrap items-center justify-between gap-3 text-sm">
-            <label className="flex items-center gap-2 text-[#5c4a43]">
+            <label className="flex items-center gap-2 text-[#5c4a43] cursor-pointer select-none">
               <input
                 checked={rememberMe}
-                className="size-4 accent-[#3d2f2b]"
+                disabled={isLoading}
+                className="size-4 accent-[#9E2A1F] cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-[#9E2A1F]/30"
                 type="checkbox"
                 onChange={(event) => setRememberMe(event.target.checked)}
               />
               Ghi nhớ đăng nhập
             </label>
-            <Link className="font-bold text-[#1d4ed8]" to="/auth/forgot-password">
+            <Link 
+              className={`font-bold text-[#9E2A1F] hover:text-[#b53225] transition underline underline-offset-4 decoration-1 ${isLoading ? 'pointer-events-none opacity-60' : ''}`}
+              to="/auth/forgot-password"
+              aria-disabled={isLoading}
+              tabIndex={isLoading ? -1 : 0}
+              onClick={(e) => {
+                if (isLoading) e.preventDefault()
+              }}
+            >
               Quên mật khẩu?
             </Link>
           </div>
 
-          <AuthButton>Đăng nhập</AuthButton>
+          {generalError && (
+            <p className="text-sm font-semibold text-[#bb2d3b] text-center bg-[#fff5f5]/90 border border-[#bb2d3b]/20 py-2.5 px-3 rounded-lg animate-shake">
+              {generalError}
+            </p>
+          )}
+
+          <AuthButton disabled={isButtonDisabled} isLoading={isLoading} loadingLabel="Đang đăng nhập...">Đăng nhập</AuthButton>
         </form>
       </AuthCard>
     </AuthLayout>
